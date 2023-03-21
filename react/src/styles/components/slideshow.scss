@@ -4,14 +4,60 @@
         height: 450px;
         background-position: center;
         background-size:cover;
-        transition: all 0.5 ease;
+        transition: background-image 1s ease-in-out;
 
         .slideshow-gradientwrapper{
+            position: relative;
             height: 100%;
             width: 100%;
 
             background-color: rgba(89, 131, 252, 0.25);
             background-image: linear-gradient(269deg, rgba(89, 131, 252, 0.25) 0%, rgba(0, 0, 0, 0.25) 96%);
+
+            .slideshow-gradientwrapper-slidecontrolls{
+                position: absolute;
+                bottom: 1%;
+                left:50%;
+                transform: translateX(-50%);
+                display: flex;
+                align-items: center;
+
+                .slidecontrolls-btn{
+                    background: transparent;
+                    border: 1px solid transparent;
+                    color: white;
+                    font-size: $font-30;
+                    transition: all 0.3s ease;
+                    height: 50px;
+
+                    &:hover{
+                        color: rgb(160, 160, 160);
+                    }
+                }
+                .slidecontrolls-balls{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-around;
+                    width: 200px;
+                    padding-bottom: 8px;
+
+                    .slidecontrolls-ball{
+                        transition: all 200ms ease;
+                        color: transparent;
+                        border: 3px solid white;;
+                        border-radius: 999px;
+                        height: 20px;
+                        width: 20px;
+                        background-color: white;
+                        cursor: pointer;
+                    }
+
+                    .slidecontrolls-ball.--active{
+                        background-color: $heliotrope;
+                    }
+
+                }
+            }
 
             .slideshow-content{
                 margin-left: 10%;
@@ -28,7 +74,8 @@
                 }
 
                 @include mobile{
-                    width: 75%;
+                    position: absolute;
+                    left:15%;
                 }
 
                 .slideshow-content-text{

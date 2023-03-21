@@ -3,6 +3,7 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./views/Home/Home";
 import Login from "./views/Login";
+import Register from "./views/Register";
 
 export const Layout = () => {
     return (
@@ -23,12 +24,16 @@ const router = createBrowserRouter([
             path: "/",
             element: <Home />
             },
-            {
-            path: "/login",
-            element: <Login />
-            }
         ]
     },
+    {
+        path: "/login",
+        element: <Login />,
+    },
+    {
+        path: "/regsiter",
+        element: <Register />,
+    }
 ]);
 
 function App() {

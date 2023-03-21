@@ -4,6 +4,7 @@ import idkImage from '../assets/home_idkcoto.jpg'
 import koalaImage from '../assets/home_koala.jpg'
 import parrotImage from '../assets/home_parrots.jpg'
 import lionImage from '../assets/home_lion.jpg'
+import {BsChevronLeft, BsChevronRight} from 'react-icons/Bs';
 
 
 const SlideShow = () => {
@@ -11,19 +12,19 @@ const SlideShow = () => {
 
     const [currentIdx, setCurrentIdx] = useState(0);
 
-    const goToNext = () => {
+    const goToNextImg = () => {
         const idx = imageArray.length-1 === currentIdx ? 0 : currentIdx+1;
         setCurrentIdx(idx);
     }
-
-    const goToPrev= () => {
+    const goToPrevImg= () => {
         const idx = currentIdx-1 === -1 ? imageArray.length-1 : currentIdx-1;
         setCurrentIdx(idx);
     }
 
+    //each 5 seconds switches image
     useEffect(() => {
         const interval = setInterval(() => {
-            goToNext();
+            goToNextImg();
         }, 5000)
 
         return () => {
@@ -31,13 +32,32 @@ const SlideShow = () => {
         }
     }, [currentIdx])
 
+    const switchIndex = (currentImage: string) => {
+        const idxOfImageToSwitchTo = imageArray.findIndex((image) => image === currentImage);
+        setCurrentIdx(idxOfImageToSwitchTo);
+    }
 
     return (
         <div className="slideshow" style={{backgroundImage: `url(${imageArray[currentIdx]})`}}>
             <div className="slideshow-gradientwrapper">
+                <div className="slideshow-gradientwrapper-slidecontrolls">
+                    <button className='slidecontrolls-btn' onClick={goToPrevImg} ><BsChevronLeft /></button>
+                    <div className="slidecontrolls-balls">
+                        {imageArray.map((image) => {
+                            return(
+                            <span
+                                key={image}
+                                id={image}
+                                className={`slidecontrolls-ball ${imageArray[currentIdx] === image ? "--active" : ""}`}
+                                onClick={() => switchIndex(image)}>
+                            </span>
+                        )})}
+                    </div>
+                    <button className='slidecontrolls-btn' onClick={goToNextImg}><BsChevronRight/></button>
+                </div>
                 <div className="slideshow-content">
                     <div className="slideshow-content-text">
-                        <h1>Explore biggest ZOO in the country!</h1>
+                        <h1>Explore the biggest ZOO in the country!</h1>
                     </div>
                     <div className="slideshow-content-button">
                         <button>Do something</button>
