@@ -1,0 +1,41 @@
+.register{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .register-form{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background-color: $selago;
+        width: min(400px, 100vw);
+        padding: 10px 20px 10px 20px;
+
+        .form-header{
+            display: flex;
+            flex-direction: column;
+            font-size: $font-30;
+
+            .form-header-error{
+                display: flex;
+                flex-direction: column;
+
+                .register-error{
+                    color: $error;
+                }
+
+                .register-success{
+                    color: $success;
+                }
+            }
+        }
+
+        .form-inputwrapper{
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+
+        }
+    }
+}
