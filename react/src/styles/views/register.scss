@@ -7,7 +7,7 @@
     .register-form{
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 20px;
         background-color: $selago;
         width: min(400px, 100vw);
         padding: 10px 20px 10px 20px;
@@ -31,11 +31,28 @@
             }
         }
 
+        form{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
         .form-inputwrapper{
+            position: relative;
             display: flex;
             flex-direction: column;
             gap: 5px;
 
+            .password-requirements{
+                font-size: $font-13;
+            }
+        }
+
+        .register-form-redirect{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
         }
     }
 }

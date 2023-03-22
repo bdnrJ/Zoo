@@ -1,3 +1,51 @@
 ._formInput{
     width: 100%;
+    height: 40px;
+    background-color: transparent;
+    border: 2px solid $border;
+    border-radius: 5px;
+    outline: none;
+    padding-left: 5px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+
+    &:hover, &:focus{
+        border: 2px solid $button;
+    }
+}
+
+._formInput.--error{
+    border: 2px solid $error;
+}
+
+._inputError{
+    position: absolute;
+    top: 43px;
+    left: 252px;
+    color: $error;
+
+    @media (max-width: 390px){
+        left: 168px;
+    }
+}
+
+._confirmButton{
+    transition: all 200ms ease;
+    background-color: $button;
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    color: white;
+    font-size: $font-15;
+    font-family: inherit;
+    cursor: pointer;
+
+    &:hover{
+        background-color: $button-hover;    
+    }
+}
+
+._link{
+    text-decoration: underline;
 }
