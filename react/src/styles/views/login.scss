@@ -1,0 +1,49 @@
+.login{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .login-form{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        background-color: $selago;
+        width: min(400px, 100vw);
+        padding: 10px 20px 10px 20px;
+
+        .form-header{
+
+            .form-header-title{
+                font-size: $font-30;
+            }
+
+            .login-error{
+                margin-bottom: 15px;
+                color: $error;
+                font-size: $font-24;
+            }
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .form-inputwrapper{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+    }
+
+    .login-form-redirect{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+}

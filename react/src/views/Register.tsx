@@ -36,35 +36,28 @@ const Register = () => {
 
     const { register, handleSubmit,watch, formState: { errors } } = useForm<User>({resolver: zodResolver(schema)});
 
-    console.log(watch(['firstname','lastname','email','pwd','confirmPwd']));
-
     const onSubmit = (data: User) => handleRegister(data);
 
     const handleRegister = async (data: User) =>{
+        setSuccess("");
         try{
-        const response = await axiosClient.post('/api/register',
-        {firstname: data.firstname, lastname: data.lastname, email: data.email, pwd: data.pwd});
+        const response = await axiosClient.post('http://localhost:8000/api/register',
+        {
+            firstname: data.firstname,
+            lastname: data.lastname,
+            email: data.email,
+            pwd: data.pwd,
+            confirmPwd: data.confirmPwd
+        });
+
         setSuccess("Registered succesfully");
         setRegisterErr("");
         setDisabled(true);
         setTimeout(() => navigate('/'), 1500);
         }catch(err: any){
-            console.log(err);
             setRegisterErr(err.response.data.message);
         }
     }
-
-        
-        // axiosClient.post('http://localhost:8000/api/register', payload)
-        //     .then(({data}) => {
-        //         console.log("then part of register");
-        //         console.log(data);
-        //     })
-        //     .catch(err => {
-        //         console.log(err);
-        //         const res = err.response;
-        //         console.log(res);
-        //     })
 
     return (
         <div className="register">
@@ -116,11 +109,11 @@ const Register = () => {
                         </label>
                     </div>
 
-                    <div className="register-form-button">
+                    <div className="login-form-button">
                         <input disabled={disabled} type="submit" value="Sign in" className='_confirmButton' />
                     </div>
                 </form>
-                <div className="register-form-redirect">
+                <div className="login-form-redirect">
                     <span>Already have an account?</span>
                     <span>
                         {disabled ? <span className='_link'>Log in</span>

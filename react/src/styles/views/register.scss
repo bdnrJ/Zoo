@@ -20,6 +20,8 @@
             .form-header-error{
                 display: flex;
                 flex-direction: column;
+                max-height: 40px;
+                text-align: center;
 
                 .register-error{
                     color: $error;
