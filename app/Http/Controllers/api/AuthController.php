@@ -9,8 +9,10 @@ use App\Models\User;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
+
 
 class AuthController extends Controller
 {
@@ -22,11 +24,10 @@ class AuthController extends Controller
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],
             'email' => $data['email'],
-            'pwd' => bcrypt($data['pwd']),
+            'password' => bcrypt($data['password']),
             'confirmPwd' => ($data['confirmPwd'])
         ]);
-        $token = $user->createToken('main')->plainTextToken;
-        return response(compact('user', 'token'));
+        return response(compact('user'));
     }catch(QueryException $qe){
         $errCode = $qe->getCode();
         if($errCode == 23000)
@@ -35,13 +36,29 @@ class AuthController extends Controller
         ],409);
 
         return response()->json([
-            'message' => 'Other error!',
+            'message' => $qe->errorInfo,
         ],409);
     }
 
     }
 
     public function login(LoginRequest $request){
+
+        if(!Auth::attempt($request->only('email', 'password'))){
+            return response([
+                'message' => "Invalid data somehow this is fucking invalid",
+            ], 401);
+        }
+
+        $user = Auth::user();
+
+        $token = $user->createToken('token')->plainTextToken;
+
+        $cookie = cookie('jwt',$token,60*24);
+
+        return response([
+            'message' => "success",
+        ])->withCookie($cookie);
 
     }
 

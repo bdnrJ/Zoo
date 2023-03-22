@@ -29,11 +29,11 @@ class RegisterRequest extends FormRequest
             'firstname' => 'required|string|max:45',
             'lastname' => 'required|string|max:45',
             'email' => 'required|email',
-            'pwd' => [
+            'password' => [
                 'required',
                 'regex:/^(?=.*[a-z])(?=.*[A-Z]).{8,}$/',
             ],
-            'confirmPwd' => 'required|same:pwd'
+            'confirmPwd' => 'required|same:password'
         ];
     }
 
