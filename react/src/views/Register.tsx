@@ -10,7 +10,7 @@ type User={
     firstname: string,
     lastname: string,
     email: string,
-    pwd: string,
+    password: string,
     confirmPwd: string
 }
 
@@ -24,12 +24,12 @@ const Register = () => {
         firstname: z.string().min(1, 'Required'),
         lastname: z.string().min(1, 'Required'),
         email: z.string().email(),
-        pwd: z.string().min(8, 'Too short').max(30, 'Too long').regex(
+        password: z.string().min(8, 'Too short').max(30, 'Too long').regex(
             /^(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
             "bad format"
         ),
         confirmPwd: z.string().min(1, 'required')
-    }).refine((data) => data.pwd === data.confirmPwd, {
+    }).refine((data) => data.password === data.confirmPwd, {
         message: "Not equals",
         path: ["confirmPwd"],
     })
@@ -46,7 +46,7 @@ const Register = () => {
             firstname: data.firstname,
             lastname: data.lastname,
             email: data.email,
-            pwd: data.pwd,
+            password: data.password,
             confirmPwd: data.confirmPwd
         });
 
@@ -95,9 +95,9 @@ const Register = () => {
                     </div>
                     <div className="form-inputwrapper">
                         <span>Password</span>
-                        <label htmlFor="pwd">
-                            <input className={`_formInput ${errors.pwd && "--error"}`} type="password" {...register("pwd", {required: true})}/>
-                            {errors.pwd && <span className={`_inputError`}>{errors.pwd.message}</span>}
+                        <label htmlFor="password">
+                            <input className={`_formInput ${errors.password && "--error"}`} type="password" {...register("password", {required: true})}/>
+                            {errors.password && <span className={`_inputError`}>{errors.password.message}</span>}
                         </label>
                         <span className="password-requirements" >At least 8 characters, one lower letter, one upper letter</span>
                     </div>

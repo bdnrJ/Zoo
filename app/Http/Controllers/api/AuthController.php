@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 
@@ -59,10 +60,19 @@ class AuthController extends Controller
         return response([
             'message' => "success",
         ])->withCookie($cookie);
-
     }
 
-    public function logout(){
+    public function user(){
+        return Auth::user();
+    }
 
+    public function logout(Request $request){
+        $request->user()->tokens()->delete();
+
+        $cookie = Cookie::forget('jwt');
+
+        return response([
+            'message' => "success"
+        ])->withCookie($cookie);
     }
 }
