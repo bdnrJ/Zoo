@@ -1,0 +1,61 @@
+import { createContext,ReactNode, useEffect, useState } from "react";
+import axiosClient from "../axios-client";
+
+type Props = {
+    children: ReactNode,
+}
+
+type Inputs = {
+    email: string,
+    password: string,
+}
+
+type User = {
+    email: string,
+    firstname: string,
+    lastname: string,
+}
+
+interface AuthContext{
+    currentUser: User | null,
+    login: (inputs: Inputs) => void,
+    logout: () => void,
+}
+
+export const AuthContext = createContext<AuthContext>({
+    currentUser: null,
+    login: () => {},
+    logout: () => {}
+})
+
+export const AuthProvider = ({children}: Props) => {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    const [currentUser, setCurrentUser] = useState<User | null>(user || null);
+
+    useEffect(() => {
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    }, [currentUser])
+
+    const login = async (inputs: Inputs) => {
+        const response = await axiosClient.post('http://localhost:8000/api/login',
+        {
+            email: inputs.email,
+            password: inputs.password,
+        },)
+
+        console.log(response);
+
+        setCurrentUser(response.data.user);
+    }
+
+    const logout = async () => {
+        axiosClient.post('http://localhost:8000/logout');
+        setCurrentUser(null);
+    }
+
+    return (
+        <AuthContext.Provider value={{currentUser, logout, login}}>
+            {children}
+        </AuthContext.Provider>
+    )
+}

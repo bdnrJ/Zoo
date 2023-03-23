@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import axiosClient from '../axios-client'
 import {useForm} from 'react-hook-form'
 import {z} from "zod"
 import { ZodType } from 'zod/lib'
 import { zodResolver} from '@hookform/resolvers/zod'
 import { Link, redirect, useNavigate } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
 type User={
     email: string,
     password: string,
@@ -14,6 +15,7 @@ const Login = () => {
     const [loginErr, setLoginErr] = useState("");
     const [disabled, setDisabled] = useState(false);
     const navigate = useNavigate();
+    const {login} = useContext(AuthContext);
 
     const schema: ZodType<User> = z.object({
         email: z.string().min(1, 'required'),
@@ -22,7 +24,14 @@ const Login = () => {
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm<User>({resolver: zodResolver(schema)});
 
-    const onSubmit = (data: User) => handleLogin(data);
+    const onSubmit = async (data: User) => {
+        try{
+            await login(data);
+            navigate('/');
+        }catch(err: any){
+            setLoginErr(err.response.data.message);
+        }
+    }
 
     const handleLogin = async (data: User) =>{
         try{
@@ -30,14 +39,10 @@ const Login = () => {
         {
             email: data.email,
             password: data.password,
-        },
-        {
-            withCredentials: true,
-        });
+        },)
 
         console.log(response);
-
-        // navigate('/');
+        navigate('/');
         }catch(err: any){
             setLoginErr(err.response.data.message);
         }

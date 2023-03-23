@@ -59,7 +59,7 @@ class AuthController extends Controller
 
         return response([
             'message' => "success",
-            'data' => $user,
+            'user' => $user->only(['firstname', 'lastname', 'email']),
         ])->withCookie($cookie);
     }
 
