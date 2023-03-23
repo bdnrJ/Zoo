@@ -7,7 +7,7 @@ import { zodResolver} from '@hookform/resolvers/zod'
 import { Link, redirect, useNavigate } from 'react-router-dom'
 type User={
     email: string,
-    pwd: string,
+    password: string,
 }
 
 const Login = () => {
@@ -17,25 +17,39 @@ const Login = () => {
 
     const schema: ZodType<User> = z.object({
         email: z.string().min(1, 'required'),
-        pwd: z.string().min(1, 'required'),
+        password: z.string().min(1, 'required'),
     })
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm<User>({resolver: zodResolver(schema)});
 
-    const onSubmit = (data: User) => handleRegister(data);
+    const onSubmit = (data: User) => handleLogin(data);
 
-    const handleRegister = async (data: User) =>{
+    const handleLogin = async (data: User) =>{
         try{
         const response = await axiosClient.post('http://localhost:8000/api/login',
         {
             email: data.email,
-            pwd: data.pwd,
+            password: data.password,
+        },
+        {
+            withCredentials: true,
         });
 
-        navigate('/');
+        console.log(response);
+
+        // navigate('/');
         }catch(err: any){
             setLoginErr(err.response.data.message);
         }
+    }
+
+    const testUserAuth = async () => {
+        const response = await axiosClient.get('http://localhost:8000/api/user',
+        {
+            withCredentials: true,
+        });
+
+        console.log(response);
     }
 
     return (
@@ -61,9 +75,9 @@ const Login = () => {
 
                     <div className="form-inputwrapper">
                         <span>Password</span>
-                        <label htmlFor="pwd">
-                            <input className={`_formInput ${errors.pwd && "--error"}`} type="text" {...register("pwd", {required: true})}/>
-                            {errors.pwd && <span className={`_inputError`}>{errors.pwd.message}</span>}
+                        <label htmlFor="password">
+                            <input className={`_formInput ${errors.password && "--error"}`} type="text" {...register("password", {required: true})}/>
+                            {errors.password && <span className={`_inputError`}>{errors.password.message}</span>}
                         </label>
                     </div>
                     <div className="register-form-button">
@@ -78,6 +92,8 @@ const Login = () => {
                     </span>
                 </div>
             </div>
+
+            <button onClick={() => testUserAuth()}>user test request</button>
         </div>
     )
 }
