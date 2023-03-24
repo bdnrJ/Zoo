@@ -113,7 +113,7 @@ const Register = () => {
                         <input disabled={disabled} type="submit" value="Sign in" className='_confirmButton' />
                     </div>
                 </form>
-                <div className="login-form-redirect">
+                <div className="register-form-redirect">
                     <span>Already have an account?</span>
                     <span>
                         {disabled ? <span className='_link'>Log in</span>
