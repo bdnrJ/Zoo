@@ -97,8 +97,6 @@ const Login = () => {
                     </span>
                 </div>
             </div>
-
-            <button onClick={() => testUserAuth()}>user test request</button>
         </div>
     )
 }

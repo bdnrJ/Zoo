@@ -6,11 +6,15 @@
 @import "./globalClass";
 
 //views
-@import "./views/home.scss";
+@import "./views/Home/home.scss";
 @import "./views/login.scss";
 @import "./views/register.scss";
 
 //components
-@import "./components/navbar.scss";
+@import "./components/Navbar/navbar.scss";
+@import "./components/Navbar/nouser.scss";
+@import "./components/Navbar/userpopup.scss";
+@import "./components/Navbar/loggeduser.scss";
+
 @import "./components/footer.scss";
 @import "./components/slideshow.scss";

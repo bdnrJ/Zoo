@@ -3,10 +3,16 @@ import {useState, useEffect, useContext} from 'react';
 import logo from '../../assets/logo.gif';
 import axiosClient from '../../axios-client';
 import { AuthContext } from '../../context/AuthContext';
+import {AiOutlineUser} from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
+import NoUser from './NoUser';
+import LoggedUser from './LoggedUser';
+import { User } from '../../types/types';
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const {currentUser} = useContext(AuthContext);
+    const navigate = useNavigate();
 
     //navbar scroll style change after scrolling from top
     useEffect(() => {
@@ -41,7 +47,10 @@ const Navbar = () => {
                         <button onClick={TEST_request} >TEST</button>
                     </div>
                     <div className="navbar-rightside-user">
-                        { currentUser ? <button onClick={() => console.log(currentUser)} >{currentUser.firstname}</button> : <button>login</button>}
+                        { currentUser
+                                    ? <LoggedUser user={currentUser} />
+                                    : <NoUser />
+                        }
                     </div>
                 </div>
             </div>

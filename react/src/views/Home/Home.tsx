@@ -1,19 +1,13 @@
 import React, {useState} from 'react'
-import SlideShow from '../../components/SlideShow'
+import SlideShow from './SlideShow'
 
 const Home = () => {
     return (
         <div className="home">
             <SlideShow />
-            <div>x</div>
-            <div>x</div>
-            <div>x</div>
-            <div>x</div>
-            <div>x</div>
-            <div>x</div>
-            <div>x</div>
-            <div>x</div>
-            <div>x</div>
+            <div className="home-info">
+                home info
+            </div>
         </div>
     )
 }

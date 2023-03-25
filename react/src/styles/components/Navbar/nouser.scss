@@ -1,0 +1,25 @@
+.no-user{
+    position: relative;
+    width: 100px;
+    display: flex;
+    justify-content: flex-end;
+
+    .login-btn{
+        transition: all 200ms ease;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        border: 1px solid transparent;
+        font-size: $font-30;
+        background-color: transparent;
+
+        &:hover{
+            color: $shipCove;
+        }
+    }
+
+    .login-btn.--active{
+        color: $shipCove;
+    }
+}

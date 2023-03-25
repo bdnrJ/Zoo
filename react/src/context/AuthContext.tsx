@@ -1,5 +1,6 @@
 import { createContext,ReactNode, useEffect, useState } from "react";
 import axiosClient from "../axios-client";
+import { User } from "../types/types";
 
 type Props = {
     children: ReactNode,
@@ -8,12 +9,6 @@ type Props = {
 type Inputs = {
     email: string,
     password: string,
-}
-
-type User = {
-    email: string,
-    firstname: string,
-    lastname: string,
 }
 
 interface AuthContext{

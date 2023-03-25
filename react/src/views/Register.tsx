@@ -110,7 +110,7 @@ const Register = () => {
                     </div>
 
                     <div className="login-form-button">
-                        <input disabled={disabled} type="submit" value="Sign in" className='_confirmButton' />
+                        <input disabled={disabled} type="submit" value="Sign up" className='_confirmButton' />
                     </div>
                 </form>
                 <div className="register-form-redirect">

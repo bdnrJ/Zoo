@@ -2,7 +2,7 @@
     width: 100%;
     height: 40px;
     background-color: transparent;
-    border: 2px solid $border;
+    border: 2px solid $darkGreen;
     border-radius: 5px;
     outline: none;
     padding-left: 5px;
@@ -10,7 +10,7 @@
     transition: all 0.3s ease;
 
     &:hover, &:focus{
-        border: 2px solid $button;
+        border: 2px solid $lightGreen;
     }
 }
 
@@ -31,7 +31,7 @@
 
 ._confirmButton{
     transition: all 200ms ease;
-    background-color: $button;
+    background-color: $middleGreen;
     width: 100%;
     height: 40px;
     border-radius: 5px;
@@ -42,10 +42,11 @@
     cursor: pointer;
 
     &:hover{
-        background-color: $button-hover;
+        background-color: $darkGreen;
     }
 }
 
 ._link{
     text-decoration: underline;
+    color: $darkGreen;
 }

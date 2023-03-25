@@ -1,9 +1,9 @@
 import {useState, useEffect} from 'react'
-import fishImage from "../assets/home_fish.jpg";
-import idkImage from '../assets/home_idkcoto.jpg'
-import koalaImage from '../assets/home_koala.jpg'
-import parrotImage from '../assets/home_parrots.jpg'
-import lionImage from '../assets/home_lion.jpg'
+import fishImage from "../../assets/home_fish.jpg";
+import idkImage from '../../assets/home_idkcoto.jpg'
+import koalaImage from '../../assets/home_koala.jpg'
+import parrotImage from '../../assets/home_parrots.jpg'
+import lionImage from '../../assets/home_lion.jpg'
 import {BsChevronLeft, BsChevronRight} from 'react-icons/Bs';
 
 

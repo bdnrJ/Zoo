@@ -1,0 +1,28 @@
+.navbar-user-popup{
+    position: absolute;
+    background-color: $selago;
+    width: 150px;
+    padding: 10px 10px 10px 10px;
+    top: 39px;
+    left: -39px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border-radius: 5px;
+    border: 2px solid $shipCove;
+
+    button{
+        color: $darkBlue;
+        background-color: transparent;
+        text-align: left;
+        border: 1px solid transparent;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: $font-15;
+
+        &:hover{
+            //TODO
+        }
+    }
+}

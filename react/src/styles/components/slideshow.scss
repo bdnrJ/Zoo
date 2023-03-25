@@ -11,7 +11,7 @@
             height: 100%;
             width: 100%;
 
-            background-color: rgba(87, 0, 187, 0.336);
+            background-color: rgba(28, 50, 69, 0.615);
             background-image: linear-gradient(269deg, rgba(89, 131, 252, 0.25) 0%, rgba(0, 0, 0, 0.25) 96%);
 
             .slideshow-gradientwrapper-slidecontrolls{
@@ -53,7 +53,7 @@
                     }
 
                     .slidecontrolls-ball.--active{
-                        background-color: $heliotrope;
+                        background-color: $darkBlue;
                     }
 
                 }

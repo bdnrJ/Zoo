@@ -3,6 +3,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    color: $darkBlue;
+
 
     .register-form{
         display: flex;
@@ -11,6 +13,8 @@
         background-color: $selago;
         width: min(400px, 100vw);
         padding: 10px 20px 10px 20px;
+        border: 3px solid $shipCove;
+        border-radius: 5px;
 
         .form-header{
             display: flex;
