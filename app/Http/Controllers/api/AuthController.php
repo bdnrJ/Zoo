@@ -44,10 +44,9 @@ class AuthController extends Controller
     }
 
     public function login(LoginRequest $request){
-
         if(!Auth::attempt($request->only('email', 'password'))){
             return response([
-                'message' => "Invalid data somehow this is fucking invalid",
+                'message' => "Wrong username or password",
             ], 401);
         }
 

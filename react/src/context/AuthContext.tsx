@@ -36,7 +36,9 @@ export const AuthProvider = ({children}: Props) => {
         {
             email: inputs.email,
             password: inputs.password,
-        },)
+        },{
+            withCredentials: true,
+        })
 
         console.log(response);
 
@@ -44,8 +46,15 @@ export const AuthProvider = ({children}: Props) => {
     }
 
     const logout = async () => {
-        axiosClient.post('http://localhost:8000/logout');
-        setCurrentUser(null);
+        try{
+            const res = await axiosClient.post('http://localhost:8000/api/logout',
+            {},
+            {withCredentials: true});
+            setCurrentUser(null);
+            console.log(res);
+        }catch(err){
+            console.log(err);
+        }
     }
 
     return (

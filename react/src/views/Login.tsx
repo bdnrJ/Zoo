@@ -48,15 +48,6 @@ const Login = () => {
         }
     }
 
-    const testUserAuth = async () => {
-        const response = await axiosClient.get('http://localhost:8000/api/user',
-        {
-            withCredentials: true,
-        });
-
-        console.log(response);
-    }
-
     return (
         <div className="login">
             <div className="login-form">

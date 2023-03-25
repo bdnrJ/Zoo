@@ -12,3 +12,8 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     </AuthProvider>
 </React.StrictMode>,
 )
+
+
+//TODO
+// auth fail -> login page
+// choose the fucking color pallete already :)

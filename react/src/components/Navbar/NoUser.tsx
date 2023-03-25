@@ -10,6 +10,7 @@ const NoUser = () => {
     const popupRef = useRef<any>(null);
     const navigate = useNavigate();
 
+
     //handling popup visibility
     useEffect(() => {
         function handleClickOutside(event: Event) {
