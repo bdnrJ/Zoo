@@ -74,6 +74,21 @@ class AuthController extends Controller
         return $user;
     }
 
+    public function isadmin(){
+        $user = Auth::user();
+
+        if(!$user->role){
+            return response([
+                'message' =>  "You do not have permission to access this"
+            ], 401);
+        }else{
+            return response([
+                'message' => "Success",
+                'data' => $user->role
+            ], 200);
+        }
+    }
+
     public function logout(Request $request){
         $request->user()->tokens()->delete();
 

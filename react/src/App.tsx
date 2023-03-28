@@ -1,6 +1,10 @@
 import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar/Navbar";
+import RequireAdmin from "./components/ProtectedRoutes/RequireAdmin";
+import RequireUnloggedUser from "./components/ProtectedRoutes/RequireUnloggedUser";
+import TESTadmin from "./views/AdminViews/TESTadmin";
+import FourZeroFour from "./views/FourZeroFour";
 import Home from "./views/Home/Home";
 import Login from "./views/Login";
 import Register from "./views/Register";
@@ -13,7 +17,7 @@ export const Layout = () => {
         <Footer />
         </>
     )
-    }
+}
 
 const router = createBrowserRouter([
     {
@@ -24,16 +28,33 @@ const router = createBrowserRouter([
             path: "/",
             element: <Home />
             },
+            {
+            path: "/TESTadmin",
+            element:
+                <RequireAdmin>
+                    <TESTadmin />
+                </RequireAdmin>
+            },
+            {
+                path: '/*',
+                element: <FourZeroFour />
+            }
         ]
     },
     {
         path: "/login",
-        element: <Login />,
+        element:
+            <RequireUnloggedUser>
+                <Login />,
+            </RequireUnloggedUser>
     },
     {
         path: "/register",
-        element: <Register />,
-    }
+        element:
+            <RequireUnloggedUser>
+                <Register />,
+            </RequireUnloggedUser>
+    },
 ]);
 
 function App() {

@@ -41,7 +41,7 @@ const Navbar = () => {
     return (
         <div className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
             <div className="navbar-content">
-                <div className="navbar-logo">
+                <div className="navbar-logo" onClick={() => navigate('/')}>
                     <img src={logo} alt="logo" />
                 </div>
                 <div className="navbar-rightside">
@@ -57,6 +57,7 @@ const Navbar = () => {
                             <button>admin</button>
                             <button>buttons</button>
                             <button onClick={TEST_request} >TEST</button>
+                            <button onClick={() => navigate('/TESTadmin')}>testadmin</button>
                         </>
                     }
                     </div>

@@ -27,6 +27,16 @@ const LoggedUser = ({user}: props) => {
         };
     }, [popupRef]);
 
+
+    //this only exists beacuse i cant use navigate('login') inside AuthContext
+    const handleLogout = async () => {
+        try{
+            await logout();
+        }catch(err){
+            navigate('/login');
+        }
+    }
+
     return (
         <div className='loggeduser' >
             <button onClick={() => setVisible(true)}>{user.firstname}</button>
@@ -37,7 +47,7 @@ const LoggedUser = ({user}: props) => {
                 <button>Settings</button>
                 <button>Transactions</button>
                 <button>cos tam</button>
-                <button onClick={logout} >Logout</button>
+                <button onClick={handleLogout} >Logout</button>
             </div>}
         </div>
     )
