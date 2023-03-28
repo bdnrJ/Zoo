@@ -10,7 +10,7 @@ import LoggedUser from './LoggedUser';
 import { User } from '../../types/types';
 
 const Navbar = () => {
-    const [isScrolled, setIsScrolled] = useState(false);
+    const [isScrolled, setIsScrolled] = useState<boolean>(false);
     const {currentUser} = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -29,8 +29,13 @@ const Navbar = () => {
     }, []);
 
     const TEST_request = async () => {
-        const res = await axiosClient.get('http://localhost:8000/api/user', {withCredentials: true});
-        console.log(res);
+        try {
+            const res = await axiosClient.get('http://localhost:8000/api/user', {withCredentials: true});
+            console.log(res);
+        }catch(err:any){
+            console.log(err.response.data.message);
+            alert(err.response.data.message)
+        }
     }
 
     return (
@@ -41,10 +46,19 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-rightside">
                     <div className="navbar-rightside-links">
-                        <button>some</button>
-                        <button>random</button>
-                        <button>buttons</button>
-                        <button onClick={TEST_request} >TEST</button>
+                    {!currentUser?.role ?
+                        <>
+                            <button>some</button>
+                            <button>random</button>
+                            <button>buttons</button>
+                        </>
+                        :
+                        <>
+                            <button>admin</button>
+                            <button>buttons</button>
+                            <button onClick={TEST_request} >TEST</button>
+                        </>
+                    }
                     </div>
                     <div className="navbar-rightside-user">
                         { currentUser

@@ -58,12 +58,20 @@ class AuthController extends Controller
 
         return response([
             'message' => "success",
-            'user' => $user->only(['firstname', 'lastname', 'email']),
+            'user' => $user->only(['firstname', 'lastname', 'email', 'role']),
         ])->withCookie($cookie);
     }
 
     public function user(Request $request){
-        return Auth::user();
+        $user = Auth::user();
+
+        if(!$user->role){
+            return response([
+                'message' =>  "You do not have permission to access this"
+            ], 401);
+        }
+
+        return $user;
     }
 
     public function logout(Request $request){
