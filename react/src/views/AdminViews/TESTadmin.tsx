@@ -13,37 +13,23 @@ type TESTUser = {
 }
 
 const TESTadmin = () => {
+    const USERS_PER_PAGE = 5;
+    const MINUTE = 60000;
     const queryClient = useQueryClient();
     const [currentPage, setCurrentPage] = useState<number>(1);
 
-    // const getUsers = async (page: number = 1) => {
-    //     try {
-    //         console.log("x");
-    //         const res = await axiosClient.get(`http://localhost:8000/api/allusers?page=${page}`, {withCredentials: true});
-    //         console.log(res);
-    //         const data = res.data;
-    //         const paginationData = data.paginationData;
-    //         setUsers(res.data.paginationData.data);
-    //         setPageNumber(res.data.paginationData.current_page);
-    //         return paginationData;
-    //     }catch(err:any){
-    //         console.log(err.response.data.message);
-    //         alert(err.response.data.message)
-    //     }
-    // }
-
     const { status, data, error, isFetching, isPreviousData } = useQuery({
         queryKey: ['users', currentPage],
-        queryFn: () => getUsers(currentPage),
+        queryFn: () => fetchUsers(currentPage),
         keepPreviousData: true,
-        staleTime: 5000,
+        staleTime: 5*MINUTE,
     });
 
-    const getUsers = async (page: number = 1) => {
+    const fetchUsers = async (page: number) => {
         try {
-            console.log("x");
             const res = await axiosClient.get(`http://localhost:8000/api/allusers?page=${page}`, {withCredentials: true});
             const paginationData = await res.data.paginationData;
+            console.log(paginationData);
             return paginationData.data;
         }catch(err:any){
             console.log(err.response.data.message);
@@ -52,16 +38,14 @@ const TESTadmin = () => {
     }
 
     React.useEffect(() => {
-        if (!isPreviousData) {
-            console.log("im here");
+        if (!isPreviousData && !data) {
+            console.log("rerun");
             queryClient.prefetchQuery({
                 queryKey: [`users${currentPage+1}`, currentPage + 1],
-                queryFn: () => getUsers(currentPage + 1),
+                queryFn: () => fetchUsers(currentPage + 1),
             })
         }
     }, [data, isPreviousData, currentPage, queryClient])
-
-    // getUsers();
 
     return (
         <div className='testadmin'>
@@ -72,6 +56,11 @@ const TESTadmin = () => {
                 ))
             }
             </ol>
+            <div className="div">
+                <li>{status}</li>
+                <li>{error}</li>
+                <li>{isFetching}</li>
+            </div>
             {/* <button onClick={() => console.log(data)} >show data</button> */}
             <div className="paginationbtns">
                 <button
@@ -84,7 +73,7 @@ const TESTadmin = () => {
                 <button onClick={() => {
                     setCurrentPage((old) => (old + 1))
                     }}
-                    disabled={isPreviousData || data.length < 5}
+                    disabled={isPreviousData || data?.length < USERS_PER_PAGE}
                     >
                         {"->"}
                 </button>
