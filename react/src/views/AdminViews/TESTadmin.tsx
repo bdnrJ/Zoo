@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axiosClient from '../../axios-client';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { number } from 'zod';
 
 type TESTUser = {
     id: number,
@@ -29,6 +30,7 @@ const TESTadmin = () => {
         try {
             const res = await axiosClient.get(`http://localhost:8000/api/allusers?page=${page}`, {withCredentials: true});
             const paginationData = await res.data.paginationData;
+            console.log("fethcing page: "+page);
             console.log(paginationData);
             return paginationData.data;
         }catch(err:any){
@@ -38,14 +40,23 @@ const TESTadmin = () => {
     }
 
     React.useEffect(() => {
-        if (!isPreviousData && !data) {
-            console.log("rerun");
+        console.log("before useEffect");
+        console.log('currentpage: '+currentPage);
+
+        if (!isPreviousData && data?.hasMore) {
+            console.log("inside useEffect + cp: "+currentPage+1);
             queryClient.prefetchQuery({
-                queryKey: [`users${currentPage+1}`, currentPage + 1],
+                queryKey: [`users`, currentPage + 1],
                 queryFn: () => fetchUsers(currentPage + 1),
             })
         }
     }, [data, isPreviousData, currentPage, queryClient])
+
+    const debugLog = () =>{
+        console.log(data);
+        console.log("current_page: "+currentPage);
+
+    }
 
     return (
         <div className='testadmin'>
@@ -57,9 +68,10 @@ const TESTadmin = () => {
             }
             </ol>
             <div className="div">
+                <button onClick={debugLog} >show data</button>
                 <li>{status}</li>
                 <li>{error}</li>
-                <li>{isFetching}</li>
+                <li>{isFetching && "fetching"}</li>
             </div>
             {/* <button onClick={() => console.log(data)} >show data</button> */}
             <div className="paginationbtns">
@@ -71,6 +83,7 @@ const TESTadmin = () => {
                 </button>
                 <button>{currentPage}</button>
                 <button onClick={() => {
+                    console.log('currentpage: '+currentPage);
                     setCurrentPage((old) => (old + 1))
                     }}
                     disabled={isPreviousData || data?.length < USERS_PER_PAGE}
