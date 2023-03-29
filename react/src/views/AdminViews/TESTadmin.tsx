@@ -14,7 +14,6 @@ type TESTUser = {
 }
 
 const TESTadmin = () => {
-    const USERS_PER_PAGE = 5;
     const MINUTE = 60000;
     const queryClient = useQueryClient();
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -23,28 +22,22 @@ const TESTadmin = () => {
         queryKey: ['users', currentPage],
         queryFn: () => fetchUsers(currentPage),
         keepPreviousData: true,
-        staleTime: 5*MINUTE,
+        staleTime: 2*MINUTE,
     });
 
     const fetchUsers = async (page: number) => {
         try {
             const res = await axiosClient.get(`http://localhost:8000/api/allusers?page=${page}`, {withCredentials: true});
             const paginationData = await res.data.paginationData;
-            console.log("fethcing page: "+page);
-            console.log(paginationData);
-            return paginationData.data;
+            return paginationData;
         }catch(err:any){
             console.log(err.response.data.message);
             alert(err.response.data.message)
         }
     }
-
     React.useEffect(() => {
-        console.log("before useEffect");
-        console.log('currentpage: '+currentPage);
-
-        if (!isPreviousData && data?.hasMore) {
-            console.log("inside useEffect + cp: "+currentPage+1);
+        if (!isPreviousData && data?.next_page_url) {
+            if(!queryClient.getQueryData(["users", 3]))
             queryClient.prefetchQuery({
                 queryKey: [`users`, currentPage + 1],
                 queryFn: () => fetchUsers(currentPage + 1),
@@ -52,25 +45,19 @@ const TESTadmin = () => {
         }
     }, [data, isPreviousData, currentPage, queryClient])
 
-    const debugLog = () =>{
-        console.log(data);
-        console.log("current_page: "+currentPage);
-
-    }
-
     return (
         <div className='testadmin'>
             <ol>
             {
-                data?.map((user: TESTUser) => (
+                data?.data.map((user: TESTUser) => (
                     <li key={user.email}>{user.id+" "+user.firstname +" "+ user.lastname+" " +user.email}</li>
                 ))
             }
             </ol>
             <div className="div">
-                <button onClick={debugLog} >show data</button>
+                <button onClick={() => console.log(queryClient.getQueryData(["users", 1]))} >show</button>
                 <li>{status}</li>
-                <li>{error}</li>
+                <li>{error && "error"}</li>
                 <li>{isFetching && "fetching"}</li>
             </div>
             {/* <button onClick={() => console.log(data)} >show data</button> */}
@@ -83,10 +70,9 @@ const TESTadmin = () => {
                 </button>
                 <button>{currentPage}</button>
                 <button onClick={() => {
-                    console.log('currentpage: '+currentPage);
                     setCurrentPage((old) => (old + 1))
                     }}
-                    disabled={isPreviousData || data?.length < USERS_PER_PAGE}
+                    disabled={isPreviousData || data?.next_page_url == null}
                     >
                         {"->"}
                 </button>
