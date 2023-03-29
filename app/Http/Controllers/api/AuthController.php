@@ -98,4 +98,20 @@ class AuthController extends Controller
             'message' => "success"
         ])->withCookie($cookie);
     }
+
+    public function getUsers(){
+        $user = Auth::user();
+        if(!$user->role){
+            return response([
+                'message' =>  "You do not have permission to access this"
+            ], 401);
+        }
+
+        $users = User::paginate(5);
+
+        return response([
+            "message" => "success",
+            "paginationData" => $users
+        ], 200);
+    }
 }

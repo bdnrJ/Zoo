@@ -58,3 +58,11 @@
     height: 100vh;
     font-size: $font-30;
 }
+
+.testadmin{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    flex-direction: column;
+}
