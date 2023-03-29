@@ -8,6 +8,9 @@ import FourZeroFour from "./views/FourZeroFour";
 import Home from "./views/Home/Home";
 import Login from "./views/Login";
 import Register from "./views/Register";
+import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
+
+const queryClient = new QueryClient();
 
 export const Layout = () => {
     return (
@@ -32,7 +35,9 @@ const router = createBrowserRouter([
             path: "/TESTadmin",
             element:
                 <RequireAdmin>
-                    <TESTadmin />
+                    <QueryClientProvider client={queryClient}>
+                        <TESTadmin />
+                    </QueryClientProvider>
                 </RequireAdmin>
             },
             {
@@ -51,16 +56,17 @@ const router = createBrowserRouter([
     {
         path: "/register",
         element:
-            <RequireUnloggedUser>
+            <RequireUnloggedUser >
                 <Register />,
             </RequireUnloggedUser>
     },
 ]);
 
+
 function App() {
     return (
         <div className="App">
-            <RouterProvider router={router} />
+                <RouterProvider router={router} />
         </div>
     )
 }
