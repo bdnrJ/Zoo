@@ -27,7 +27,7 @@ const TESTadmin = () => {
 
     const fetchUsers = async (page: number) => {
         try {
-            const res = await axiosClient.get(`http://localhost:8000/api/allusers?page=${page}`, {withCredentials: true});
+            const res = await axiosClient.get(`/allusers?page=${page}`, {withCredentials: true});
             const paginationData = await res.data.paginationData;
             return paginationData;
         }catch(err:any){
@@ -42,6 +42,9 @@ const TESTadmin = () => {
                 queryKey: [`users`, currentPage + 1],
                 queryFn: () => fetchUsers(currentPage + 1),
             })
+            else{
+                console.log('not updated');
+            }
         }
     }, [data, isPreviousData, currentPage, queryClient])
 

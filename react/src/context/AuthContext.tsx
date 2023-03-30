@@ -1,5 +1,4 @@
 import { createContext,ReactNode, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axiosClient from "../axios-client";
 import { User } from "../types/types";
 
@@ -31,12 +30,10 @@ export const AuthProvider = ({children}: Props) => {
     const [currentUser, setCurrentUser] = useState<User | null>(user || null);
     const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
-
-
     useEffect(() => {
         const isAdmin = async () => {
             try{
-                await axiosClient.get('http://localhost:8000/api/isadmin', {withCredentials: true});
+                await axiosClient.get('/isadmin', {withCredentials: true});
                 setIsAdmin(true);
             }catch(err: any){
                 setIsAdmin(false);
@@ -48,7 +45,7 @@ export const AuthProvider = ({children}: Props) => {
     }, [currentUser])
 
     const login = async (inputs: Inputs) => {
-        const response = await axiosClient.post('http://localhost:8000/api/login',
+        const response = await axiosClient.post('/login',
         {
             email: inputs.email,
             password: inputs.password,
@@ -63,7 +60,7 @@ export const AuthProvider = ({children}: Props) => {
 
     const logout = async () => {
         try{
-            const res = await axiosClient.post('http://localhost:8000/api/logout',
+            const res = await axiosClient.post('/logout',
             {},
             {withCredentials: true});
             setCurrentUser(null);

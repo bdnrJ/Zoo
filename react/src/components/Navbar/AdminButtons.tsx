@@ -6,7 +6,7 @@ const AdminButtons = () => {
 
     const TEST_request = async () => {
         try {
-            const res = await axiosClient.get('http://localhost:8000/api/user', {withCredentials: true});
+            const res = await axiosClient.get('/user', {withCredentials: true});
             console.log(res);
         }catch(err:any){
             console.log(err.response.data.message);

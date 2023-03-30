@@ -41,7 +41,7 @@ const Register = () => {
     const handleRegister = async (data: User) =>{
         setSuccess("");
         try{
-        const response = await axiosClient.post('http://localhost:8000/api/register',
+        const response = await axiosClient.post('/register',
         {
             firstname: data.firstname,
             lastname: data.lastname,

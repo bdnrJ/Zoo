@@ -35,7 +35,7 @@ const Login = () => {
 
     const handleLogin = async (data: User) =>{
         try{
-        const response = await axiosClient.post('http://localhost:8000/api/login',
+        const response = await axiosClient.post('/login',
         {
             email: data.email,
             password: data.password,
