@@ -1,0 +1,20 @@
+.animalGallery{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-column-gap: 1px;
+    grid-row-gap: 1px;
+    width: 100%;
+
+    @include tablet{
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    img{
+        width: 16.5vw;
+
+        @include tablet{
+            max-height: 230px;
+            width: 33.3vw;
+        }
+    }
+}
