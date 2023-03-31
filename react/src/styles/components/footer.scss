@@ -1,0 +1,62 @@
+.footer{
+    padding-top: 50px;
+    background-color: $darkElement;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: $margin-large;
+
+    .footer-buttons{
+        width: 60%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        button{
+            background-color: transparent;
+            border: 1px solid transparent;
+            color: $middleGreen;
+            font-size: $font-18;
+        }
+    }
+
+    .footer-socials{
+        width: 30%;
+        display: flex;
+        justify-content: space-around;
+
+        @include mobile{
+            width: 60%;
+        }
+
+        button{
+            @include flexCenterCenter;
+            height: 40px;
+            width: 40px;
+            background-color: white;
+            border: 1px solid transparent;
+            border-radius: 50%;
+            color: $burntSienna;
+            font-size: $font-23;
+        }
+    }
+
+    .footer-general{
+        display: flex;
+        align-items: center;
+
+        .footer-general-info{
+            display: flex;
+            flex-direction: column;
+            color: white;
+            font-size: $font-15;
+        }
+    }
+
+    .footer-copyright{
+        display: flex;
+        flex-direction: column;
+        color: $fontgrey
+    }
+}
