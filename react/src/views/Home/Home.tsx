@@ -3,13 +3,15 @@ import SlideShow from './SlideShow'
 
 import AnimalGallery from './AnimalGallery'
 import HomeInfo from './HomeInfo'
+import Welcome from './Welcome'
 
 const Home = () => {
     return (
         <div className="home">
             <SlideShow />
-            <HomeInfo />
+            <Welcome />
             <AnimalGallery />
+            <HomeInfo />
         </div>
     )
 }

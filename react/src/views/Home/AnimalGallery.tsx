@@ -19,7 +19,7 @@ const AnimalGallery = () => {
     return (
         <div className="animalGallery">
             {images.map((image) => (
-                <img src={image} alt={image} />
+                <img src={image} alt={image} key={image} />
             ))}
         </div>
     )
