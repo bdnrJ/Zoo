@@ -2,43 +2,45 @@ import { useState } from 'react';
 import BackButton from '../../../components/BackButton'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {MdKeyboardArrowDown} from 'react-icons/md'
 import TicketChooser from '../../../components/TicketChooser';
+import TicketSum from '../../../components/TicketSum';
 
 type ticket = {
     idx: number,
     amount: number,
     title: string,
     ageInfo: string,
-    price: string,
+    price: number,
 }
 
+//TODO save current ticket to local
 export const NormalTickets = () => {
-
+    //TODO fetch from db
     const sampleData: ticket[] = [
         {
-            idx: 1,
+            idx: 0,
             amount: 1,
             title: "Adult",
             ageInfo: " - Ages 18+",
-            price: "$25"
+            price: 25
         },
         {
             idx: 2,
             amount: 0,
             title: "Child",
             ageInfo: " - Ages 3-18",
-            price: "$16"
+            price: 16
         },
         {
             idx: 3,
             amount: 0,
             title: "Reduced",
             ageInfo: "",
-            price: "$20"
+            price: 20
         },
     ]
 
+    const [startDate, setStartDate] = useState(new Date());
     const [tickets, setTickets] = useState<ticket[]>(sampleData);
 
     const handleAddition = (id: number) => {
@@ -50,8 +52,7 @@ export const NormalTickets = () => {
             return;
         }
 
-        newTickets[modifiedTicketIdx].amount++;
-
+        newTickets[modifiedTicketIdx].amount = Math.min(newTickets[modifiedTicketIdx].amount + 1, 10);
         setTickets([...newTickets]);
     }
 
@@ -65,11 +66,10 @@ export const NormalTickets = () => {
         }
 
         newTickets[modifiedTicketIdx].amount = Math.max(newTickets[modifiedTicketIdx].amount - 1, 0);
-
         setTickets([...newTickets]);
     }
 
-    const [startDate, setStartDate] = useState(new Date());
+
 
     //Date formating
     const dayOfWeek = startDate.toLocaleString('en-US', { weekday: 'long' });
@@ -92,7 +92,7 @@ export const NormalTickets = () => {
                     <div className="normal-select">
 
                         <div className="normal-select-title">
-                            <h3>You have chosen General Admission. <br/>
+                            <h3>You have chosen normal tickets. <br/>
                             Please complete your ticket details below.</h3>
                         </div>
 
@@ -124,13 +124,7 @@ export const NormalTickets = () => {
                         </div>
                     </div>
                     <div className="normal_tickets-cart">
-                        <ol>
-                            {
-                                tickets.map((ticket) => (
-                                    <li key={ticket.title}>{ticket.amount + " " + ticket.title}</li>
-                                ))
-                            }
-                        </ol>
+                        <TicketSum tickets={tickets} date={startDate}/>
                     </div>
                 </div>
             </div>
