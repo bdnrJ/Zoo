@@ -1,0 +1,43 @@
+.tickets{
+    @include navbarMargin;
+    background-color: antiquewhite;
+    text-align: center;
+    height: 700px;
+
+    .tickets-title{
+        font-size: $font-30;
+        font-weight: bold;
+        letter-spacing: 20px;
+    }
+
+    .tickets-rest{
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+
+        .tickets-block{
+
+            .tickets-block-title{
+                font-size: $font-30;
+            }
+
+            .tickets-block-img{
+                height: 200px;
+                width: 300px;
+
+                img{
+                    height: 200px;
+                    width: 300px;
+                }
+            }
+
+            .tickets-block-button{
+
+                button{
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

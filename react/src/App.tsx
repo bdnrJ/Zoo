@@ -9,6 +9,9 @@ import Home from "./views/Home/Home";
 import Login from "./views/Login";
 import Register from "./views/Register";
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
+import Tickets from "./views/UserViews/Tickets/Tickets";
+import { NormalTickets } from "./views/UserViews/Tickets/NormalTickets";
+import { GroupTickets } from "./views/UserViews/Tickets/GroupTickets";
 
 const queryClient = new QueryClient();
 
@@ -28,17 +31,29 @@ const router = createBrowserRouter([
         element: <Layout />,
         children: [
             {
-            path: "/",
-            element: <Home />
+                path: "/",
+                element: <Home />
             },
             {
-            path: "/TESTadmin",
-            element:
-                <RequireAdmin>
-                    <QueryClientProvider client={queryClient}>
-                        <TESTadmin />
-                    </QueryClientProvider>
-                </RequireAdmin>
+                path: "/TESTadmin",
+                element:
+                    <RequireAdmin>
+                        <QueryClientProvider client={queryClient}>
+                            <TESTadmin />
+                        </QueryClientProvider>
+                    </RequireAdmin>
+            },
+            {
+                path: '/tickets',
+                element: <Tickets />
+            },
+            {
+                path: '/tickets/normal',
+                element: <NormalTickets />
+            },
+            {
+                path: '/tickets/group',
+                element: <GroupTickets />
             },
             {
                 path: '/*',

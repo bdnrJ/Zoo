@@ -11,6 +11,11 @@
 @import "./views/Home/animalGallery.scss";
 @import "./views/Home/welcome.scss";
 
+//Tickets
+@import "./views/Tickets/tickets.scss";
+@import "./views/Tickets/normalTickets.scss";
+@import "./views/Tickets/groupTickets.scss";
+
 @import "./views/login.scss";
 @import "./views/register.scss";
 
@@ -19,6 +24,8 @@
 @import "./components/Navbar/nouser.scss";
 @import "./components/Navbar/userpopup.scss";
 @import "./components/Navbar/loggeduser.scss";
+@import "./components/backbutton.scss";
+@import "./components/ticketChooser.scss";
 
 @import "./components/footer.scss";
 @import "./components/slideshow.scss";

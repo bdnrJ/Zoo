@@ -1,0 +1,55 @@
+.ticket{
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    background-color: white;
+
+    .ticket-count{
+        @include flexCenterCenter;
+        width: 60px;
+        background-color: #ececec;
+        font-size: $font-18;
+        border-right: 3px solid #f8f8f8;
+    }
+
+    .ticket-count.--active{
+        background-color: #edf9e4;
+    }
+
+    .ticket-info{
+        width: 80%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 15px 0 15px;
+        gap: 30px;
+        align-items: center;
+        border-left: 2px solid transparent;
+
+        .ageInfo{
+            font-size: $font-12;
+            font-weight: bold;
+        }
+    }
+
+    .ticket-operations{
+        width: 50px;
+        display: flex;
+        flex-direction: column;
+
+        button{
+            vertical-align: middle;
+            height: 50%;
+            font-size: $font-18;
+            transition: all 0.4s ease;
+
+            background-color: white;
+            border: 1px solid #f8f8f8;
+            border-left: 3px solid #f8f8f8;
+
+            &:hover{
+                background-color: #5C9632;
+                color: white;
+            }
+        }
+    }
+}

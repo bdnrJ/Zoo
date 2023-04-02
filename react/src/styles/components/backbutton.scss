@@ -1,0 +1,11 @@
+.backbutton{
+    @include flexCenterCenter;
+    background-color: transparent;
+    border: 1px solid transparent;
+    font-weight: bold;
+    font-size: $font-15;
+
+    &:hover{
+        color: $fontgrey;
+    }
+}

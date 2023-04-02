@@ -1,0 +1,67 @@
+.normal{
+    @include navbarMargin;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #f8f8f8;
+    color: #5d5d5d;
+
+    .normal-wrapper{
+        margin-top: 40px;
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+
+
+        .normal-buying{
+            display: flex;
+        }
+
+        .normal-select{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: $margin-medium;
+            width: 65%;
+
+            .normal-select-date{
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+            }
+
+            .normal-select-tickets-wrapper{
+                width: 100%;
+
+                .normal-select-tickets{
+                    margin-top: 30px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+                }
+            }
+
+            .normal-select-label{
+                border-bottom: 1px solid $fontgrey;
+                font-size: $font-24;
+                letter-spacing: 2px;
+            }
+        }
+    }
+}
+
+.react-datepicker__input-container{
+
+    input{
+        width: 300px;
+        padding-left: 10px;
+        font-family: inherit;
+        height: 50px;
+        border: 1px solid $border;
+
+        outline: none;
+    }
+}
+

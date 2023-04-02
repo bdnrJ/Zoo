@@ -14,6 +14,10 @@ $desktop-width: 1024px;
     }
 }
 
+@mixin navbarMargin{
+    margin-top: 75px;
+}
+
 $margin-tiny: .5rem;
 $margin-small: 1rem;
 $margin-medium: 1.5rem;

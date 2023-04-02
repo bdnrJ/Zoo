@@ -21,8 +21,8 @@ const Register = () => {
     const navigate = useNavigate();
 
     const schema: ZodType<User> = z.object({
-        firstname: z.string().min(1, 'Required'),
-        lastname: z.string().min(1, 'Required'),
+        firstname: z.string().min(1, 'Required').max(30, 'too long'),
+        lastname: z.string().min(1, 'Required').max(30,'too long'),
         email: z.string().email(),
         password: z.string().min(8, 'Too short').max(30, 'Too long').regex(
             /^(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
