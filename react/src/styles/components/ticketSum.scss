@@ -5,16 +5,21 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    width: 100%;
 
 
     .ticketsum-title{
         color: white;
-        width: 350px;
+        width: 100%;
         height: 160px;
         @include flexCenterCenter;
         background-image: url('../assets/paw.png');
         background-size: cover;
         background-repeat: no-repeat;
+
+        @include tablet{
+            height: 250px;
+        }
     }
 
     .ticketsum-tickets{

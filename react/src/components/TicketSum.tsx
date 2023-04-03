@@ -59,11 +59,11 @@ const TicketSum = ({tickets, date}: props) => {
                     <span>Subtotal: </span> <span>${calculateTotalPrice(tickets)}</span>
                 </div>
                 <div className="ticketsum-sum-block">
-                    <span>Service fee: </span> <span>$5</span>
+                    {calculateTotalPrice(tickets) != 0 && <><span>Service fee: </span> <span>$5</span></>}
                 </div>
                 <div className="ticketsum-sum-block">
                     <span className='ticketsum-sum-block-total'>Total: </span>
-                    <span className='ticketsum-sum-block-total'>${calculateTotalPrice(tickets)+5}</span>
+                    <span className='ticketsum-sum-block-total'>${calculateTotalPrice(tickets) == 0 ? 0 : calculateTotalPrice(tickets)+5}</span>
                 </div>
             </div>
             <div className="ticketsum-contiune">

@@ -18,8 +18,8 @@ export const NormalTickets = () => {
     //TODO fetch from db
     const sampleData: ticket[] = [
         {
-            idx: 0,
-            amount: 1,
+            idx: 1,
+            amount: 0,
             title: "Adult",
             ageInfo: " - Ages 18+",
             price: 25
