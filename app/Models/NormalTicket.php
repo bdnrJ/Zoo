@@ -13,6 +13,7 @@ class NormalTicket extends Model
     protected $fillable = [
         'ticket_type',
         'transaction_id',
+        'amount',
     ];
 
     public $timestamps = false;

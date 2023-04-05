@@ -19,6 +19,7 @@ class NormalTicketController extends Controller
         $validatedData = $request->validate([
             'ticket_type' => 'required|integer',
             'transaction_id' => 'required|integer',
+            'amount' => 'required|integer|max:10'
         ]);
 
         $normalTicket = NormalTicket::create($validatedData);

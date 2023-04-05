@@ -67,7 +67,7 @@ class AuthController extends Controller
 
         if(!$user->role){
             return response([
-                'message' =>  "You do not have permission to access this"
+                'message' =>  "You do not have permission to access this from auth controller"
             ], 401);
         }
 
@@ -76,6 +76,8 @@ class AuthController extends Controller
 
     public function isadmin(){
         $user = Auth::user();
+
+        error_log($user->firstname);
 
         if(!$user->role){
             return response([
@@ -100,13 +102,6 @@ class AuthController extends Controller
     }
 
     public function getUsers(){
-        $user = Auth::user();
-        if(!$user->role){
-            return response([
-                'message' =>  "You do not have permission to access this"
-            ], 401);
-        }
-
         $users = User::paginate(5);
 
         return response([

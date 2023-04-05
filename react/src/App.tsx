@@ -12,6 +12,7 @@ import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-quer
 import Tickets from "./views/UserViews/Tickets/Tickets";
 import { NormalTickets } from "./views/UserViews/Tickets/NormalTickets";
 import { GroupTickets } from "./views/UserViews/Tickets/GroupTickets";
+import NormalCheckout from "./views/UserViews/Tickets/NormalCheckout";
 
 const queryClient = new QueryClient();
 
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
             {
                 path: '/tickets/normal',
                 element: <NormalTickets />
+            },
+            {
+                path: '/tickets/normal/checkout',
+                element: <NormalCheckout />
             },
             {
                 path: '/tickets/group',

@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import TicketChooser from '../../../components/TicketChooser';
 import TicketSum from '../../../components/TicketSum';
+import { useNavigate } from 'react-router-dom';
 
 type ticket = {
     idx: number,
@@ -15,6 +16,7 @@ type ticket = {
 
 //TODO save current ticket to local
 export const NormalTickets = () => {
+    const navigate = useNavigate();
     //TODO fetch from db
     const sampleData: ticket[] = [
         {
@@ -128,6 +130,7 @@ export const NormalTickets = () => {
                     </div>
                 </div>
             </div>
+            <button onClick={() => navigate('/tickets/normal/checkout')} >Contiune</button>
         </div>
     )
 }

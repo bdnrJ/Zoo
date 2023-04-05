@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('normal_tickets', function (Blueprint $table) {
             $table->id();
-            $table->integer('ticket_type');
+            $table->unsignedBigInteger('ticket_type_id');
+            $table->foreign('ticket_type_id')->references('id')->on('ticket_types');
             $table->unsignedBigInteger('transaction_id');
             $table->foreign('transaction_id')->references('id')->on('transactions');
+            $table->integer('amount');
         });
     }
 
