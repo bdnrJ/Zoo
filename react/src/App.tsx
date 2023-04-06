@@ -13,6 +13,7 @@ import Tickets from "./views/UserViews/Tickets/Tickets";
 import { NormalTickets } from "./views/UserViews/Tickets/NormalTickets";
 import { GroupTickets } from "./views/UserViews/Tickets/GroupTickets";
 import NormalCheckout from "./views/UserViews/Tickets/NormalCheckout";
+import { TicketProvider } from "./context/TicketContext";
 
 const queryClient = new QueryClient();
 
@@ -50,7 +51,10 @@ const router = createBrowserRouter([
             },
             {
                 path: '/tickets/normal',
-                element: <NormalTickets />
+                element:
+                <TicketProvider>
+                    <NormalTickets />
+                </TicketProvider>
             },
             {
                 path: '/tickets/normal/checkout',

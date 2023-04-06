@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import BackButton from '../../../components/BackButton'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import TicketChooser from '../../../components/TicketChooser';
 import TicketSum from '../../../components/TicketSum';
 import { useNavigate } from 'react-router-dom';
+import { TicketContext } from '../../../context/TicketContext';
 
 type ticket = {
     idx: number,
@@ -16,6 +17,10 @@ type ticket = {
 
 //TODO save current ticket to local
 export const NormalTickets = () => {
+
+    const {availableTickets} = useContext(TicketContext);
+
+
     const navigate = useNavigate();
     //TODO fetch from db
     const sampleData: ticket[] = [
