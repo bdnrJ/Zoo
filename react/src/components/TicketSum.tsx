@@ -14,7 +14,6 @@ const TicketSum = ({date}: props) => {
     const month = date.toLocaleString('en-US', { month: 'long' });
     const dayOfMonth = date.toLocaleString('en-US', { day: 'numeric' });
     const year = date.getFullYear();
-
     const formattedDate = `${dayOfWeek}, ${month} ${dayOfMonth}, ${year}`;
 
     function calculateTotalPrice(tickets): number {
@@ -56,7 +55,9 @@ const TicketSum = ({date}: props) => {
                 </div>
                 <div className="ticketsum-sum-block">
                     <span className='ticketsum-sum-block-total'>Total: </span>
-                    <span className='ticketsum-sum-block-total'>${calculateTotalPrice(userTickets) == 0 ? 0 : (calculateTotalPrice(userTickets)+5).toFixed(2)}</span>
+                    <span className='ticketsum-sum-block-total'>
+                        ${calculateTotalPrice(userTickets) == 0 ? 0 : (calculateTotalPrice(userTickets)+5).toFixed(2)}
+                    </span>
                 </div>
             </div>
             <div className="ticketsum-contiune">

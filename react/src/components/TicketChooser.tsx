@@ -19,7 +19,7 @@ const TicketChooser = ({amount, title, ageInfo, price, idx, handleAdd, handleSub
             <div className="ticket-info">
                 <div className="ticket-info-title">
                     <span className='title'>{title}</span>
-                    <span className='ageInfo' >{ageInfo}</span>
+                    <span className='ageInfo' >&nbsp;{ageInfo}</span>
                 </div>
                 <span>${price}</span>
             </div>
