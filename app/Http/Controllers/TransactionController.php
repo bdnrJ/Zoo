@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
@@ -19,13 +20,17 @@ class TransactionController extends Controller
 
     public function store(Request $request)
     {
+        $user = Auth::user();
+
         $validatedData = $request->validate([
             'buy_date' => 'required|date',
             'exp_date' => 'required|date',
-            'user_id' => 'required|integer',
+            'user_id' => 'integer',
             'total_cost' => 'required|numeric',
             'type' => 'required|string|max:45',
         ]);
+
+        $validatedData['user_id'] = $user->id;
 
         $normalTicketsData = $request->input('normal_tickets');
 

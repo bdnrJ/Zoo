@@ -7,52 +7,38 @@ import TicketSum from '../../../components/TicketSum';
 import { useNavigate } from 'react-router-dom';
 import { TicketContext } from '../../../context/TicketContext';
 
-type ticket = {
-    idx: number,
-    amount: number,
-    title: string,
-    ageInfo: string,
-    price: number,
+interface userTicket {
+    ticket_type_id: number
+    amount: number
 }
 
-//TODO save current ticket to local
-export const NormalTickets = () => {
+interface transaction {
+    buy_date: Date,
+    exp_date: Date,
+    total_cost: number,
+    type: string,
+    normal_tickets: userTicket[]
+}
 
-    const {availableTickets} = useContext(TicketContext);
+export const NormalTickets = () => {
+    const {userTickets, setUserTickets} = useContext(TicketContext);
+    const [startDate, setStartDate] = useState(new Date());
 
 
     const navigate = useNavigate();
-    //TODO fetch from db
-    const sampleData: ticket[] = [
-        {
-            idx: 1,
-            amount: 0,
-            title: "Adult",
-            ageInfo: " - Ages 18+",
-            price: 25
-        },
-        {
-            idx: 2,
-            amount: 0,
-            title: "Child",
-            ageInfo: " - Ages 3-18",
-            price: 16
-        },
-        {
-            idx: 3,
-            amount: 0,
-            title: "Reduced",
-            ageInfo: "",
-            price: 20
-        },
-    ]
 
-    const [startDate, setStartDate] = useState(new Date());
-    const [tickets, setTickets] = useState<ticket[]>(sampleData);
+    const transaction: transaction ={
+        buy_date: new Date(),
+        exp_date: startDate,
+        total_cost: 0,
+        type: 'normal',
+        normal_tickets: []
+    }
 
-    const handleAddition = (id: number) => {
-        const newTickets = tickets;
-        const modifiedTicketIdx = tickets.findIndex((ticket) => ticket.idx === id);
+
+    const handleAddition = (idx: number) => {
+        const newTickets = userTickets;
+        const modifiedTicketIdx = userTickets.findIndex((ticket) => ticket.id === idx);
 
         if(modifiedTicketIdx === -1){
             alert("cannot increase amount on a ticket that does not exist");
@@ -60,12 +46,12 @@ export const NormalTickets = () => {
         }
 
         newTickets[modifiedTicketIdx].amount = Math.min(newTickets[modifiedTicketIdx].amount + 1, 10);
-        setTickets([...newTickets]);
+        setUserTickets([...newTickets]);
     }
 
-    const handleSubstitution = (id: number) => {
-        const newTickets = tickets;
-        const modifiedTicketIdx = tickets.findIndex((ticket) => ticket.idx === id);
+    const handleSubstitution = (idx: number) => {
+        const newTickets = userTickets;
+        const modifiedTicketIdx = userTickets.findIndex((ticket) => ticket.id === idx);
 
         if(modifiedTicketIdx === -1){
             alert("cannot decrease amount on a ticket that does not exist");
@@ -73,10 +59,8 @@ export const NormalTickets = () => {
         }
 
         newTickets[modifiedTicketIdx].amount = Math.max(newTickets[modifiedTicketIdx].amount - 1, 0);
-        setTickets([...newTickets]);
+        setUserTickets([...newTickets]);
     }
-
-
 
     //Date formating
     const dayOfWeek = startDate.toLocaleString('en-US', { weekday: 'long' });
@@ -85,11 +69,11 @@ export const NormalTickets = () => {
     const year = startDate.getFullYear();
 
     const formattedDate = `${dayOfWeek}, ${month} ${dayOfMonth}, ${year}`;
-
     return (
         <div className="normal">
             <div className="normal-title">
                 <h1>Normal Tickets</h1>
+                <button onClick={() => console.log(userTickets)} >log userTickets</button>
             </div>
             <div className="normal-wrapper">
                 <div className="backbtn">
@@ -107,7 +91,12 @@ export const NormalTickets = () => {
                             <div className="normal-select-label">
                                 <h4>Select Date</h4>
                             </div>
-                            <DatePicker selected={startDate} onChange={(date: Date) => setStartDate(date)} value={formattedDate} />
+                            <DatePicker
+                                minDate={new Date()}
+                                selected={startDate}
+                                onChange={(date: Date) => setStartDate(date)}
+                                value={formattedDate}
+                            />
                         </div>
 
                         <div className="normal-select-tickets-wrapper">
@@ -115,13 +104,13 @@ export const NormalTickets = () => {
                                 <h4>Select Tickets</h4>
                             </div>
                             <div className="normal-select-tickets">
-                                {tickets.map((ticket) => (
+                                {userTickets.map((ticket) => (
                                     <TicketChooser
-                                        idx={ticket.idx}
-                                        key={ticket.title}
+                                        key={ticket.name}
+                                        idx={ticket.id}
                                         amount={ticket.amount}
-                                        title={ticket.title}
-                                        ageInfo={ticket.ageInfo}
+                                        title={ticket.name}
+                                        ageInfo={ticket.age_info}
                                         price={ticket.price}
                                         handleAdd={handleAddition}
                                         handleSub={handleSubstitution}
@@ -131,7 +120,7 @@ export const NormalTickets = () => {
                         </div>
                     </div>
                     <div className="normal_tickets-cart">
-                        <TicketSum tickets={tickets} date={startDate}/>
+                        <TicketSum date={startDate}/>
                     </div>
                 </div>
             </div>

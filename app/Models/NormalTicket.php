@@ -11,7 +11,7 @@ class NormalTicket extends Model
 
 
     protected $fillable = [
-        'ticket_type',
+        'ticket_type_id',
         'transaction_id',
         'amount',
     ];

@@ -58,7 +58,10 @@ const router = createBrowserRouter([
             },
             {
                 path: '/tickets/normal/checkout',
-                element: <NormalCheckout />
+                element:
+                <TicketProvider>
+                    <NormalCheckout/>
+                </TicketProvider>
             },
             {
                 path: '/tickets/group',

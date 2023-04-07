@@ -1,21 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { TicketContext } from '../context/TicketContext'
 
-type ticket = {
-    idx: number,
-    amount: number,
-    title: string,
-    ageInfo: string,
-    price: number,
-}
 
 type props ={
-    tickets: ticket[],
     date: Date
 }
 
 
-const TicketSum = ({tickets, date}: props) => {
-
+const TicketSum = ({date}: props) => {
+    const {userTickets} = useContext(TicketContext);
     //Date formating
     const dayOfWeek = date.toLocaleString('en-US', { weekday: 'long' });
     const month = date.toLocaleString('en-US', { month: 'long' });
@@ -24,7 +17,7 @@ const TicketSum = ({tickets, date}: props) => {
 
     const formattedDate = `${dayOfWeek}, ${month} ${dayOfMonth}, ${year}`;
 
-    function calculateTotalPrice(tickets: ticket[]): number {
+    function calculateTotalPrice(tickets): number {
         let totalPrice = 0;
 
         for (const ticket of tickets) {
@@ -45,10 +38,10 @@ const TicketSum = ({tickets, date}: props) => {
                     <span>{formattedDate}</span>
                 </div>
                 <div className="ticketsum-tickets-acutaltickets">
-                    {tickets.map((ticket) => {
+                    {userTickets.map((ticket) => {
                         if(ticket.amount === 0 ) return;
                         return (
-                            <span>{`${ticket.title} - $${ticket.price} x ${ticket.amount}`}</span>
+                            <span key={ticket.name} >{`${ticket.name} - $${ticket.price} x ${ticket.amount}`}</span>
                         );
                     })}
                 </div>
@@ -56,14 +49,14 @@ const TicketSum = ({tickets, date}: props) => {
             </div>
             <div className="ticketsum-sum">
                 <div className="ticketsum-sum-block">
-                    <span>Subtotal: </span> <span>${calculateTotalPrice(tickets)}</span>
+                    <span>Subtotal: </span> <span>${calculateTotalPrice(userTickets).toFixed(2)}</span>
                 </div>
                 <div className="ticketsum-sum-block">
-                    {calculateTotalPrice(tickets) != 0 && <><span>Service fee: </span> <span>$5</span></>}
+                    {calculateTotalPrice(userTickets) != 0 && <><span>Service fee: </span> <span>$5</span></>}
                 </div>
                 <div className="ticketsum-sum-block">
                     <span className='ticketsum-sum-block-total'>Total: </span>
-                    <span className='ticketsum-sum-block-total'>${calculateTotalPrice(tickets) == 0 ? 0 : calculateTotalPrice(tickets)+5}</span>
+                    <span className='ticketsum-sum-block-total'>${calculateTotalPrice(userTickets) == 0 ? 0 : (calculateTotalPrice(userTickets)+5).toFixed(2)}</span>
                 </div>
             </div>
             <div className="ticketsum-contiune">
