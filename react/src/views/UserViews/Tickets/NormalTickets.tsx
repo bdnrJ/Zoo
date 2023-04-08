@@ -5,36 +5,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import TicketChooser from '../../../components/TicketChooser';
 import TicketSum from '../../../components/TicketSum';
 import { useNavigate } from 'react-router-dom';
-import { TicketContext } from '../../../context/TicketContext';
-
-interface userTicket {
-    ticket_type_id: number
-    amount: number
-}
-
-interface transaction {
-    buy_date: Date,
-    exp_date: Date,
-    total_cost: number,
-    type: string,
-    normal_tickets: userTicket[]
-}
+import { TicketContext, transaction, transactionTickets } from '../../../context/TicketContext';
 
 export const NormalTickets = () => {
-    const {userTickets, setUserTickets} = useContext(TicketContext);
-    const [startDate, setStartDate] = useState(new Date());
-
-
+    const {userTickets, setUserTickets, setUserTransaction} = useContext(TicketContext);
+    const [ticketExpDate, setTicketExpDate] = useState(new Date());
     const navigate = useNavigate();
-
-    const transaction: transaction ={
-        buy_date: new Date(),
-        exp_date: startDate,
-        total_cost: 0,
-        type: 'normal',
-        normal_tickets: []
-    }
-
+    const SERVICE_FEE = 5;
 
     const handleAddition = (idx: number) => {
         const newTickets = userTickets;
@@ -62,12 +39,39 @@ export const NormalTickets = () => {
         setUserTickets([...newTickets]);
     }
 
-    //Date formating
-    const dayOfWeek = startDate.toLocaleString('en-US', { weekday: 'long' });
-    const month = startDate.toLocaleString('en-US', { month: 'long' });
-    const dayOfMonth = startDate.toLocaleString('en-US', { day: 'numeric' });
-    const year = startDate.getFullYear();
+    const handleContiuneToCheckout = () => {
+        //extract only api usefull data from userTickets to transactionTickets
+        const transactionNormalTickets: transactionTickets[] = userTickets.map((ticket) => (
+            {
+                ticket_type_id: ticket.id,
+                amount: ticket.amount
+            }
+            )).filter((transactionTicket) => transactionTicket.amount !== 0);
 
+        if(transactionNormalTickets.length === 0){
+            alert("To contiune you must at least have one ticket!");
+        }
+
+        const totalCost = userTickets.reduce((acc, curr) => acc + (curr.price * curr.amount), 0);
+
+        const transaction: transaction ={
+            buy_date: new Date(),
+            exp_date: ticketExpDate,
+            total_cost: totalCost + SERVICE_FEE,
+            type: 'normal',
+            normal_tickets: transactionNormalTickets
+        }
+
+        console.log(transaction);
+        console.log("navigate");
+        // navigate('/tickets/normal/checkout')
+    }
+
+    //Date formating
+    const dayOfWeek = ticketExpDate.toLocaleString('en-US', { weekday: 'long' });
+    const month = ticketExpDate.toLocaleString('en-US', { month: 'long' });
+    const dayOfMonth = ticketExpDate.toLocaleString('en-US', { day: 'numeric' });
+    const year = ticketExpDate.getFullYear();
     const formattedDate = `${dayOfWeek}, ${month} ${dayOfMonth}, ${year}`;
     return (
         <div className="normal">
@@ -93,8 +97,8 @@ export const NormalTickets = () => {
                             </div>
                             <DatePicker
                                 minDate={new Date()}
-                                selected={startDate}
-                                onChange={(date: Date) => setStartDate(date)}
+                                selected={ticketExpDate}
+                                onChange={(date: Date) => setTicketExpDate(date)}
                                 value={formattedDate}
                             />
                         </div>
@@ -120,11 +124,16 @@ export const NormalTickets = () => {
                         </div>
                     </div>
                     <div className="normal_tickets-cart">
-                        <TicketSum date={startDate}/>
+                        <TicketSum date={ticketExpDate}/>
                     </div>
                 </div>
             </div>
-            <button onClick={() => navigate('/tickets/normal/checkout')} >Contiune</button>
+            <button
+                disabled={userTickets.reduce((acc, curr) => acc + (curr.price * curr.amount), 0) === 0}
+                onClick={handleContiuneToCheckout}
+                >
+                    Contiune
+            </button>
         </div>
     )
 }

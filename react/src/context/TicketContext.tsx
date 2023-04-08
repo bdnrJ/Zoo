@@ -24,22 +24,50 @@ type userTicket = {
     amount: number,
 }
 
+export interface transactionTickets {
+    ticket_type_id: number
+    amount: number
+}
+
+export interface transaction {
+    buy_date: Date,
+    exp_date: Date,
+    total_cost: number,
+    type: string,
+    normal_tickets: transactionTickets[]
+}
+
 interface TicketContext{
     availableTickets: ticket[],
+    allTicketTypes: ticket[],
     userTickets: userTicket[],
+    userTransaction: transaction,
     setUserTickets: Dispatch<SetStateAction<userTicket[]>>,
+    setUserTransaction: Dispatch<SetStateAction<transaction>>,
+}
+
+const transactionSample: transaction ={
+    buy_date: new Date(),
+    exp_date: new Date(),
+    total_cost: 0,
+    type: 'normal',
+    normal_tickets: []
 }
 
 export const TicketContext = createContext<TicketContext>({
     availableTickets: [],
+    allTicketTypes: [],
     userTickets: [],
-    setUserTickets: () => {}
+    userTransaction: transactionSample,
+    setUserTickets: () => {},
+    setUserTransaction: () => {}
 });
 
 export const TicketProvider = ({children}: props) => {
     const [allTicketTypes, setAllTicketTypes] = useState<ticket[]>([]);
     const [availableTickets, setAvailableTickets] = useState<ticket[]>([]);
     const [userTickets, setUserTickets] = useState<userTicket[]>([]);
+    const [userTransaction, setUserTransaction] = useState<transaction>(transactionSample);
 
     useEffect(() => {
         const getAllTickets = async () => {
@@ -59,7 +87,7 @@ export const TicketProvider = ({children}: props) => {
 
 
     return (
-        <TicketContext.Provider value={{availableTickets, userTickets, setUserTickets}}>
+        <TicketContext.Provider value={{availableTickets, userTickets, setUserTickets, allTicketTypes, userTransaction, setUserTransaction}}>
             {children}
         </TicketContext.Provider>
     )
