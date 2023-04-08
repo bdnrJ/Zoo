@@ -43,11 +43,11 @@ class TransactionController extends Controller
             $transaction->NormalTickets()->save($normalTicket);
         }
         DB::commit();
-        return response()->json(['message' => 'Transaction created successfully.']);
+        return response()->json(['message' => 'Transaction created successfully.'], 200);
     } catch (Exception $e) {
         DB::rollback();
         error_log($e);
-        return response()->json(['message' => $e]);
+        return response()->json(['message' => $e], 400);
     }
 
     }

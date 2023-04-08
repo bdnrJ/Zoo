@@ -62,9 +62,8 @@ export const NormalTickets = () => {
             normal_tickets: transactionNormalTickets
         }
 
-        console.log(transaction);
-        console.log("navigate");
-        // navigate('/tickets/normal/checkout')
+        setUserTransaction(transaction);
+        navigate('/tickets/normal/checkout')
     }
 
     //Date formating
@@ -77,7 +76,6 @@ export const NormalTickets = () => {
         <div className="normal">
             <div className="normal-title">
                 <h1>Normal Tickets</h1>
-                <button onClick={() => console.log(userTickets)} >log userTickets</button>
             </div>
             <div className="normal-wrapper">
                 <div className="backbtn">

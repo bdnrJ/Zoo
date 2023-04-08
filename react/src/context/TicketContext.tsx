@@ -44,6 +44,7 @@ interface TicketContext{
     userTransaction: transaction,
     setUserTickets: Dispatch<SetStateAction<userTicket[]>>,
     setUserTransaction: Dispatch<SetStateAction<transaction>>,
+    resetAll: () => void
 }
 
 const transactionSample: transaction ={
@@ -60,7 +61,8 @@ export const TicketContext = createContext<TicketContext>({
     userTickets: [],
     userTransaction: transactionSample,
     setUserTickets: () => {},
-    setUserTransaction: () => {}
+    setUserTransaction: () => {},
+    resetAll: () => {}
 });
 
 export const TicketProvider = ({children}: props) => {
@@ -85,9 +87,21 @@ export const TicketProvider = ({children}: props) => {
         getAllTickets();
     }, []);
 
+    const resetAll = () => {
+        //resets userTickets to default state
+        setUserTickets(availableTickets.map((ticket: ticket) => ({
+            ...ticket,
+            amount: 0
+        })))
+
+        setUserTransaction(transactionSample);
+
+    }
+
 
     return (
-        <TicketContext.Provider value={{availableTickets, userTickets, setUserTickets, allTicketTypes, userTransaction, setUserTransaction}}>
+        <TicketContext.Provider value={{availableTickets, userTickets,
+        setUserTickets, allTicketTypes, userTransaction, setUserTransaction, resetAll}}>
             {children}
         </TicketContext.Provider>
     )
