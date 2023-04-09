@@ -27,7 +27,7 @@ const Login = () => {
     const onSubmit = async (data: User) => {
         try{
             await login(data);
-            navigate('/');
+            navigate(-1);
         }catch(err: any){
             setLoginErr(err.response.data.message);
         }

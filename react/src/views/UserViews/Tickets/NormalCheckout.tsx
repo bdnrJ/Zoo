@@ -3,10 +3,16 @@ import { TicketContext } from '../../../context/TicketContext'
 import TicketSum from '../../../components/TicketSum';
 import axiosClient from '../../../axios-client';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../context/AuthContext';
 
 const NormalCheckout = () => {
     const {userTransaction, resetAll} = useContext(TicketContext);
+    const {currentUser} = useContext(AuthContext);
     const navigate = useNavigate();
+
+    if(userTransaction.normal_tickets.reduce((acc, curr) => acc + curr.amount, 0) === 0 || !currentUser){
+        navigate(-1);
+    }
 
     const hanldeBuyTicket = async () => {
         try{
@@ -18,6 +24,8 @@ const NormalCheckout = () => {
             }, {withCredentials: true})
 
             resetAll();
+
+            //TODO: popup and then navigate back or smth
             navigate('/');
         }catch(e){
             console.log(e);

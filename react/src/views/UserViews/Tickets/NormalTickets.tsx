@@ -6,8 +6,10 @@ import TicketChooser from '../../../components/TicketChooser';
 import TicketSum from '../../../components/TicketSum';
 import { useNavigate } from 'react-router-dom';
 import { TicketContext, transaction, transactionTickets } from '../../../context/TicketContext';
+import { AuthContext } from '../../../context/AuthContext';
 
 export const NormalTickets = () => {
+    const {currentUser} = useContext(AuthContext);
     const {userTickets, setUserTickets, setUserTransaction} = useContext(TicketContext);
     const [ticketExpDate, setTicketExpDate] = useState(new Date());
     const navigate = useNavigate();
@@ -126,12 +128,15 @@ export const NormalTickets = () => {
                     </div>
                 </div>
             </div>
-            <button
-                disabled={userTickets.reduce((acc, curr) => acc + (curr.price * curr.amount), 0) === 0}
-                onClick={handleContiuneToCheckout}
-                >
-                    Contiune
-            </button>
+            {!currentUser
+                ? <button onClick={() => navigate('/login')}>Log in to continue</button>
+                :
+                <button
+                    disabled={userTickets.reduce((acc, curr) => acc + (curr.price * curr.amount), 0) === 0}
+                    onClick={handleContiuneToCheckout}
+                    >
+                        Contiune
+                </button>}
         </div>
     )
 }
