@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GroupTicket;
 use App\Models\NormalTicket;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
@@ -19,29 +20,36 @@ class TransactionController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $user = Auth::user();
+{
+    $user = Auth::user();
 
-        $validatedData = $request->validate([
-            'buy_date' => 'required|date',
-            'exp_date' => 'required|date',
-            'user_id' => 'integer',
-            'total_cost' => 'required|numeric',
-            'type' => 'required|string|max:45',
-        ]);
+    $validatedData = $request->validate([
+        'buy_date' => 'required|date',
+        'exp_date' => 'required|date',
+        'user_id' => 'integer',
+        'total_cost' => 'required|numeric',
+        'type' => 'required|string|max:45',
+    ]);
 
-        $validatedData['user_id'] = $user->id;
+    $validatedData['user_id'] = $user->id;
 
-        $normalTicketsData = $request->input('normal_tickets');
-
-        DB::beginTransaction();
+    DB::beginTransaction();
 
     try {
         $transaction = Transaction::create($validatedData);
-        foreach ($normalTicketsData as $normalTicketData) {
-            $normalTicket = new NormalTicket($normalTicketData);
-            $transaction->NormalTickets()->save($normalTicket);
+
+        if ($request->has('normal_tickets')) {
+            $normalTicketsData = $request->input('normal_tickets');
+            foreach ($normalTicketsData as $normalTicketData) {
+                $normalTicket = new NormalTicket($normalTicketData);
+                $transaction->NormalTickets()->save($normalTicket);
+            }
+        } elseif ($request->has('group_ticket')) {
+            $groupTicketData = $request->input('group_ticket');
+            $groupTicket = new GroupTicket($groupTicketData);
+            $transaction->GroupTickets()->save($groupTicket);
         }
+
         DB::commit();
         return response()->json(['message' => 'Transaction created successfully.'], 200);
     } catch (Exception $e) {
@@ -49,8 +57,7 @@ class TransactionController extends Controller
         error_log($e);
         return response()->json(['message' => $e], 400);
     }
-
-    }
+}
 
     public function show(Transaction $transaction)
     {

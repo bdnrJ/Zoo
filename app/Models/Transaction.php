@@ -28,4 +28,9 @@ class Transaction extends Model
     {
         return $this->hasMany(NormalTicket::class);
     }
+
+    public function GroupTickets()
+    {
+        return $this->hasMany(GroupTicket::class);
+    }
 }
