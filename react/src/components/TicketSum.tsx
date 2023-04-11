@@ -7,7 +7,7 @@ type props ={
 }
 
 const TicketSum = ({date, addClass}: props) => {
-    const {userTickets} = useContext(TicketContext);
+    const {normalUserTickets} = useContext(TicketContext);
     //Date formating
     const dayOfWeek = date.toLocaleString('en-US', { weekday: 'long' });
     const month = date.toLocaleString('en-US', { month: 'long' });
@@ -16,7 +16,7 @@ const TicketSum = ({date, addClass}: props) => {
     const formattedDate = `${dayOfWeek}, ${month} ${dayOfMonth}, ${year}`;
 
     const calculateTotalPrice = (): number => {
-        return userTickets.reduce((acc, curr) => acc + (curr.price * curr.amount), 0);
+        return normalUserTickets.reduce((acc, curr) => acc + (curr.price * curr.amount), 0);
     }
 
     return (
@@ -30,7 +30,7 @@ const TicketSum = ({date, addClass}: props) => {
                         <span>{formattedDate}</span>
                     </div>
                     <div className="ticketsum-tickets-acutaltickets">
-                        {userTickets.map((ticket) => {
+                        {normalUserTickets.map((ticket) => {
                             if(ticket.amount === 0 ) return;
                             return (
                                 <span key={ticket.name} >{`${ticket.name} - $${ticket.price} x ${ticket.amount}`}</span>

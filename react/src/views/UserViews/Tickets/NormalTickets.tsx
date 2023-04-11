@@ -5,19 +5,19 @@ import "react-datepicker/dist/react-datepicker.css";
 import TicketChooser from '../../../components/TicketChooser';
 import TicketSum from '../../../components/TicketSum';
 import { useNavigate } from 'react-router-dom';
-import { TicketContext, transaction, transactionTickets } from '../../../context/TicketContext';
+import { TicketContext, normalTransaction, normalTransactionTickets } from '../../../context/TicketContext';
 import { AuthContext } from '../../../context/AuthContext';
 
 export const NormalTickets = () => {
     const {currentUser} = useContext(AuthContext);
-    const {userTickets, setUserTickets, setUserTransaction} = useContext(TicketContext);
+    const {normalUserTickets, setNormalUserTickets, setNormalUserTransaction} = useContext(TicketContext);
     const [ticketExpDate, setTicketExpDate] = useState(new Date());
     const navigate = useNavigate();
     const SERVICE_FEE = 5;
 
     const handleAddition = (idx: number) => {
-        const newTickets = userTickets;
-        const modifiedTicketIdx = userTickets.findIndex((ticket) => ticket.id === idx);
+        const newTickets = normalUserTickets;
+        const modifiedTicketIdx = normalUserTickets.findIndex((ticket) => ticket.id === idx);
 
         if(modifiedTicketIdx === -1){
             alert("cannot increase amount on a ticket that does not exist");
@@ -25,12 +25,12 @@ export const NormalTickets = () => {
         }
 
         newTickets[modifiedTicketIdx].amount = Math.min(newTickets[modifiedTicketIdx].amount + 1, 10);
-        setUserTickets([...newTickets]);
+        setNormalUserTickets([...newTickets]);
     }
 
     const handleSubstitution = (idx: number) => {
-        const newTickets = userTickets;
-        const modifiedTicketIdx = userTickets.findIndex((ticket) => ticket.id === idx);
+        const newTickets = normalUserTickets;
+        const modifiedTicketIdx = normalUserTickets.findIndex((ticket) => ticket.id === idx);
 
         if(modifiedTicketIdx === -1){
             alert("cannot decrease amount on a ticket that does not exist");
@@ -38,33 +38,33 @@ export const NormalTickets = () => {
         }
 
         newTickets[modifiedTicketIdx].amount = Math.max(newTickets[modifiedTicketIdx].amount - 1, 0);
-        setUserTickets([...newTickets]);
+        setNormalUserTickets([...newTickets]);
     }
 
     const handleContiuneToCheckout = () => {
         //extract only api usefull data from userTickets to transactionTickets
-        const transactionNormalTickets: transactionTickets[] = userTickets.map((ticket) => (
+        const normalTicketTransaction: normalTransactionTickets[] = normalUserTickets.map((ticket) => (
             {
                 ticket_type_id: ticket.id,
                 amount: ticket.amount
             }
             )).filter((transactionTicket) => transactionTicket.amount !== 0);
 
-        if(transactionNormalTickets.length === 0){
+        if(normalTicketTransaction.length === 0){
             alert("To contiune you must at least have one ticket!");
         }
 
-        const totalCost = userTickets.reduce((acc, curr) => acc + (curr.price * curr.amount), 0);
+        const totalCost = normalUserTickets.reduce((acc, curr) => acc + (curr.price * curr.amount), 0);
 
-        const transaction: transaction ={
+        const transaction: normalTransaction ={
             buy_date: new Date(),
             exp_date: ticketExpDate,
             total_cost: totalCost + SERVICE_FEE,
             type: 'normal',
-            normal_tickets: transactionNormalTickets
+            normal_tickets: normalTicketTransaction
         }
 
-        setUserTransaction(transaction);
+        setNormalUserTransaction(transaction);
         navigate('/tickets/normal/checkout')
     }
 
@@ -108,7 +108,7 @@ export const NormalTickets = () => {
                                 <h4>Select Tickets</h4>
                             </div>
                             <div className="normal-select-tickets">
-                                {userTickets.map((ticket) => (
+                                {normalUserTickets.map((ticket) => (
                                     <TicketChooser
                                         key={ticket.name}
                                         idx={ticket.id}
@@ -132,7 +132,7 @@ export const NormalTickets = () => {
                 ? <button onClick={() => navigate('/login')}>Log in to continue</button>
                 :
                 <button
-                    disabled={userTickets.reduce((acc, curr) => acc + (curr.price * curr.amount), 0) === 0}
+                    disabled={normalUserTickets.reduce((acc, curr) => acc + (curr.price * curr.amount), 0) === 0}
                     onClick={handleContiuneToCheckout}
                     >
                         Contiune
