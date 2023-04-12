@@ -85,4 +85,13 @@ class TransactionController extends Controller
 
         return response()->json(null, 204);
     }
+
+    public function getTransactions(Request $request)
+    {
+        $transactions = Transaction::with('user')
+            ->orderBy('id', 'desc')
+            ->paginate(15);
+
+        return response()->json($transactions);
+    }
 }

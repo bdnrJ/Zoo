@@ -19,6 +19,7 @@ const AdminButtons = () => {
             <button>admin</button>
             <button>buttons</button>
             <button onClick={TEST_request} >TEST</button>
+            <button onClick={() => navigate('/admin/transactions')} >Transactions</button>
             <button onClick={() => navigate('/TESTadmin')}>testadmin</button>
         </>
 )}

@@ -18,6 +18,7 @@
 @import './views/Tickets/normalCheckout.scss';
 @import './views/Tickets/groupCheckout.scss';
 
+@import "./views/transactions.scss";
 @import "./views/login.scss";
 @import "./views/register.scss";
 
@@ -29,6 +30,7 @@
 @import "./components/backbutton.scss";
 @import "./components/ticketChooser.scss";
 @import "./components/ticketSum.scss";
+@import "./components/transaction.scss";
 
 @import "./components/footer.scss";
 @import "./components/slideshow.scss";
