@@ -1,7 +1,8 @@
 import React from 'react';
+import { groupTicket, normalTicket } from '../views/TransactionPage';
 
 type props = {
-    ticket: any,
+    ticket: normalTicket | groupTicket
 }
 
 const Ticket = ({ ticket }: props) => {

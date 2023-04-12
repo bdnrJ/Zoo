@@ -23,7 +23,7 @@ const Footer = () => {
                     <span>987 Memorial Urz</span>
                     <span>Resovia, RZE 77901 </span>
                     <span>ZooProject@email.com</span>
-                    <span>Hours: 10AM-4PM </span>
+                    <span>Hours: 10AM - 4PM </span>
                     <span>Phone: +123 123 123 321</span>
                 </div>
             </div>

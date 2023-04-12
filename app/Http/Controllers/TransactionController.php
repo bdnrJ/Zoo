@@ -101,7 +101,9 @@ class TransactionController extends Controller
 
     public function getTransaction(Request $request, $id)
     {
-        $transaction = Transaction::with('user')
+        $transaction = Transaction::with(['user' => function ($query) {
+            $query->select('email', 'firstname' , 'lastname', 'id');
+        }])
             ->findOrFail($id);
 
         $tickets = [];

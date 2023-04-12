@@ -9,10 +9,10 @@ type user = {
     lastname: string,
 }
 
-type displayTransaction = {
+export type displayTransaction = {
     id: number,
-    buy_date: Date,
-    exp_date: Date,
+    buy_date: string,
+    exp_date: string,
     user_id: number,
     total_cost: number,
     type: string,
