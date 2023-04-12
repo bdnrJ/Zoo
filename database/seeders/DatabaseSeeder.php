@@ -109,7 +109,7 @@ class DatabaseSeeder extends Seeder
                 for ($j = 0; $j < $faker->numberBetween(1, 5); $j++) {
                     $normalTicketData = [
                         'ticket_type_id' => $faker->numberBetween(1,4),
-                        'amount' => $faker->randomFloat(2, 5, 50),
+                        'amount' => $faker->numberBetween(1,5),
                     ];
                     $normalTicketsData[] = $normalTicketData;
                 }

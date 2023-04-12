@@ -16,6 +16,7 @@ import NormalCheckout from "./views/UserViews/Tickets/NormalCheckout";
 import { TicketProvider } from "./context/TicketContext";
 import GroupCheckout from "./views/UserViews/Tickets/GroupCheckout";
 import Transactions from "./views/AdminViews/Transactions";
+import TransactionPage from "./views/TransactionPage";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +55,13 @@ const router = createBrowserRouter([
                     <QueryClientProvider client={queryClient}>
                         <Transactions />
                     </QueryClientProvider>
+                </RequireAdmin>
+            },
+            {
+                path: '/admin/transactionPage/:id',
+                element:
+                <RequireAdmin>
+                    <TransactionPage match={5} />
                 </RequireAdmin>
             },
             {

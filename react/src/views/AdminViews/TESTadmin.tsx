@@ -60,7 +60,6 @@ const TESTadmin = () => {
             <div className="div">
                 <button onClick={() => console.log(queryClient.getQueryData(["users", 1]))} >show</button>
                 <li>{status}</li>
-                <li>{error && "error"}</li>
                 <li>{isFetching && "fetching"}</li>
             </div>
             {/* <button onClick={() => console.log(data)} >show data</button> */}

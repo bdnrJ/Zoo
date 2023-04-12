@@ -18,6 +18,12 @@ class NormalTicket extends Model
 
     public $timestamps = false;
 
+    public function ticket_type()
+    {
+        return $this->belongsTo(TicketType::class);
+    }
+
+
     public function transaction()
     {
         return $this->belongsTo(Transaction::class);

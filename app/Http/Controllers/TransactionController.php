@@ -94,4 +94,24 @@ class TransactionController extends Controller
 
         return response()->json($transactions);
     }
+
+    public function getTransaction(Request $request, $id)
+    {
+        $transaction = Transaction::with('user')
+            ->findOrFail($id);
+
+        $tickets = [];
+        if ($transaction->type === 'normal') {
+            $tickets = $transaction->NormalTickets()
+                ->with('ticket_type')
+                ->get();
+        } elseif ($transaction->type === 'group') {
+            $tickets = $transaction->GroupTickets()->get();
+        }
+
+        return response()->json([
+            'transaction' => $transaction,
+            'tickets' => $tickets,
+        ]);
+    }
 }
