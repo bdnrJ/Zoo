@@ -20,13 +20,14 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/isadmin', [AuthController::class, 'isadmin']);
-    Route::post('/transactions', [TransactionController::class, 'store']);
-    Route::get('/allusers', [AuthController::class, 'getUsers'])->middleware('isAdmin');
+    Route::get('/all_users', [AuthController::class, 'getUsers'])->middleware('isAdmin');
     Route::get('/user', [AuthController::class, 'user'])->middleware('isAdmin');
+
+    Route::post('/add_transactions', [TransactionController::class, 'store']);
+    Route::get('/all_transactions', [TransactionController::class, 'getTransactions'])->middleware('isAdmin');
+    Route::get('/transaction/{id}', [TransactionController::class, 'getTransaction'])->middleware('isAdmin');
 });
 
-Route::get('/admintransactions', [TransactionController::class, 'getTransactions']);
-Route::get('/transaction/{id}', [TransactionController::class, 'getTransaction']);
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

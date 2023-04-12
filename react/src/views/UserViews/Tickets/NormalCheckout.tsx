@@ -16,7 +16,7 @@ const NormalCheckout = () => {
 
     const hanldeBuyTicket = async () => {
         try{
-            const res = await axiosClient.post('/transactions', {
+            const res = await axiosClient.post('/add_transactions', {
                 ...normalUserTransaction,
                 //fomarting js date into mysql DateTime
                 buy_date: normalUserTransaction.buy_date.toISOString().slice(0, 19).replace('T', ' '),

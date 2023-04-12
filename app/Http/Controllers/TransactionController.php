@@ -86,9 +86,13 @@ class TransactionController extends Controller
         return response()->json(null, 204);
     }
 
-    public function getTransactions(Request $request)
+    public function getTransactions()
     {
-        $transactions = Transaction::with('user')
+        //returns transaction with user, email, id, lastname and firstname
+        //has to return id even if useless just because it throws error otherwise
+        $transactions = Transaction::with(['user' => function ($query) {
+            $query->select('email', 'firstname' , 'lastname', 'id');
+        }])
             ->orderBy('id', 'desc')
             ->paginate(15);
 

@@ -61,7 +61,7 @@ const router = createBrowserRouter([
                 path: '/admin/transactionPage/:id',
                 element:
                 <RequireAdmin>
-                    <TransactionPage match={5} />
+                    <TransactionPage />
                 </RequireAdmin>
             },
             {

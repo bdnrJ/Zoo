@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axiosClient from '../../axios-client';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { number } from 'zod';
 
 type TESTUser = {
     id: number,
@@ -14,7 +13,6 @@ type TESTUser = {
 }
 
 const TESTadmin = () => {
-    const MINUTE = 60000;
     const queryClient = useQueryClient();
     const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -22,29 +20,35 @@ const TESTadmin = () => {
         queryKey: ['users', currentPage],
         queryFn: () => fetchUsers(currentPage),
         keepPreviousData: true,
-        staleTime: 2*MINUTE,
+        staleTime: 1000 * 60 * 2 // 2 minutes
     });
 
     const fetchUsers = async (page: number) => {
         try {
-            const res = await axiosClient.get(`/allusers?page=${page}`, {withCredentials: true});
+            const res = await axiosClient.get(`/all_users?page=${page}`, {withCredentials: true});
             const paginationData = await res.data.paginationData;
+            console.log("fetching: "+page);
+
             return paginationData;
         }catch(err:any){
             console.log(err.response.data.message);
             alert(err.response.data.message)
         }
     }
-    React.useEffect(() => {
+
+    useEffect(() => {
         if (!isPreviousData && data?.next_page_url) {
-            if(!queryClient.getQueryData(["users", 3]))
-            queryClient.prefetchQuery({
-                queryKey: [`users`, currentPage + 1],
-                queryFn: () => fetchUsers(currentPage + 1),
-            })
-            else{
-                console.log('not updated');
-            }
+            const nextpage = currentPage + 1;
+            // if we go from page 4 -> 3 without this if statement
+            // it would refetch page 4 again, even if
+            // it was just fetched
+            if(!queryClient.getQueryData(["users", nextpage]))
+                queryClient.prefetchQuery({
+                    queryKey: [`users`, nextpage],
+                    queryFn: () => fetchUsers(nextpage),
+                })
+            else console.log('not fetching');
+
         }
     }, [data, isPreviousData, currentPage, queryClient])
 
