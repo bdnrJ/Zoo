@@ -102,7 +102,7 @@ class AuthController extends Controller
     }
 
     public function getUsers(){
-        $users = User::paginate(5);
+        $users = User::paginate(50);
 
         return response([
             "message" => "success",

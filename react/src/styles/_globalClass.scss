@@ -60,9 +60,9 @@
 }
 
 .testadmin{
+    @include navbarMargin;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
     flex-direction: column;
 }
