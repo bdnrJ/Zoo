@@ -59,10 +59,3 @@
     font-size: $font-30;
 }
 
-.testadmin{
-    @include navbarMargin;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}

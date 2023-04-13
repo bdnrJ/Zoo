@@ -22,4 +22,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
 }

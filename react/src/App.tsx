@@ -3,7 +3,6 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import RequireAdmin from "./components/ProtectedRoutes/RequireAdmin";
 import RequireUnloggedUser from "./components/ProtectedRoutes/RequireUnloggedUser";
-import TESTadmin from "./views/AdminViews/TESTadmin";
 import FourZeroFour from "./views/FourZeroFour";
 import Home from "./views/Home/Home";
 import Login from "./views/Login";
@@ -13,10 +12,11 @@ import Tickets from "./views/UserViews/Tickets/Tickets";
 import { NormalTickets } from "./views/UserViews/Tickets/NormalTickets";
 import { GroupTickets } from "./views/UserViews/Tickets/GroupTickets";
 import NormalCheckout from "./views/UserViews/Tickets/NormalCheckout";
-import { TicketProvider } from "./context/TicketContext";
 import GroupCheckout from "./views/UserViews/Tickets/GroupCheckout";
 import Transactions from "./views/AdminViews/Transactions";
-import TransactionPage from "./views/TransactionPage";
+import TransactionPage from "./views/AdminViews/TransactionPage";
+import Users from "./views/AdminViews/Users";
+import UserPage from "./views/AdminViews/UserPage";
 
 const queryClient = new QueryClient();
 
@@ -40,11 +40,11 @@ const router = createBrowserRouter([
                 element: <Home />
             },
             {
-                path: "/TESTadmin",
+                path: "/admin/users",
                 element:
                     <RequireAdmin>
                         <QueryClientProvider client={queryClient}>
-                            <TESTadmin />
+                            <Users />
                         </QueryClientProvider>
                     </RequireAdmin>
             },
@@ -62,6 +62,13 @@ const router = createBrowserRouter([
                 element:
                 <RequireAdmin>
                     <TransactionPage />
+                </RequireAdmin>
+            },
+            {
+                path: '/admin/user_page/:id',
+                element:
+                <RequireAdmin>
+                    <UserPage />
                 </RequireAdmin>
             },
             {

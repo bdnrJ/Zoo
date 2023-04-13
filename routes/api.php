@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/isadmin', [AuthController::class, 'isadmin']);
     Route::get('/all_users', [AuthController::class, 'getUsers'])->middleware('isAdmin');
-    Route::get('/user', [AuthController::class, 'user'])->middleware('isAdmin');
+    Route::get('/user/{id}', [AuthController::class, 'user'])->middleware('isAdmin');
 
     Route::post('/add_transactions', [TransactionController::class, 'store']);
     Route::get('/all_transactions', [TransactionController::class, 'getTransactions'])->middleware('isAdmin');

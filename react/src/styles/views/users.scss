@@ -1,0 +1,16 @@
+.testadmin{
+    @include navbarMargin;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .tempUser{
+        margin-top: 10px;
+        background-color: bisque;
+
+        &:hover{
+            background-color: rgb(230, 170, 81);
+        }
+    }
+}

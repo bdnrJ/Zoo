@@ -62,16 +62,12 @@ class AuthController extends Controller
         ])->withCookie($cookie);
     }
 
-    public function user(){
-        $user = Auth::user();
-
-        if(!$user->role){
-            return response([
-                'message' =>  "You do not have permission to access this from auth controller"
-            ], 401);
-        }
-
-        return $user;
+    public function user($id)
+    {
+        $user = User::with('transactions')->findOrFail($id);
+        return response()->json([
+            'user' => $user,
+        ]);
     }
 
     public function isadmin(){

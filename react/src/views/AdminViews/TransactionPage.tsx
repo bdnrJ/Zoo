@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import Ticket from '../components/Ticket';
-import axiosClient from '../axios-client';
+import Ticket from '../../components/Ticket';
+import axiosClient from '../../axios-client';
 import { useParams } from 'react-router-dom';
 
 type user = {

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axiosClient from '../../axios-client';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { Link, useNavigate } from 'react-router-dom';
 
-type TESTUser = {
+type user = {
     id: number,
     firstname: string,
     lastname: string,
@@ -12,7 +13,8 @@ type TESTUser = {
     updated_at: string
 }
 
-const TESTadmin = () => {
+const Users = () => {
+    const navigate = useNavigate();
     const queryClient = useQueryClient();
     const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -39,6 +41,7 @@ const TESTadmin = () => {
     useEffect(() => {
         if (!isPreviousData && data?.next_page_url) {
             const nextpage = currentPage + 1;
+
             // if we go from page 4 -> 3 without this if statement
             // it would refetch page 4 again, even if
             // it was just fetched
@@ -52,15 +55,20 @@ const TESTadmin = () => {
         }
     }, [data, isPreviousData, currentPage, queryClient])
 
+
+
     return (
         <div className='testadmin'>
-            <ol>
+            <ul>
             {
-                data?.data.map((user: TESTUser) => (
-                    <li key={user.email}>{user.id+" "+user.firstname +" "+ user.lastname+" " +user.email}</li>
+                //TODO user componenet
+                data?.data.map((user: user) => (
+                    <Link to={`/admin/user_page/${user.id}`} key={user.email} style={{ textDecoration: 'none' }}>
+                        <li className='tempUser'>{user.id+" "+user.firstname +" "+ user.lastname+" " +user.email}</li>
+                    </Link>
                 ))
             }
-            </ol>
+            </ul>
             <div className="div">
                 <button onClick={() => console.log(queryClient.getQueryData(["users", 1]))} >show</button>
                 <li>{status}</li>
@@ -79,12 +87,12 @@ const TESTadmin = () => {
                     setCurrentPage((old) => (old + 1))
                     }}
                     disabled={isPreviousData || data?.next_page_url == null}
-                    >
-                        {"->"}
+                >
+                    {"->"}
                 </button>
             </div>
         </div>
     )
 }
 
-export default TESTadmin
+export default Users

@@ -1,5 +1,5 @@
 import React from 'react';
-import { groupTicket, normalTicket } from '../views/TransactionPage';
+import { groupTicket, normalTicket } from '../views/AdminViews/TransactionPage';
 
 type props = {
     ticket: normalTicket | groupTicket
