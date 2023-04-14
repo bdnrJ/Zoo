@@ -102,7 +102,7 @@ class TransactionController extends Controller
     public function getTransaction(Request $request, $id)
     {
         $transaction = Transaction::with(['user' => function ($query) {
-            $query->select('email', 'firstname' , 'lastname', 'id');
+            $query->select('email', 'firstname', 'lastname', 'id');
         }])
             ->findOrFail($id);
 
@@ -115,9 +115,12 @@ class TransactionController extends Controller
             $tickets = $transaction->GroupTickets()->get();
         }
 
+        $services = $transaction->services()->with('service_type')->get();
+
         return response()->json([
             'transaction' => $transaction,
             'tickets' => $tickets,
+            'services' => $services,
         ]);
     }
 }

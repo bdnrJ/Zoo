@@ -33,4 +33,9 @@ class Transaction extends Model
     {
         return $this->hasMany(GroupTicket::class);
     }
+
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
 }

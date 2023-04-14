@@ -56,6 +56,7 @@ const TransactionPage = () => {
         const fetchTransaction = async () => {
             setLoading(true);
             const response = await axiosClient.get(`/transaction/${id}`, {withCredentials: true});
+            console.log(response.data);
             setTransaction(response.data.transaction);
             setTickets(response.data.tickets);
             setUser(response.data.transaction.user);
