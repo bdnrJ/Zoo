@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('normal_tickets', function (Blueprint $table) {
+        Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('ticket_type_id');
             $table->foreign('ticket_type_id')->references('id')->on('ticket_types');
             $table->unsignedBigInteger('transaction_id');
             $table->foreign('transaction_id')->references('id')->on('transactions');
             $table->integer('amount');
-            $table->double('total_cost');
         });
     }
 

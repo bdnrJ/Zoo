@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('age_info', 100);
             $table->decimal('price', 5, 2);
             $table->boolean('is_active');
+            $table->string('type');
             $table->timestamps();
         });
     }

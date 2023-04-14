@@ -13,11 +13,12 @@ class TicketType extends Model
         'name',
         'age_info',
         'price',
-        'is_active'
+        'is_active',
+        'type'
     ];
 
-    public function normalTickets()
+    public function Items()
     {
-        return $this->hasMany(NormalTicket::class);
+        return $this->hasMany(Item::class);
     }
 }

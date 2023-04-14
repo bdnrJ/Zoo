@@ -4,8 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\GroupTicket;
-use App\Models\NormalTicket;
+use App\Models\Item;
 use App\Models\TicketType;
 use App\Models\Transaction;
 use Faker\Factory as Faker;
@@ -62,24 +61,35 @@ class DatabaseSeeder extends Seeder
                 'age_info' => 'Age 18-60',
                 'price' => 21.37,
                 'is_active' => true,
+                'type' => 'normal'
             ],
             [
                 'name' => 'Child',
                 'age_info' => 'Age 3-18',
                 'price' => 18.50,
                 'is_active' => true,
+                'type' => 'normal'
             ],
             [
                 'name' => 'Reduced',
                 'age_info' => 'Age all',
                 'price' => 15.50,
                 'is_active' => false,
+                'type' => 'normal'
             ],
             [
                 'name' => 'Senior Citizen',
                 'age_info' => 'Age 60+',
                 'price' => 12.30,
                 'is_active' => true,
+                'type' => 'normal'
+            ],
+            [
+                'name' => 'SingleGroupTicket',
+                'age_info' => '-',
+                'price' => 20.30,
+                'is_active' => true,
+                'type' => 'group'
             ],
             // Add more ticket types here as needed
         ];
@@ -99,34 +109,24 @@ class DatabaseSeeder extends Seeder
                 'exp_date' => $faker->dateTimeBetween('now', '+1 month')->format('Y-m-d h:m:s'),
                 'user_id' => $faker->randomElement($usersIds),
                 'total_cost' => $faker->randomFloat(2, 10, 1000),
-                'type' => $faker->randomElement(['normal', 'group']),
+                'type' => 'normal'
             ];
 
             $transaction = Transaction::create($transactionData);
 
-            if ($transaction->type === 'normal') {
-                $normalTicketsData = [];
-                for ($j = 0; $j < $faker->numberBetween(1, 5); $j++) {
-                    $normalTicketData = [
-                        'ticket_type_id' => $faker->numberBetween(1,4),
-                        'amount' => $faker->numberBetween(1,5),
-                    ];
-                    $normalTicketsData[] = $normalTicketData;
-                }
-                foreach ($normalTicketsData as $ticketData) {
-                    $normalTicket = new NormalTicket($ticketData);
-                    $transaction->NormalTickets()->save($normalTicket);
-                }
-            } else {
-                $groupTicketData = [
-                    'people' => $faker->numberBetween(10, 50),
-                    "educational_materials" => $faker->boolean(),
-                    "guided_tour" => $faker->boolean(),
-                    "food_included" => $faker->boolean(),
+            $itemsData = [];
+            for ($j = 0; $j < $faker->numberBetween(1, 5); $j++) {
+                $itemData = [
+                    'ticket_type_id' => $faker->numberBetween(1,4),
+                    'amount' => $faker->numberBetween(1,5),
                 ];
-                $groupTicket = new GroupTicket($groupTicketData);
-                $transaction->GroupTickets()->save($groupTicket);
+                $itemsData[] = $itemData;
             }
+            foreach ($itemsData as $itemData) {
+                $item = new Item($itemData);
+                $transaction->Items()->save($item);
+            }
+        }
         }
         //normal transaction
         // {
@@ -161,4 +161,3 @@ class DatabaseSeeder extends Seeder
         // }
 
     }
-}

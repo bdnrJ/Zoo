@@ -24,14 +24,9 @@ class Transaction extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function NormalTickets()
+    public function Items()
     {
-        return $this->hasMany(NormalTicket::class);
-    }
-
-    public function GroupTickets()
-    {
-        return $this->hasMany(GroupTicket::class);
+        return $this->hasMany(Item::class);
     }
 
     public function services()

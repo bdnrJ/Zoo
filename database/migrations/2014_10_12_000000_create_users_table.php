@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('lastname', 30);
             $table->string('email')->unique();
             $table->string('password');
-            $table->boolean('role');
+            $table->boolean('role')->default(false);
             $table->timestamps();
         });
     }

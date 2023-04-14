@@ -5,19 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class GroupTicket extends Model
+class Item extends Model
 {
     use HasFactory;
 
+
     protected $fillable = [
+        'ticket_type_id',
         'transaction_id',
-        'people',
-        'educational_materials',
-        'guided_tour',
-        'food_included',
+        'amount',
     ];
 
     public $timestamps = false;
+
+    public function ticket_type()
+    {
+        return $this->belongsTo(TicketType::class);
+    }
+
 
     public function transaction()
     {

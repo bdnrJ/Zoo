@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\GroupTicket;
-use App\Models\NormalTicket;
+use App\Models\Item;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
@@ -39,15 +38,11 @@ class TransactionController extends Controller
         $transaction = Transaction::create($validatedData);
 
         if ($request->has('normal_tickets')) {
-            $normalTicketsData = $request->input('normal_tickets');
-            foreach ($normalTicketsData as $normalTicketData) {
-                $normalTicket = new NormalTicket($normalTicketData);
-                $transaction->NormalTickets()->save($normalTicket);
+            $itemsData = $request->input('normal_tickets');
+            foreach ($itemsData as $itemsData) {
+                $item = new Item($itemsData);
+                $transaction->Items()->save($item);
             }
-        } elseif ($request->has('group_ticket')) {
-            $groupTicketData = $request->input('group_ticket');
-            $groupTicket = new GroupTicket($groupTicketData);
-            $transaction->GroupTickets()->save($groupTicket);
         }
 
         DB::commit();
@@ -108,7 +103,7 @@ class TransactionController extends Controller
 
         $tickets = [];
         if ($transaction->type === 'normal') {
-            $tickets = $transaction->NormalTickets()
+            $tickets = $transaction->Items()
                 ->with('ticket_type')
                 ->get();
         } elseif ($transaction->type === 'group') {

@@ -13,6 +13,7 @@ type normalTicket = {
     name: string,
     price: number,
     updated_at: Date | null,
+    type: string
 }
 
 type normalUserTicket = {
@@ -103,7 +104,7 @@ export const TicketProvider = ({children}: props) => {
         const getAllTickets = async () => {
             const res = await axiosClient.get('/ticket_types');
             setAllNormalTicketTypes(res.data);
-            const avaliableTicketsTemp: normalTicket[] = res.data.filter((ticket: normalTicket) => ticket.is_active === 1 );
+            const avaliableTicketsTemp: normalTicket[] = res.data.filter((ticket: normalTicket) => (ticket.is_active === 1 && ticket.type !== 'group'));
             setAvailableNormalTickets(avaliableTicketsTemp);
             const userTicketsTemp: normalUserTicket[] = avaliableTicketsTemp.map((ticket: normalTicket) => ({
                 ...ticket,

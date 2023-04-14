@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use Illuminate\Http\Request;
-use App\Models\NormalTicket;
 
-class NormalTicketController extends Controller
+class ItemController extends Controller
 {
     public function index()
     {
-        $normalTickets = NormalTicket::all();
+        $items = Item::all();
 
-        return response()->json($normalTickets);
+        return response()->json($items);
     }
 
     public function store(Request $request)
@@ -22,31 +22,31 @@ class NormalTicketController extends Controller
             'amount' => 'required|integer|max:10'
         ]);
 
-        $normalTicket = NormalTicket::create($validatedData);
+        $items = Item::create($validatedData);
 
-        return response()->json($normalTicket, 201);
+        return response()->json($items, 201);
     }
 
-    public function show(NormalTicket $normalTicket)
+    public function show(Item $item)
     {
-        return response()->json($normalTicket);
+        return response()->json($item);
     }
 
-    public function update(Request $request, NormalTicket $normalTicket)
+    public function update(Request $request, Item $item)
     {
         $validatedData = $request->validate([
             'ticket_type' => 'required|integer',
             'transaction_id' => 'required|integer',
         ]);
 
-        $normalTicket->update($validatedData);
+        $item->update($validatedData);
 
-        return response()->json($normalTicket);
+        return response()->json($item);
     }
 
-    public function destroy(NormalTicket $normalTicket)
+    public function destroy(Item $item)
     {
-        $normalTicket->delete();
+        $item->delete();
 
         return response()->json(null, 204);
     }
