@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import Transaction from '../../components/Transaction';
 import { displayTransaction } from './Transactions';
 import axiosClient from '../../axios-client';
@@ -13,19 +12,7 @@ interface user {
     transactions: displayTransaction
 }
 
-type transaction = {
-    buy_date: string,
-    exp_date: string,
-    id: number,
-    total_cost: number,
-    type: string,
-    user_id: number,
-    user: {
-        email: string
-    }
-}
-
-const UserPage: React.FC = () => {
+const UserPage = () => {
     const { id } = useParams<{ id: string }>();
     const [user, setUser] = useState<user | null>(null);
     const [transactions, setTransactions] = useState<displayTransaction[]>([]);

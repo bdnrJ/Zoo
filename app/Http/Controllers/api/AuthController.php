@@ -50,7 +50,7 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $user = Auth::user();
+        $user = $request->user();
 
         $token = $user->createToken('token')->plainTextToken;
 
