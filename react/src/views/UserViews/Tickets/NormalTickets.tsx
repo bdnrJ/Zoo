@@ -54,12 +54,11 @@ export const NormalTickets = () => {
             alert("To contiune you must at least have one ticket!");
         }
 
-        const totalCost = normalUserTickets.reduce((acc, curr) => acc + (curr.price * curr.amount), 0);
 
         const transaction: transaction ={
             buy_date: new Date(),
             exp_date: ticketExpDate,
-            total_cost: totalCost + SERVICE_FEE,
+            total_cost: 0,
             type: 'normal',
             items: normalTicketTransaction,
         }
