@@ -61,7 +61,7 @@ export const NormalTickets = () => {
             exp_date: ticketExpDate,
             total_cost: totalCost + SERVICE_FEE,
             type: 'normal',
-            items: normalTicketTransaction
+            items: normalTicketTransaction,
         }
 
         setNormalUserTransaction(transaction);

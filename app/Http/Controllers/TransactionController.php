@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\TicketType;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
@@ -26,25 +27,34 @@ class TransactionController extends Controller
         'buy_date' => 'required|date',
         'exp_date' => 'required|date',
         'user_id' => 'integer',
-        'total_cost' => 'required|numeric',
         'type' => 'required|string|max:45',
+        'items' => 'required|array',
+        'items.*.ticket_type_id' => 'required|integer|exists:ticket_types,id',
+        'items.*.amount' => 'required|integer|min:1',
     ]);
 
     $validatedData['user_id'] = $user->id;
+
+    // Calculate total cost
+    $ticketTypes = TicketType::whereIn('id', array_column($validatedData['items'], 'ticket_type_id'))->get()->keyBy('id');
+    $totalCost = 5; //service fee
+    foreach ($validatedData['items'] as $itemData) {
+        $ticketTypeId = $itemData['ticket_type_id'];
+        if (isset($ticketTypes[$ticketTypeId])) {
+            $totalCost += $itemData['amount'] * $ticketTypes[$ticketTypeId]->price;
+        }
+    }
+
+    $validatedData['total_cost'] = $totalCost;
 
     DB::beginTransaction();
 
     try {
         $transaction = Transaction::create($validatedData);
 
-        if ($request->has('items')) {
-            $itemsData = $request->input('items');
-            foreach ($itemsData as $itemsData) {
-                $item = new Item($itemsData);
-                $transaction->Items()->save($item);
-            }
-        }else{
-            return response()->json(['message' => 'Cannot create transaction without items'], 400);
+        foreach ($validatedData['items'] as $itemData) {
+            $item = new Item($itemData);
+            $transaction->Items()->save($item);
         }
 
         DB::commit();

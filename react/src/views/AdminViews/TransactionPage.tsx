@@ -40,6 +40,7 @@ const TransactionPage = () => {
     const [tickets, setTickets] = useState<normalTicket[]>([]);
     const [user, setUser] = useState<user>();
     const [loading, setLoading] = useState(true);
+    const [services, setServices] = useState();
 
     const { id } = useParams();
 
