@@ -21,6 +21,7 @@ const AdminButtons = () => {
             <button onClick={TEST_request} >TEST</button>
             <button onClick={() => navigate('/admin/transactions')} >Transactions</button>
             <button onClick={() => navigate('/admin/users')}>testadmin</button>
+            <button onClick={() => navigate('/tickets')}>tickets</button>
         </>
 )}
 

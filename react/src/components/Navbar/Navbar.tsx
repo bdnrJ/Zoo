@@ -1,5 +1,5 @@
 import {useState, useEffect, useContext} from 'react';
-import logo from '../../assets/logo.gif';
+import logo from '../../assets/logoBlack.png';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import NoUser from './NoUser';

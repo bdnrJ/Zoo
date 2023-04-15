@@ -1,62 +1,78 @@
 .footer{
-    padding-top: 25px;
-    background-color: $darkElement;
+    background-color: $fadedOrange;
+    height: 177px;
+    color: white;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: $margin-large;
+    padding: 0px 65px 0px 65px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
 
-    .footer-buttons{
-        width: 60%;
+    h3{
+        font-weight: 400;
+        letter-spacing: 1px;
+    }
+
+    .footer-contact{
+        height: 80%;
+        width: 285px;
         display: flex;
-        align-items: center;
-        justify-content: space-around;
+        flex-direction: column;
+        gap: 11px;
 
-        button{
-            background-color: transparent;
-            border: 1px solid transparent;
-            color: $middleGreen;
-            font-size: $font-18;
+        h3{
+            padding-left: 20%;
         }
+
+        .footer-contact-element{
+            display: flex;
+            align-items: center;
+            gap:10px;
+
+            .element-icon{
+                @include flexCenterCenter;
+                border-radius: 50%;
+                color: $fadedOrange;
+                width: 29px;
+                height: 29px;
+                background-color: white;
+            }
+        }
+    }
+
+    .footer-logo{
+        width: 285px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
     }
 
     .footer-socials{
-        width: 30%;
-        display: flex;
-        justify-content: space-around;
-
-        @include mobile{
-            width: 60%;
-        }
-
-        button{
-            @include flexCenterCenter;
-            height: 40px;
-            width: 40px;
-            background-color: white;
-            border: 1px solid transparent;
-            border-radius: 50%;
-            color: $burntSienna;
-            font-size: $font-23;
-        }
-    }
-
-    .footer-general{
-        display: flex;
-        align-items: center;
-
-        .footer-general-info{
-            display: flex;
-            flex-direction: column;
-            color: white;
-            font-size: $font-15;
-        }
-    }
-
-    .footer-copyright{
+        height: 80%;
         display: flex;
         flex-direction: column;
-        color: $fontgrey
+        align-items: center;
+        width: 285px;
+        gap: 25%;
+
+        .footer-socials-icons{
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+
+            .socials-icons-icon{
+                @include flexCenterCenter;
+                width: 35px;
+                height: 35px;
+                background-color: white;
+                color: $fadedOrange;
+                border-radius: 50%;
+            }
+        }
     }
+
 }
