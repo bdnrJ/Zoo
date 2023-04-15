@@ -10,7 +10,7 @@ const NormalCheckout = () => {
     const {currentUser} = useContext(AuthContext);
     const navigate = useNavigate();
 
-    if(normalUserTransaction.normal_tickets.reduce((acc, curr) => acc + curr.amount, 0) === 0 || !currentUser){
+    if(normalUserTransaction.items.reduce((acc, curr) => acc + curr.amount, 0) === 0 || !currentUser){
         navigate(-1);
     }
 

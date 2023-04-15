@@ -1,8 +1,8 @@
 import React from 'react';
-import { groupTicket, normalTicket } from '../views/AdminViews/TransactionPage';
+import { normalTicket } from '../views/AdminViews/TransactionPage';
 
 type props = {
-    ticket: normalTicket | groupTicket
+    ticket: normalTicket
 }
 
 const Ticket = ({ ticket }: props) => {
@@ -16,17 +16,14 @@ const Ticket = ({ ticket }: props) => {
         </>
         ) : (
         <>
-            <div>People: {ticket.people}</div>
-            <div>Educational Materials: {ticket.educational_materials ? 'Yes' : 'No'}</div>
-            <div>Guided Tour: {ticket.guided_tour ? 'Yes' : 'No'}</div>
-            <div>Food Included: {ticket.food_included ? 'Yes' : 'No'}</div>
+
         </>
         );
 
     return (
-        <div className="ticketxdd">
+        <div className="tickettemp">
         <div>ID: {ticket.id}</div>
-        {ticketInfo}
+            {ticketInfo}
         </div>
     );
 };

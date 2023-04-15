@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import TicketChooser from '../../../components/TicketChooser';
 import TicketSum from '../../../components/TicketSum';
 import { useNavigate } from 'react-router-dom';
-import { TicketContext, normalTransaction, normalTransactionTickets } from '../../../context/TicketContext';
+import { TicketContext, transaction, normalTransactionTickets } from '../../../context/TicketContext';
 import { AuthContext } from '../../../context/AuthContext';
 
 export const NormalTickets = () => {
@@ -56,12 +56,12 @@ export const NormalTickets = () => {
 
         const totalCost = normalUserTickets.reduce((acc, curr) => acc + (curr.price * curr.amount), 0);
 
-        const transaction: normalTransaction ={
+        const transaction: transaction ={
             buy_date: new Date(),
             exp_date: ticketExpDate,
             total_cost: totalCost + SERVICE_FEE,
             type: 'normal',
-            normal_tickets: normalTicketTransaction
+            items: normalTicketTransaction
         }
 
         setNormalUserTransaction(transaction);

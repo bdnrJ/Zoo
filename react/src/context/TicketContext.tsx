@@ -30,58 +30,40 @@ export interface normalTransactionTickets {
     amount: number
 }
 
-export interface normalTransaction {
+export interface transaction {
     buy_date: Date,
     exp_date: Date,
     total_cost: number,
     type: string,
-    normal_tickets: normalTransactionTickets[]
+    items: normalTransactionTickets[]
 }
-export interface groupTransactionTicket{
-    people: number,
-    educational_materials: boolean,
-    guided_tour: boolean,
-    food_included: boolean
-}
-export interface groupTransaction {
-    buy_date: Date,
-    exp_date: Date,
-    total_cost: number,
-    type: string,
-    group_ticket: groupTransactionTicket
-}
-
 
 interface TicketContext{
     availableNormalTickets: normalTicket[],
     allNormalTicketTypes: normalTicket[],
     normalUserTickets: normalUserTicket[],
-    normalUserTransaction: normalTransaction,
+    normalUserTransaction: transaction,
     setNormalUserTickets: Dispatch<SetStateAction<normalUserTicket[]>>,
-    setNormalUserTransaction: Dispatch<SetStateAction<normalTransaction>>,
+    setNormalUserTransaction: Dispatch<SetStateAction<transaction>>,
     resetAllNormal: () => void
 }
 
-const normalTransactionSample: normalTransaction ={
+const normalTransactionSample: transaction ={
     buy_date: new Date(),
     exp_date: new Date(),
     total_cost: 0,
     type: 'normal',
-    normal_tickets: []
+    items: []
 }
 
-const groupTransactionSample: groupTransaction ={
+const groupTransactionSample: transaction ={
     buy_date: new Date(),
     exp_date: new Date(),
     total_cost: 0,
     type: 'group',
-    group_ticket: {
-        people: 10,
-        educational_materials: false,
-        guided_tour: false,
-        food_included: false
-    }
+    items: []
 }
+
 
 export const TicketContext = createContext<TicketContext>({
     availableNormalTickets: [],
@@ -97,8 +79,7 @@ export const TicketProvider = ({children}: props) => {
     const [allNormalTicketTypes, setAllNormalTicketTypes] = useState<normalTicket[]>([]);
     const [availableNormalTickets, setAvailableNormalTickets] = useState<normalTicket[]>([]);
     const [normalUserTickets, setNormalUserTickets] = useState<normalUserTicket[]>([]);
-    const [normalUserTransaction, setNormalUserTransaction] = useState<normalTransaction>(normalTransactionSample);
-    const [groupUserTransaction, setGroupUserTransaction] = useState<groupTransaction>(groupTransactionSample);
+    const [normalUserTransaction, setNormalUserTransaction] = useState<transaction>(normalTransactionSample);
 
     useEffect(() => {
         const getAllTickets = async () => {

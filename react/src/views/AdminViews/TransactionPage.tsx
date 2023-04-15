@@ -34,15 +34,6 @@ type normalTicketType = {
     age_info: string,
 }
 
-export type groupTicket = {
-    educational_materials: boolean
-    food_included: boolean
-    guided_tour: boolean
-    id: number
-    people: number
-    transaction_id: number
-    ticket_type: undefined
-}
 
 const TransactionPage = () => {
     const [transaction, setTransaction] = useState<displayTransaction>();

@@ -37,12 +37,14 @@ class TransactionController extends Controller
     try {
         $transaction = Transaction::create($validatedData);
 
-        if ($request->has('normal_tickets')) {
-            $itemsData = $request->input('normal_tickets');
+        if ($request->has('items')) {
+            $itemsData = $request->input('items');
             foreach ($itemsData as $itemsData) {
                 $item = new Item($itemsData);
                 $transaction->Items()->save($item);
             }
+        }else{
+            return response()->json(['message' => 'Cannot create transaction without items'], 400);
         }
 
         DB::commit();
@@ -102,13 +104,10 @@ class TransactionController extends Controller
             ->findOrFail($id);
 
         $tickets = [];
-        if ($transaction->type === 'normal') {
-            $tickets = $transaction->Items()
-                ->with('ticket_type')
-                ->get();
-        } elseif ($transaction->type === 'group') {
-            $tickets = $transaction->GroupTickets()->get();
-        }
+        $tickets = $transaction->Items()
+            ->with('ticket_type')
+            ->get();
+
 
         $services = $transaction->services()->with('service_type')->get();
 

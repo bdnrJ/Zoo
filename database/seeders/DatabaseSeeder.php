@@ -103,7 +103,7 @@ class DatabaseSeeder extends Seeder
 
         $usersIds = DB::table('users')->pluck('id')->toArray();
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 25; $i++) {
             $transactionData = [
                 'buy_date' => $faker->dateTimeBetween('-1 month', 'now')->format('Y-m-d h:m:s'),
                 'exp_date' => $faker->dateTimeBetween('now', '+1 month')->format('Y-m-d h:m:s'),
@@ -127,7 +127,27 @@ class DatabaseSeeder extends Seeder
                 $transaction->Items()->save($item);
             }
         }
+
+        for ($i = 0; $i < 25; $i++) {
+            $transactionData = [
+                'buy_date' => $faker->dateTimeBetween('-1 month', 'now')->format('Y-m-d h:m:s'),
+                'exp_date' => $faker->dateTimeBetween('now', '+1 month')->format('Y-m-d h:m:s'),
+                'user_id' => $faker->randomElement($usersIds),
+                'total_cost' => $faker->randomFloat(2, 10, 1000),
+                'type' => 'group'
+            ];
+
+            $transaction = Transaction::create($transactionData);
+
+            $itemData = [
+                'ticket_type_id' => 5,
+                'amount' => $faker->numberBetween(10, 50),
+            ];
+
+            $item = new Item($itemData);
+            $transaction->Items()->save($item);
         }
+    }
         //normal transaction
         // {
         //     "buy_date": "2023-04-05T00:00:00",
