@@ -59,3 +59,81 @@
     font-size: $font-30;
 }
 
+
+
+.__form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    margin-top: 23px;
+    gap: 25px;
+
+    label{
+        width: 100%;
+
+        .--error{
+            border: 1px solid $error;
+        }
+
+        input{
+            transition: all 0.3s ease;
+            width: 100%;
+            height: 38px;
+            border-radius: 10px;
+            border: 1px solid black;
+            outline: none;
+            padding-left: 10px;
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 19px;
+
+            &:hover{
+                border: 1px solid $button;
+            }
+
+            &:focus{
+                border: 1px solid $button;
+            }
+        }
+    }
+
+    button{
+        width: 70%;
+        height: 38px;
+        background-color: $button;
+        border-radius: 10px;
+        border: 1px solid transparent;
+        color: white;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 19px;
+        transition: all 0.5s ease;
+
+        &:hover{
+            width: 40%;
+            height: 36px;
+        }
+    }
+
+    .form-checkbox{
+        width: 20px;
+        height: 20px;
+    }
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

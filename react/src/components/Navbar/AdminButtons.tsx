@@ -16,12 +16,11 @@ const AdminButtons = () => {
 
     return (
         <>
-            <button>admin</button>
-            <button>buttons</button>
-            <button onClick={TEST_request} >TEST</button>
+            <button disabled={true} onClick={TEST_request} >TEST</button>
             <button onClick={() => navigate('/admin/transactions')} >Transactions</button>
-            <button onClick={() => navigate('/admin/users')}>testadmin</button>
-            <button onClick={() => navigate('/tickets')}>tickets</button>
+            <button onClick={() => navigate('/admin/users')}>Users</button>
+            <button onClick={() => navigate('/tickets')}>Tickets</button>
+            <button onClick={() => navigate('/admin/ticket_types')}>Ticket Types</button>
         </>
 )}
 

@@ -12,6 +12,7 @@
 @import "./views/Home/welcome.scss";
 @import "./views/users.scss";
 @import "./views/userPage.scss";
+@import "./views/ticketTypes.scss";
 
 //Tickets
 @import "./views/Tickets/tickets.scss";
@@ -29,11 +30,16 @@
 @import "./components/Navbar/nouser.scss";
 @import "./components/Navbar/userpopup.scss";
 @import "./components/Navbar/loggeduser.scss";
+@import "./components/ticketTypeEditPopup.scss";
+
 @import "./components/backbutton.scss";
 @import "./components/ticketChooser.scss";
 @import "./components/ticketSum.scss";
 @import "./components/transaction.scss";
+@import "./components/overlay.scss";
 
 @import "./components/footer.scss";
 @import "./components/slideshow.scss";
+@import "./components/popupForm.scss";
+@import "./components/popupForm.scss";
 

@@ -5,7 +5,7 @@ type props = {
     children: ReactNode
 }
 
-type normalTicket = {
+export type normalTicket = {
     age_info: string,
     created_at: Date | null,
     id: number,
@@ -46,6 +46,7 @@ interface TicketContext{
     setNormalUserTickets: Dispatch<SetStateAction<normalUserTicket[]>>,
     setNormalUserTransaction: Dispatch<SetStateAction<transaction>>,
     resetAllNormal: () => void
+    refetchAllNormalTicketTypes: () => void
 }
 
 const normalTransactionSample: transaction ={
@@ -72,7 +73,8 @@ export const TicketContext = createContext<TicketContext>({
     setNormalUserTickets: () => {},
     normalUserTransaction: normalTransactionSample,
     setNormalUserTransaction: () => {},
-    resetAllNormal: () => {}
+    resetAllNormal: () => {},
+    refetchAllNormalTicketTypes: () => {}
 });
 
 export const TicketProvider = ({children}: props) => {
@@ -108,10 +110,22 @@ export const TicketProvider = ({children}: props) => {
         setNormalUserTransaction(normalTransactionSample);
     }
 
+    const refetchAllNormalTicketTypes = async () => {
+        const res = await axiosClient.get('/ticket_types');
+            setAllNormalTicketTypes(res.data);
+            const avaliableTicketsTemp: normalTicket[] = res.data.filter((ticket: normalTicket) => (ticket.is_active === 1 && ticket.type !== 'group'));
+            setAvailableNormalTickets(avaliableTicketsTemp);
+            const userTicketsTemp: normalUserTicket[] = avaliableTicketsTemp.map((ticket: normalTicket) => ({
+                ...ticket,
+                amount: 0
+            }));
+            setNormalUserTickets(userTicketsTemp);
+    }
+
 
     return (
         <TicketContext.Provider value={{availableNormalTickets, normalUserTickets,
-        setNormalUserTickets, allNormalTicketTypes, normalUserTransaction, setNormalUserTransaction, resetAllNormal}}>
+        setNormalUserTickets, allNormalTicketTypes, normalUserTransaction, setNormalUserTransaction, resetAllNormal, refetchAllNormalTicketTypes}}>
             {children}
         </TicketContext.Provider>
     )

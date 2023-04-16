@@ -1,0 +1,21 @@
+.edit_ticket_type{
+    @include flexCenterCenter;
+    flex-direction: column;
+
+    h1, h3{
+        font-family: 'Oswald';
+        font-style: normal;
+        font-weight: 200;
+        font-size: 28px;
+        line-height: 36px;
+    }
+
+    h3{
+        font-size: 18px;
+    }
+
+    hr{
+        width: 90%;
+        color: black;
+    }
+}

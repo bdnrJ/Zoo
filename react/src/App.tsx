@@ -17,6 +17,7 @@ import Transactions from "./views/AdminViews/Transactions";
 import TransactionPage from "./views/AdminViews/TransactionPage";
 import Users from "./views/AdminViews/Users";
 import UserPage from "./views/AdminViews/UserPage";
+import TicketTypes from "./views/AdminViews/TicketTypes";
 
 const queryClient = new QueryClient();
 
@@ -69,6 +70,13 @@ const router = createBrowserRouter([
                 element:
                 <RequireAdmin>
                     <UserPage />
+                </RequireAdmin>
+            },
+            {
+                path: '/admin/ticket_types',
+                element:
+                <RequireAdmin>
+                    <TicketTypes />
                 </RequireAdmin>
             },
             {

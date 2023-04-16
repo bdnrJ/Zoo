@@ -26,6 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/add_transactions', [TransactionController::class, 'store']);
     Route::get('/all_transactions', [TransactionController::class, 'getTransactions'])->middleware('isAdmin');
     Route::get('/transaction/{id}', [TransactionController::class, 'getTransaction'])->middleware('isAdmin');
+    Route::put('/ticket_types/{id}', [TicketTypeController::class, 'update'])->middleware('isAdmin');
 
 });
 

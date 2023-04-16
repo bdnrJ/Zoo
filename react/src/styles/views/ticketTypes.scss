@@ -1,0 +1,14 @@
+.ticket_types{
+    @include navbarMargin;
+    @include flexCenterCenter;
+
+
+
+    .ticket_type{
+        background-color: antiquewhite;
+        display: flex;
+        gap: 15px;
+        margin-top: 15px;
+    }
+
+}
