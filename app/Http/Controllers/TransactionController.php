@@ -41,7 +41,7 @@ class TransactionController extends Controller
 
     // Calculate total cost
     $ticketTypes = TicketType::whereIn('id', array_column($validatedData['items'], 'ticket_type_id'))->get()->keyBy('id');
-    $totalCost = 0;
+    $totalCost = 5; //service fee
     foreach ($validatedData['items'] as $itemData) {
         $ticketTypeId = $itemData['ticket_type_id'];
         if (isset($ticketTypes[$ticketTypeId])) {

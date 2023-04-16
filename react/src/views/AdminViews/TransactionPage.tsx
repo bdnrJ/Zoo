@@ -34,13 +34,28 @@ type normalTicketType = {
     age_info: string,
 }
 
+type serviceType = {
+    id: number,
+    is_active: boolean,
+    name: string,
+    price_per_customer: number,
+    type: string
+}
+
+type service = {
+    id: number,
+    service_type: serviceType,
+    service_type_id: number,
+    transaction_id: number,
+}
+
 
 const TransactionPage = () => {
     const [transaction, setTransaction] = useState<displayTransaction>();
     const [tickets, setTickets] = useState<normalTicket[]>([]);
     const [user, setUser] = useState<user>();
     const [loading, setLoading] = useState(true);
-    const [services, setServices] = useState();
+    const [services, setServices] = useState<service[]>([]);
 
     const { id } = useParams();
 
@@ -48,10 +63,10 @@ const TransactionPage = () => {
         const fetchTransaction = async () => {
             setLoading(true);
             const response = await axiosClient.get(`/transaction/${id}`, {withCredentials: true});
-            console.log(response.data);
             setTransaction(response.data.transaction);
             setTickets(response.data.tickets);
             setUser(response.data.transaction.user);
+            setServices(response.data.services);
             setLoading(false);
         };
 
@@ -89,7 +104,8 @@ const TransactionPage = () => {
 
     const ticketDivs = tickets.map((ticket: normalTicket) => (
         <li key={ticket.id}>
-        <Ticket ticket={ticket} />
+            <Ticket ticket={ticket} />
+            <span>Total Cost: ${ticket.amount * ticket.ticket_type.price}</span>
         </li>
     ));
 
@@ -110,6 +126,21 @@ const TransactionPage = () => {
                 TICKET:
                 <ul>{ticketDivs}</ul>
             </div>
+
+            { services.length !== 0 &&
+            <div className="services">
+                SERVICES
+                <ol>
+                    {services.map((service) => (
+                        <li>
+                            <span style={{display: "block"}}>Service name: {service.service_type.name}</span>
+                            <span style={{display: "block"}}>Price per customer: ${service.service_type.price_per_customer}</span>
+                            <span>Total cost: ${service.service_type.price_per_customer * tickets[0].amount}</span>
+                        </li>
+                    ))}
+                </ol>
+            </div>
+            }
 
             <button onClick={() => console.log(transaction)}>show transaction</button>
             <button onClick={() => console.log(tickets)}>show tickets</button>
