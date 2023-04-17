@@ -21,7 +21,7 @@ type ticketType = {
 
 
 const TicketTypeEditPopup = ({ticketType, onClose}: Props) => {
-    const {refetchAllNormalTicketTypes} = useContext(TicketContext)
+    const {getAllTickets} = useContext(TicketContext)
 
     const schema: ZodType<ticketType> = z.object({
         name: z.string().max(15, 'too long'),
@@ -53,7 +53,7 @@ const TicketTypeEditPopup = ({ticketType, onClose}: Props) => {
             const response = await axiosClient.put(`/ticket_types/${ticketType.id}`, data, {withCredentials: true});
             if (response.status === 200) {
                 alert('Ticket type updated successfully.');
-                refetchAllNormalTicketTypes();
+                getAllTickets();
                 if(onClose)
                 onClose();
             }
