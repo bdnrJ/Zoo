@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\ServiceTypesController;
 use App\Http\Controllers\TicketTypeController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
@@ -34,4 +35,5 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/ticket_types', [TicketTypeController::class, 'index']);
+Route::get('/service_types', [ServiceTypesController::class, 'index']);
 

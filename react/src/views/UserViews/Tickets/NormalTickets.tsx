@@ -13,7 +13,6 @@ export const NormalTickets = () => {
     const {normalUserTickets, setNormalUserTickets, setNormalUserTransaction} = useContext(TicketContext);
     const [ticketExpDate, setTicketExpDate] = useState(new Date());
     const navigate = useNavigate();
-    const SERVICE_FEE = 5;
 
     const handleAddition = (idx: number) => {
         const newTickets = normalUserTickets;
@@ -131,6 +130,8 @@ export const NormalTickets = () => {
                 ? <button onClick={() => navigate('/login')}>Log in to continue</button>
                 :
                 <button
+                    //disabled when no tickets are selected
+                    //checked by calculating cost if(0) not selected
                     disabled={normalUserTickets.reduce((acc, curr) => acc + (curr.price * curr.amount), 0) === 0}
                     onClick={handleContiuneToCheckout}
                     >

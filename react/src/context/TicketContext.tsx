@@ -1,6 +1,5 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react";
 import axiosClient from "../axios-client";
-import { FaSmileBeam } from "react-icons/fa";
 
 type props = {
     children: ReactNode
@@ -39,12 +38,24 @@ export interface normalTransactionTickets {
     amount: number
 }
 
+export type service = {
+    service_type_id: number,
+}
+
+export type userService = {
+    id: number,
+    name: string,
+    price_per_customer: string,
+    is_choosen: boolean,
+}
+
 export interface transaction {
     buy_date: Date,
     exp_date: Date,
     total_cost: number,
     type: string,
     items: normalTransactionTickets[]
+    services?: service[]
 }
 
 interface TicketContext{
@@ -57,7 +68,14 @@ interface TicketContext{
     setNormalUserTransaction: Dispatch<SetStateAction<transaction>>,
     resetAllNormal: () => void,
     getAllTickets: () => void,
-    availableGroupTicket: normalTicket
+    availableGroupTicket: normalTicket,
+    allServiceTypes: serviceType[],
+    availableServiceTypes: serviceType[],
+    groupUserTransaction: transaction,
+    setGroupUserTransaction: Dispatch<SetStateAction<transaction>>,
+    userServices: userService[],
+    setUserServices: Dispatch<SetStateAction<userService[]>>,
+    resetAllGroup: () => void
 }
 
 const normalTransactionSample: transaction ={
@@ -73,7 +91,8 @@ const groupTransactionSample: transaction ={
     exp_date: new Date(),
     total_cost: 0,
     type: 'group',
-    items: []
+    items: [],
+    services: [],
 }
 
 const tempGroupTicket: normalTicket = {
@@ -97,7 +116,14 @@ export const TicketContext = createContext<TicketContext>({
     setNormalUserTransaction: () => {},
     resetAllNormal: () => {},
     getAllTickets: () => {},
-    availableGroupTicket: tempGroupTicket
+    availableGroupTicket: tempGroupTicket,
+    allServiceTypes: [],
+    availableServiceTypes: [],
+    groupUserTransaction: groupTransactionSample,
+    setGroupUserTransaction: () => {},
+    userServices: [],
+    setUserServices: () => {},
+    resetAllGroup: () => {}
 });
 
 export const TicketProvider = ({children}: props) => {
@@ -108,13 +134,16 @@ export const TicketProvider = ({children}: props) => {
 
     const [availableGroupTicket, setAvailableGroupTicket] = useState<normalTicket>(tempGroupTicket);
 
-    const [serviceTypes, setServiceTypes] = useState<serviceType[]>([]);
+    const [allServiceTypes, setAllServiceTypes] = useState<serviceType[]>([]);
+    const [availableServiceTypes, setAvaliableServiceTypes] = useState<serviceType[]>([]);
+    const [groupUserTransaction, setGroupUserTransaction] = useState<transaction>(groupTransactionSample);
+    const [userServices, setUserServices] = useState<userService[]>([]);
 
     const getAllTickets = async () => {
-        const res = await axiosClient.get('/ticket_types');
-        setAllNormalTicketTypes(res.data);
+        const ticketData = await axiosClient.get('/ticket_types');
+        setAllNormalTicketTypes(ticketData.data);
 
-        const avaliableTicketsTemp: normalTicket[] = res.data.filter((ticket: normalTicket) => (ticket.is_active === 1 && ticket.type !== 'group'));
+        const avaliableTicketsTemp: normalTicket[] = ticketData.data.filter((ticket: normalTicket) => (ticket.is_active === 1 && ticket.type !== 'group'));
         setAvailableNormalTickets(avaliableTicketsTemp);
 
         const userTicketsTemp: normalUserTicket[] = avaliableTicketsTemp.map((ticket: normalTicket) => ({
@@ -123,9 +152,24 @@ export const TicketProvider = ({children}: props) => {
         }));
         setNormalUserTickets(userTicketsTemp);
 
-        const availableGroupTicket: normalTicket = res.data.find((ticket: normalTicket) => (ticket.is_active === 1 && ticket.type === 'group'));
+        const availableGroupTicket: normalTicket = ticketData.data.find((ticket: normalTicket) => (ticket.is_active === 1 && ticket.type === 'group'));
         setAvailableGroupTicket(availableGroupTicket);
+
+        //get services
+        const servicesData = await axiosClient.get('/service_types');
+        setAllServiceTypes(servicesData.data);
+
+        const avaliableServiceTypesTemp = servicesData.data.filter((serviceType: serviceType) => serviceType.is_active === 1);
+        setAvaliableServiceTypes(avaliableServiceTypesTemp);
+
+        const userServicesTemp: userService[] = avaliableServiceTypesTemp.map((serviceType: serviceType) => ({
+            ...serviceType,
+            is_choosen: false
+        }));
+        setUserServices(userServicesTemp);
     }
+
+
 
     useEffect(() => {
         getAllTickets();
@@ -142,6 +186,17 @@ export const TicketProvider = ({children}: props) => {
         setNormalUserTransaction(normalTransactionSample);
     }
 
+    const resetAllGroup = () => {
+        //resets userTickets to default state
+        setUserServices(availableServiceTypes.map((serviceType: serviceType) => ({
+            ...serviceType,
+            is_choosen: false
+        })));
+
+        //resets userTransaction to default state
+        setGroupUserTransaction(groupTransactionSample);
+    }
+
     return (
         <TicketContext.Provider value={{
             availableNormalTickets,
@@ -153,6 +208,13 @@ export const TicketProvider = ({children}: props) => {
             resetAllNormal,
             getAllTickets,
             availableGroupTicket,
+            allServiceTypes,
+            availableServiceTypes,
+            groupUserTransaction,
+            setGroupUserTransaction,
+            userServices,
+            setUserServices,
+            resetAllGroup,
             }}>
             {children}
         </TicketContext.Provider>

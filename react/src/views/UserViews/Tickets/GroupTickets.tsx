@@ -5,41 +5,39 @@ import { useNavigate } from 'react-router-dom';
 import {TicketContext} from '../../../context/TicketContext';
 
 export const GroupTickets = () => {
-    const {availableGroupTicket} = useContext(TicketContext);
-
-    const [ticketExpDate, setTicketExpDate] = useState(new Date());
+    const {availableGroupTicket, userServices, setUserServices, groupUserTransaction, setGroupUserTransaction} = useContext(TicketContext);
+    console.log(groupUserTransaction);
     const [sliderValue, setSliderValue] = useState(15);
-    const [isWithEducationalMaterials, setIsWithEducationalMaterials] = useState<boolean>(false);
-    const [isWithGuidedTour, setIsWithGuidedTour] = useState<boolean>(false);
-    const [isFoodIncluded, setIsFoodIncluded] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const userGroupTransaction = {
-        buy_date: new Date(),
-        exp_date: "2023-04-15",
-        total_cost: 200,
-        type: "group",
-    }
-
-
     const handleContiuneToGroupCheckout = () => {
-        const calculatedCost = 200;
+        const chosenServices = userServices.filter((service) => service.is_choosen === true).map((service) => ({
+            service_type_id: service.id
+        }))
 
-        const userGroupTransaction = {
-            buy_date: new Date(),
-            exp_date: ticketExpDate,
-            total_cost: calculatedCost,
-            type: "group",
+        const finalUserGroupTransaction = {
+            ...groupUserTransaction,
+            items: [{
+                ticket_type_id: availableGroupTicket.id,
+                amount: sliderValue,
+            }],
+            services: chosenServices,
         }
+
+        setGroupUserTransaction(finalUserGroupTransaction);
 
         navigate('/tickets/group/checkout');
     }
 
+    const setGroupTransactionDate = (date: Date) => {
+        setGroupUserTransaction({...groupUserTransaction, exp_date: date})
+    }
+
     //Date formating
-    const dayOfWeek = ticketExpDate.toLocaleString('en-US', { weekday: 'long' });
-    const month = ticketExpDate.toLocaleString('en-US', { month: 'long' });
-    const dayOfMonth = ticketExpDate.toLocaleString('en-US', { day: 'numeric' });
-    const year = ticketExpDate.getFullYear();
+    const dayOfWeek = groupUserTransaction.exp_date.toLocaleString('en-US', { weekday: 'long' });
+    const month = groupUserTransaction.exp_date.toLocaleString('en-US', { month: 'long' });
+    const dayOfMonth = groupUserTransaction.exp_date.toLocaleString('en-US', { day: 'numeric' });
+    const year = groupUserTransaction.exp_date.getFullYear();
     const formattedDate = `${dayOfWeek}, ${month} ${dayOfMonth}, ${year}`;
 
     if(availableGroupTicket.id === -1) return (
@@ -48,14 +46,20 @@ export const GroupTickets = () => {
         </div>
     )
 
+    const handleCheckboxChange = (index: number) => {
+        const updatedServices = [...userServices];
+        updatedServices[index].is_choosen = !updatedServices[index].is_choosen;
+        setUserServices(updatedServices);
+    };
+
     return (
         <div className="group_tickets">
             <form>
                 <h2>Select Date</h2>
                 <DatePicker
                     minDate={new Date()}
-                    selected={ticketExpDate}
-                    onChange={(date: Date) => setTicketExpDate(date)}
+                    selected={groupUserTransaction.exp_date}
+                    onChange={(date: Date) => setGroupTransactionDate(date)}
                     value={formattedDate}
                 />
                 People: {sliderValue}
@@ -83,9 +87,23 @@ export const GroupTickets = () => {
                         </div>
                     </div>
                 </div>
-
-                <button onClick={handleContiuneToGroupCheckout} >Contiune</button>
+                <div className="group_tickets-services">
+                    <h4>Services</h4>
+                    {userServices.map((userService, idx) => (
+                        <div className="group_tickets-services-service" key={userService.id}>
+                            <div>
+                                {userService.name}:
+                                <input
+                                    type="checkbox"
+                                    checked={userService.is_choosen}
+                                    onChange={() => handleCheckboxChange(idx)}
+                                />
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </form>
+                <button onClick={(e) => handleContiuneToGroupCheckout()} >Contiune</button>
         </div>
     )
 }
