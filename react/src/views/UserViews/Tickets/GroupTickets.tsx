@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import {TicketContext} from '../../../context/TicketContext';
 
 export const GroupTickets = () => {
+    //TODO amount needs to be either inside groupUserTicket or somwhere in the context, coz it's shit right now
     const {availableGroupTicket, userServices, setUserServices, groupUserTransaction, setGroupUserTransaction} = useContext(TicketContext);
     console.log(groupUserTransaction);
-    const [sliderValue, setSliderValue] = useState(15);
     const navigate = useNavigate();
 
     const handleContiuneToGroupCheckout = () => {
@@ -17,10 +17,6 @@ export const GroupTickets = () => {
 
         const finalUserGroupTransaction = {
             ...groupUserTransaction,
-            items: [{
-                ticket_type_id: availableGroupTicket.id,
-                amount: sliderValue,
-            }],
             services: chosenServices,
         }
 
@@ -31,6 +27,13 @@ export const GroupTickets = () => {
 
     const setGroupTransactionDate = (date: Date) => {
         setGroupUserTransaction({...groupUserTransaction, exp_date: date})
+    }
+
+    const setGroupTransactionTicketAmount = (people: number) => {
+        setGroupUserTransaction({...groupUserTransaction, items: [{
+            ticket_type_id: groupUserTransaction.items[0].ticket_type_id,
+            amount: people
+        }]})
     }
 
     //Date formating
@@ -62,7 +65,7 @@ export const GroupTickets = () => {
                     onChange={(date: Date) => setGroupTransactionDate(date)}
                     value={formattedDate}
                 />
-                People: {sliderValue}
+                People: {groupUserTransaction.items[0].amount}
                 <br></br>
                 <div className="group_tickets-people">
                     <div className="group_tickets-people-slider">
@@ -70,13 +73,13 @@ export const GroupTickets = () => {
                         type="range"
                         min="15"
                         max="50"
-                        value={sliderValue}
-                        onChange={(event) => setSliderValue(event.target.valueAsNumber)}
+                        value={groupUserTransaction.items[0].amount}
+                        onChange={(event) => setGroupTransactionTicketAmount(event.target.valueAsNumber)}
                     />
                     </div>
                     <div className="group_tickets-people-ticket">
                         <div className="people-ticket-counter">
-                            {sliderValue}
+                            {groupUserTransaction.items[0].amount}
                         </div>
                         <div className="people-ticket-info">
                             {availableGroupTicket.name + " $"+ availableGroupTicket.price}

@@ -167,6 +167,11 @@ export const TicketProvider = ({children}: props) => {
             is_choosen: false
         }));
         setUserServices(userServicesTemp);
+
+        setGroupUserTransaction({...groupUserTransaction, items: [{
+            ticket_type_id: availableGroupTicket.id,
+            amount: 15
+        }]})
     }
 
 
@@ -194,7 +199,10 @@ export const TicketProvider = ({children}: props) => {
         })));
 
         //resets userTransaction to default state
-        setGroupUserTransaction(groupTransactionSample);
+        setGroupUserTransaction({...groupTransactionSample, items: [{
+            ticket_type_id: availableGroupTicket.id,
+            amount: 15
+        }]})
     }
 
     return (

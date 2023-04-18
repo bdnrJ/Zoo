@@ -9,9 +9,9 @@ import { TicketContext, transaction, normalTransactionTickets } from '../../../c
 import { AuthContext } from '../../../context/AuthContext';
 
 export const NormalTickets = () => {
+    //TODO exp_date needs to be in the transaction
     const {currentUser} = useContext(AuthContext);
-    const {normalUserTickets, setNormalUserTickets, setNormalUserTransaction} = useContext(TicketContext);
-    const [ticketExpDate, setTicketExpDate] = useState(new Date());
+    const {normalUserTickets, setNormalUserTickets, setNormalUserTransaction, normalUserTransaction} = useContext(TicketContext);
     const navigate = useNavigate();
 
     const handleAddition = (idx: number) => {
@@ -56,7 +56,7 @@ export const NormalTickets = () => {
 
         const transaction: transaction ={
             buy_date: new Date(),
-            exp_date: ticketExpDate,
+            exp_date: normalUserTransaction.exp_date,
             total_cost: 0,
             type: 'normal',
             items: normalTicketTransaction,
@@ -66,11 +66,16 @@ export const NormalTickets = () => {
         navigate('/tickets/normal/checkout')
     }
 
+    const setNormalTransactionDate = (date: Date) => {
+        setNormalUserTransaction({...normalUserTransaction, exp_date: date})
+    }
+
+
     //Date formating
-    const dayOfWeek = ticketExpDate.toLocaleString('en-US', { weekday: 'long' });
-    const month = ticketExpDate.toLocaleString('en-US', { month: 'long' });
-    const dayOfMonth = ticketExpDate.toLocaleString('en-US', { day: 'numeric' });
-    const year = ticketExpDate.getFullYear();
+    const dayOfWeek = normalUserTransaction.exp_date.toLocaleString('en-US', { weekday: 'long' });
+    const month = normalUserTransaction.exp_date.toLocaleString('en-US', { month: 'long' });
+    const dayOfMonth = normalUserTransaction.exp_date.toLocaleString('en-US', { day: 'numeric' });
+    const year = normalUserTransaction.exp_date.getFullYear();
     const formattedDate = `${dayOfWeek}, ${month} ${dayOfMonth}, ${year}`;
     return (
         <div className="normal">
@@ -95,8 +100,8 @@ export const NormalTickets = () => {
                             </div>
                             <DatePicker
                                 minDate={new Date()}
-                                selected={ticketExpDate}
-                                onChange={(date: Date) => setTicketExpDate(date)}
+                                selected={normalUserTransaction.exp_date}
+                                onChange={(date: Date) => setNormalTransactionDate(date)}
                                 value={formattedDate}
                             />
                         </div>
@@ -122,7 +127,7 @@ export const NormalTickets = () => {
                         </div>
                     </div>
                     <div className="normal_tickets-cart">
-                        <TicketSum date={ticketExpDate}/>
+                        <TicketSum date={normalUserTransaction.exp_date}/>
                     </div>
                 </div>
             </div>
