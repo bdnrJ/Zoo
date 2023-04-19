@@ -18,6 +18,7 @@ import TransactionPage from "./views/AdminViews/TransactionPage";
 import Users from "./views/AdminViews/Users";
 import UserPage from "./views/AdminViews/UserPage";
 import TicketTypes from "./views/AdminViews/TicketTypes";
+import UserPersonalPage from "./views/UserViews/UserPersonalPage";
 
 const queryClient = new QueryClient();
 
@@ -98,6 +99,10 @@ const router = createBrowserRouter([
             {
                 path: '/tickets/group/checkout',
                 element: <GroupCheckout />
+            },
+            {
+                path: '/my_account',
+                element: <UserPersonalPage />
             },
             {
                 path: '/*',

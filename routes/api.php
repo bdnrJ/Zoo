@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/isadmin', [AuthController::class, 'isadmin']);
     Route::get('/all_users', [AuthController::class, 'getUsers'])->middleware('isAdmin');
     Route::get('/user/{id}', [AuthController::class, 'user'])->middleware('isAdmin');
+    Route::get('/user_to_user', [AuthController::class, 'userToUser']);
 
     Route::post('/add_transactions', [TransactionController::class, 'store']);
     Route::get('/all_transactions', [TransactionController::class, 'getTransactions'])->middleware('isAdmin');
@@ -36,4 +37,6 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/ticket_types', [TicketTypeController::class, 'index']);
 Route::get('/service_types', [ServiceTypesController::class, 'index']);
+
+
 

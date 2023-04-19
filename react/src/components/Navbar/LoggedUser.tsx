@@ -44,7 +44,7 @@ const LoggedUser = ({user}: props) => {
                 <span>{user.firstname + "  " + user.lastname}</span>
                 <span>{user.email}</span>
                 <hr />
-                <button>Settings</button>
+                <button onClick={() => navigate('/my_account')} >My account</button>
                 <button>Transactions</button>
                 <button>cos tam</button>
                 <button onClick={handleLogout} >Logout</button>

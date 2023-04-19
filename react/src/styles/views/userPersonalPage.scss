@@ -1,0 +1,6 @@
+.personal{
+    @include navbarMargin;
+    @include flexCenterCenter;
+    flex-direction: column;
+    gap: 20px;
+}

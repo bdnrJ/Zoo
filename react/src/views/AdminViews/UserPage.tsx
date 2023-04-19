@@ -9,7 +9,7 @@ interface user {
     firstname: string;
     lastname: string;
     email: string;
-    transactions: displayTransaction
+    transactions: displayTransaction[]
 }
 
 const UserPage = () => {

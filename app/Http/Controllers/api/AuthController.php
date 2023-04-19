@@ -70,6 +70,18 @@ class AuthController extends Controller
         ]);
     }
 
+    public function userToUser()
+    {
+        $user = Auth::user();
+
+        if ($user) {
+            $userWithTransactions = $user->load('transactions');
+            return response()->json($userWithTransactions);
+        } else {
+            return response()->json(['error' => 'User not authenticated'], 401);
+        }
+    }
+
     public function isadmin(){
         $user = Auth::user();
 
