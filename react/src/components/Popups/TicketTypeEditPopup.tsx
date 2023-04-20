@@ -24,8 +24,8 @@ const TicketTypeEditPopup = ({ticketType, onClose}: Props) => {
     const {getAllTickets} = useContext(TicketContext)
 
     const schema: ZodType<ticketType> = z.object({
-        name: z.string().max(15, 'too long'),
-        age_info: z.string().max(15, 'too long'),
+        name: z.string().max(15, 'too long').min(1, 'required'),
+        age_info: z.string().max(15, 'too long').min(1, 'required'),
         price: z.number(),
         is_active: z.boolean(),
     })
@@ -83,11 +83,11 @@ const TicketTypeEditPopup = ({ticketType, onClose}: Props) => {
                     {errors.name && <span className={`_inputError`}>{errors.name.message}</span>}
                 </label>
                 <label htmlFor="age_info">
-                    <input type="text" {...register('age_info', {required: true})} />
+                    <input type="text" className={`${errors.age_info && "--error"}`} {...register('age_info', {required: true})} />
                     {errors.age_info && <span className={`_inputError`}>{errors.age_info.message}</span>}
                 </label>
                 <label htmlFor="price">
-                    <input type="number" step="any" {...register('price', {required: true, valueAsNumber: true})} />
+                    <input type="number" className={`${errors.price && "--error"}`} step="any" {...register('price', {required: true, valueAsNumber: true})} />
                     {errors.price && <span className={`_inputError`}>{errors.price.message}</span>}
                 </label>
                 <label htmlFor="is_active">

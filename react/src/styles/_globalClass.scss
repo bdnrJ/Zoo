@@ -20,9 +20,12 @@
 
 ._inputError{
     position: absolute;
-    top: 43px;
-    left: 252px;
+    top: 15px;
+    left: -54px;
+    pointer-events: none;
     color: $error;
+    text-align: right;
+    width: 400px;
 
     @media (max-width: 390px){
         left: 168px;
@@ -71,6 +74,7 @@
 
     label{
         width: 100%;
+        position: relative;
 
         .--error{
             border: 1px solid $error;
