@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, SetStateAction} from 'react'
 import fishImage from "../../assets/home_fish.jpg";
 import idkImage from '../../assets/home_idkcoto.jpg'
 import koalaImage from '../../assets/home_koala.jpg'
@@ -6,11 +6,14 @@ import parrotImage from '../../assets/home_parrots.jpg'
 import lionImage from '../../assets/home_lion.jpg'
 import {BsChevronLeft, BsChevronRight} from 'react-icons/Bs';
 
+type props = {
+    currentIdx: number,
+    setCurrentIdx: React.Dispatch<SetStateAction<number>>;
+}
 
-const SlideShow = () => {
+const SlideShow = ({currentIdx, setCurrentIdx}: props) => {
+
     const imageArray = [lionImage, idkImage, parrotImage, fishImage, koalaImage];
-
-    const [currentIdx, setCurrentIdx] = useState(0);
 
     const goToNextImg = () => {
         const idx = imageArray.length-1 === currentIdx ? 0 : currentIdx+1;
@@ -38,7 +41,18 @@ const SlideShow = () => {
     }
 
     return (
-        <div className="slideshow" style={{backgroundImage: `url(${imageArray[currentIdx]})`}}>
+        <div className="slideshow">
+            <div className="slideshow-images">
+                {imageArray.map((image, index) => (
+                    <div
+                        key={image}
+                        className={`slideshow-image ${
+                            index === currentIdx ? 'active' : ''
+                        }`}
+                        style={{ backgroundImage: `url(${image})` }}
+                    ></div>
+                ))}
+            </div>
             <div className="slideshow-gradientwrapper">
                 <div className="slideshow-gradientwrapper-slidecontrolls">
                     <button className='slidecontrolls-btn' onClick={goToPrevImg} ><BsChevronLeft /></button>
@@ -60,7 +74,7 @@ const SlideShow = () => {
                         <h1>Explore the biggest ZOO in the country!</h1>
                     </div>
                     <div className="slideshow-content-button">
-                        <button>Do something</button>
+                        <button className='__border-button' >EXPLORE</button>
                     </div>
                 </div>
             </div>
