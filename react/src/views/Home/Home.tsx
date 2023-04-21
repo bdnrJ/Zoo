@@ -3,6 +3,7 @@ import SlideShow from './SlideShow'
 import AnimalGallery from './AnimalGallery'
 import HomeInfo from './HomeInfo'
 import Welcome from './Welcome'
+import OurMission from './OurMission'
 
 const Home = () => {
 
@@ -18,6 +19,7 @@ const Home = () => {
                 currentIdx={currentIdx}
             />
             <AnimalGallery />
+            <OurMission />
             <HomeInfo />
         </div>
     )

@@ -163,3 +163,29 @@ input[type=number] {
 
     }
 }
+
+.__orange-button-label{
+    width: 150px;
+
+    button{
+        background-color: $button;
+        border: 1px solid transparent;
+        color: white;
+        width: 150px;
+        height: 40px;
+        border-radius: 10px;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 19px;
+        transition: all 500ms ease-in;
+    }
+
+    &:hover{
+        button{
+            width: 130px;
+            height: 35px;
+        }
+    }
+}

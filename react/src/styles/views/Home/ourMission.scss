@@ -1,0 +1,61 @@
+.our_mission{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 30px 30px 30px 30px;
+
+    .our_mission-wrapper{
+        height: 500px;
+        padding: 30px 30px 30px 30px;
+        border: 5px solid $button;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        max-width: 1500px;
+        gap: 10px;
+
+        .our_mission-image{
+            width: 50%;
+        }
+
+        .our_mission-content{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 70%;
+            height: 100%;
+            position: relative;
+
+            .our_mission-content-title{
+                font-family: 'Playfair Display';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 32px;
+                line-height: 43px;
+                margin-bottom: 15px;
+            }
+
+            .our_mission-content-text{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 300;
+                font-size: 20px;
+                line-height: 23px;
+                width: 80%;
+
+                span{
+                    margin-top: 10px;
+                }
+            }
+
+            .our_mission-content-button{
+                position: absolute;
+                bottom: 0%;
+                right: 0%;
+            }
+        }
+    }
+}
