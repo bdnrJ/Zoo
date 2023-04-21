@@ -1,0 +1,114 @@
+.home_info{
+    background-color: $green;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px 20px 20px 20px;
+    color: white;
+
+    .home_info-title{
+        h3{
+            font-size: 32px;
+            font-style: normal;
+            font-weight: 400;
+        }
+        margin-bottom: 30px;
+    }
+
+    .home_info-rest{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        @media (min-width:#{1160px}){
+            flex-direction: row;
+        }
+
+        .home_info-rest-wrapper{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+
+            @include mobileMin{
+                flex-direction: row;
+                align-items: left;
+                justify-content: space-between;
+            }
+
+            .home_info-info{
+                font-family: 'Oswald';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 20px;
+                line-height: 30px;
+                width: 250px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+
+                @include mobileMin{
+                    min-height: 250px;
+                    justify-content: flex-start;
+                    align-items: start;
+                }
+
+                .home_info-info-content{
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                label{
+                    width: 150px;
+                    height: 40px;
+                    cursor: pointer;
+
+                    &:hover{
+
+                        button{
+                            height: 35px;
+                            width: 120px;
+                        }
+                    }
+
+                    .border-button{
+                        background-color: transparent;
+                        border: 2px solid white;
+                        color: white;
+                        border-radius: 10px;
+                        width: 150px;
+                        height: 40px;
+                        font-family: 'Roboto';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 19px;
+                        transition: all 400ms ease-in;
+                    }
+                }
+            }
+        }
+
+        .home_info-map{
+            width: min(600px, 100vw);
+            min-height: 600px;
+            position: relative;
+
+            @media (min-width:#{1160px}){
+                width: 45vw;
+            }
+
+            iframe{
+                width: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}

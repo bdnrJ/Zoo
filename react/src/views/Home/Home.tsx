@@ -16,7 +16,6 @@ const Home = () => {
             />
             <Welcome
                 currentIdx={currentIdx}
-                setCurrentIdx={setCurrentIdx}
             />
             <AnimalGallery />
             <HomeInfo />

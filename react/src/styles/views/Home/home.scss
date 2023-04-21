@@ -1,84 +1,8 @@
 .home{
     overflow-x: hidden;
 
-    .home-info{
-        background-color: $darkerBlue;
-        height: 350px;
-        @include flexCenterCenter;
-        color: white;
-
-        @include mobile{
-            height: fit-content;
-            padding: 30px 0 30px 0;
-        }
-
-
-        .info-wrapper{
-            width: 80%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            @include tablet{
-                width: 90%;
-            }
-
-            @include mobile{
-                flex-direction: column;
-                gap: 50px;
-            }
-
-            .info-block{
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
-                align-items: center;
-
-                .info-block-icon{
-                    @include flexCenterCenter;
-                    border-radius: 50%;
-                    width: 100px;
-                    height: 100px;
-                    font-size: 63px;
-                }
-
-                .info-block-title{
-                    font-size: $font-30;
-                    font-weight: bold;
-                }
-
-                .info-block-desc{
-                    display: flex;
-                    flex-direction: column;
-                    gap: 5px;
-                    align-items: center;
-                    color: white;
-                }
-            }
-        }
-    }
 }
 
-.yellow{
-    background-color: #f7b32b;
-}
-
-.green{
-    background-color: #7ea16b;
-}
-
-.red{
-    background-color: #ee5622;
-}
-
-.tyellow{
-    color: #f7b32b
-}
-
-.tgreen{
-    color: #7ea16b
-}
-
-.tred{
-    color: #ee5622;
+body{
+    overflow-x:hidden;
 }
