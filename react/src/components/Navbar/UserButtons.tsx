@@ -13,6 +13,9 @@ const UserButtons = () => {
             <Link to="/facilities">
                 <button>Facilitites</button>
             </Link>
+            <Link to="/foundation">
+                <button>Foundation</button>
+            </Link>
         </>
     )
 }

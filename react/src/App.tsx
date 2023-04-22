@@ -21,6 +21,7 @@ import TicketTypes from "./views/AdminViews/TicketTypes";
 import UserPersonalPage from "./views/UserViews/UserPersonalPage";
 import Statute from "./views/Statute";
 import Facilities from "./views/Facilities";
+import Foundation from "./views/Foundation";
 
 const queryClient = new QueryClient();
 
@@ -113,6 +114,10 @@ const router = createBrowserRouter([
             {
                 path: '/facilities',
                 element: <Facilities />
+            },
+            {
+                path: '/foundation',
+                element: <Foundation />
             },
             {
                 path: '/*',

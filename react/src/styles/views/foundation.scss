@@ -1,0 +1,156 @@
+.foundation{
+    @include navbarMargin;
+    @include flexCenterCenter;
+    flex-direction: column;
+
+    .foundation-image{
+        background-image: url("../assets/foundation.png");
+        @include flexCenterCenter;
+        height: 429px;
+        width: 100%;
+        background-size: cover;
+
+        @include mobile{
+            background-size: auto;
+            background-repeat: no-repeat;
+        }
+
+        h1{
+            font-family: 'Oswald';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 64px;
+            line-height: 95px;
+            color: white;
+        }
+    }
+
+    .foundation-content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 20px 10px 20px 10px;
+        max-width: 1110px;
+
+        .foundation-content-upper{
+
+            .foundation-content-title{
+                font-family: 'Oswald';
+                font-style: normal;
+                font-weight: 300;
+                font-size: 32px;
+                line-height: 47px;
+            }
+
+            .foundation-content-subtitle{
+                font-family: 'Oswald';
+                font-style: normal;
+                font-weight: 300;
+                font-size: 16px;
+                line-height: 24px;
+                color: #353642;
+            }
+        }
+
+        .foundation-content-middle{
+            margin-top: 42px;
+            font-family: 'Playfair Display';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 21px;
+            text-align: center;
+
+            .content-middle-top{
+                display: flex;
+                align-items: center;
+                text-align: left;
+
+                @include mobile{
+                    text-align: center;
+                    flex-direction: column;
+                }
+
+                .middle-top-text{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 35px;
+
+                    .middle-top-text-title{
+                        font-size: 20px;
+                    }
+                }
+
+                .middle-top-logo{
+                    @include mobile{
+                        height: auto;
+                        width: min(409, 100vw);
+                    }
+                }
+            }
+
+            .content-middle-info{
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+
+        .foundation-content-donation{
+            margin-top: 20px;
+
+            .content-donation-support{
+                display: flex;
+                flex-direction: column;
+                gap: 30px;
+                font-family: 'Oswald';
+                font-style: normal;
+                font-weight: 300;
+                font-size: 20px;
+                line-height: 30px;
+
+                h3{
+                    font-family: 'Oswald';
+                    font-style: normal;
+                    font-weight: 300;
+                    font-size: 32px;
+                    line-height: 47px;
+                }
+            }
+
+            .content-donation-support-contact{
+                display: flex;
+                justify-content: space-around;
+
+                .donation-support-contact-block{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 5px;
+
+                    .support-contact-block-icon{
+                        @include flexCenterCenter;
+                        width: 34px;
+                        height: 34px;
+                        background-color: black;
+                        border-radius: 50%;
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+
+    .foundation-footer {
+        margin-top: 30px;
+        padding: 0px 20px 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        min-height: 140px;
+        border: 1px solid grey;
+    }
+}

@@ -1,0 +1,19 @@
+.donation{
+    border: 2px solid $darkGreen;
+    max-width: 660px;
+
+    .donation-top_text{
+        min-height: 76px;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 20px;
+        /* or 167% */
+        text-align: center;
+        background-color: $darkGreen;
+        color: white;
+        @include flexCenterCenter;
+        padding: 0px 11% 0px 11%;
+    }
+}
