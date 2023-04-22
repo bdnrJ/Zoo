@@ -165,7 +165,10 @@ input[type=number] {
 }
 
 .__orange-button-label{
+    display: block;
     width: 150px;
+    height: 40px;
+    cursor: pointer;
 
     button{
         background-color: $button;
@@ -183,6 +186,7 @@ input[type=number] {
     }
 
     &:hover{
+
         button{
             width: 130px;
             height: 35px;

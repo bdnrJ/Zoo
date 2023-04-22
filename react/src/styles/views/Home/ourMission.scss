@@ -5,7 +5,7 @@
     padding: 30px 30px 30px 30px;
 
     .our_mission-wrapper{
-        height: 500px;
+        height: 600px;
         padding: 30px 30px 30px 30px;
         border: 5px solid $button;
         display: flex;
@@ -14,8 +14,23 @@
         max-width: 1500px;
         gap: 10px;
 
+        @include tablet{
+            height: fit-content;
+        }
+
+        @include tablet{
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
         .our_mission-image{
             width: 50%;
+
+            @include tablet{
+                display: none;
+                width: 0%;
+                height: 0%;
+            }
         }
 
         .our_mission-content{
@@ -25,6 +40,10 @@
             width: 70%;
             height: 100%;
             position: relative;
+
+            @include tablet{
+                width: 90%;
+            }
 
             .our_mission-content-title{
                 font-family: 'Playfair Display';
@@ -45,16 +64,41 @@
                 font-size: 20px;
                 line-height: 23px;
                 width: 80%;
+                padding-bottom: 20px;
+
+                @media(max-width: 1261px ){
+                    font-size: 17px;
+                }
+
+
+                @include tablet{
+                    font-size: 18px;
+                    width: 100%;
+                }
 
                 span{
                     margin-top: 10px;
+                }
+
+                .expand-button{
+                    background-color: transparent;
+                    border: 1px solid transparent;
+                    text-decoration: underline;
+                    font-size: 15px;
                 }
             }
 
             .our_mission-content-button{
                 position: absolute;
-                bottom: 0%;
-                right: 0%;
+                bottom: -3%;
+                right: -1%;
+
+                width: 150px;
+                height: 40px;
+
+                @include mobile{
+                    position:relative;
+                }
             }
         }
     }

@@ -32,6 +32,12 @@ $desktop-width: 1024px;
     }
 }
 
+@mixin desktopMax {
+    @media (max-width:#{$desktop-width}){
+        @content;
+    }
+}
+
 @mixin navbarMargin{
     margin-top: 85px;
 }
