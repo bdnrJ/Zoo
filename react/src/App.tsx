@@ -19,6 +19,7 @@ import Users from "./views/AdminViews/Users";
 import UserPage from "./views/AdminViews/UserPage";
 import TicketTypes from "./views/AdminViews/TicketTypes";
 import UserPersonalPage from "./views/UserViews/UserPersonalPage";
+import Statute from "./views/Statute";
 
 const queryClient = new QueryClient();
 
@@ -103,6 +104,10 @@ const router = createBrowserRouter([
             {
                 path: '/my_account',
                 element: <UserPersonalPage />
+            },
+            {
+                path: '/statute',
+                element: <Statute />
             },
             {
                 path: '/*',

@@ -9,6 +9,11 @@
     color: white;
     height: 200px;
 
+    @include mobile{
+        height: 312px;
+        padding-top: 35px;
+    }
+
     .welcome-item-wrapper{
         margin-top: 50px;
         position: relative;

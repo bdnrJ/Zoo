@@ -1,0 +1,41 @@
+.statute{
+    @include navbarMargin;
+    @include flexCenterCenter;
+    flex-direction: column;
+
+    .statute-image{
+        background-size: cover;
+        width: 100%;
+        background-image: url('../assets/statute.png');
+        height: 429px;
+        @include flexCenterCenter;
+    }
+
+    .statute-content{
+        padding: 15px 0 15px 0;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+        gap: 15px;
+        font-family: 'Playfair Display';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        color: #353642;
+        line-height: 21px;
+
+        @include mobile{
+            width: 80%;
+        }
+
+        @include tablet{
+            width: 70%;
+        }
+
+        ol{
+            text-align: left;
+            list-style-type: upper-roman;
+        }
+    }
+}

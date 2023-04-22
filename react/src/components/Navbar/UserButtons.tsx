@@ -1,13 +1,15 @@
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 const UserButtons = () => {
     const navigate = useNavigate();
     return (
         <>
-            <button>some</button>
-            <button>random</button>
-            <button>buttons</button>
-            <button onClick={() => navigate('/tickets')}>tickets</button>
+            <Link to="/statute">
+                <button>Statute</button>
+            </Link>
+            <Link to="/tickets">
+                <button>Tickets</button>
+            </Link>
         </>
     )
 }
