@@ -1,0 +1,86 @@
+.facilities{
+    @include navbarMargin;
+
+    .facilities-image{
+        background-image: url("../assets/facilities.png");
+        @include flexCenterCenter;
+        height: 429px;
+        width: 100%;
+        background-size: cover;
+
+        h1{
+            font-family: 'Oswald';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 64px;
+            line-height: 95px;
+            color: white;
+        }
+    }
+
+    .facilities-content{
+
+        @include flexCenterCenter;
+        flex-direction: column;
+        gap: 10px;
+
+        .facilities-content-title{
+            margin-top: 39px;
+            margin-bottom: 97px;
+
+            h2{
+                text-align: center;
+                font-family: 'Oswald';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 32px;
+                line-height: 47px;
+            }
+        }
+
+        .facilities-content-sections{
+            width: min(1040px, 100vw);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(0px, 250px));
+            grid-gap: 10px;
+            gap: 20px;
+
+            .facility:nth-child(odd) {
+                grid-column: 1 / span 1;
+            }
+            .facility:nth-child(even) {
+                grid-column: 3 / span 1;
+            }
+
+            /* Last element when it doesn't have a pair */
+            .facility:last-child:nth-child(odd) {
+                grid-column: 2 / span 1;
+            }
+
+            @include tablet{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+
+            @include tablet{
+
+            }
+
+        }
+
+        .facilities-content-footer{
+            margin-top: 15px;
+            margin-bottom: 15px;
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 23px;
+            text-align: center;
+
+            color: #353642;
+        }
+    }
+}

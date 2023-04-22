@@ -10,6 +10,9 @@ const UserButtons = () => {
             <Link to="/tickets">
                 <button>Tickets</button>
             </Link>
+            <Link to="/facilities">
+                <button>Facilitites</button>
+            </Link>
         </>
     )
 }

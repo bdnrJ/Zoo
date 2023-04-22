@@ -1,0 +1,16 @@
+.facility{
+    height: auto;
+    width: min(520px, 100vw);
+    text-align: center;
+    max-width: 500px;
+
+    .facility-image{
+        width: 100%;
+        height: auto;
+
+        img{
+            width: 100%;
+            height: auto;
+        }
+    }
+}
