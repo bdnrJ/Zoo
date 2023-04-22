@@ -110,6 +110,7 @@
                 font-weight: 300;
                 font-size: 20px;
                 line-height: 30px;
+                align-items: center;
 
                 h3{
                     font-family: 'Oswald';
@@ -123,6 +124,12 @@
             .content-donation-support-contact{
                 display: flex;
                 justify-content: space-around;
+                gap: 40px;
+
+                @include mobile{
+                    flex-direction: column;
+                    gap: 10px;
+                }
 
                 .donation-support-contact-block{
                     display: flex;
@@ -152,5 +159,44 @@
         width: 100%;
         min-height: 140px;
         border: 1px solid grey;
+        flex-wrap: wrap;
+
+        @include tablet{ // Tablet breakpoint
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 10px;
+
+            .foundation-footer-block {
+                &:nth-child(4) {
+                    grid-column: 1 / span 1;
+                    grid-row: 2 / span 1;
+                }
+
+                &:nth-child(5) {
+                    grid-column: 3 / span 1;
+                    grid-row: 2 / span 1;
+                }
+            }
+        }
+
+        @include mobile{
+            img{
+                width: 90%;
+            }
+
+            .foundation-footer-block {
+                &:nth-child(4) {
+                    grid-column: auto;
+                    grid-row: auto
+                }
+
+                &:nth-child(5) {
+                    grid-column: auto;
+                    grid-row: auto
+                }
+            }
+
+        }
     }
 }

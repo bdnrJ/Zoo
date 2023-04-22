@@ -17,6 +17,7 @@ const Donation = () => {
                 </span>
             </div>
             <form className='donation-form'>
+
                 <div className="donation-form-amount">
                     <div className="donation-form-amount-title">
                         Choose your donation amount below.
@@ -28,8 +29,13 @@ const Donation = () => {
                         <button onClick={e => handleNothing(e)}>250</button>
                         <button onClick={e => handleNothing(e)}>500</button>
                         <button onClick={e => handleNothing(e)}>Other</button>
+                        <input type="number" />
                     </div>
                     <hr />
+                </div>
+
+                <div className="donation-form-rest">
+
                 </div>
             </form>
         </div>
