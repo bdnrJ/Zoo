@@ -35,8 +35,34 @@ const Donation = () => {
                 </div>
 
                 <div className="donation-form-rest">
-
+                    <div className="donation-form-rest-double">
+                        <input type="text" placeholder='First name' />
+                        <input type="text" placeholder='Last name' />
+                    </div>
+                    <div className="donation-form-rest-double">
+                        <input type="text" placeholder='Email' />
+                        <input type="text" placeholder='Phone' />
+                    </div>
+                    <div className="donation-form-rest-basic">
+                        <input type="text" placeholder='Street 1' />
+                        <input type="text" placeholder='Street 2' />
+                    </div>
+                    <div className="donation-form-rest-triple">
+                        <input type="text" placeholder='City' />
+                        <input type="text" placeholder='State/Province' />
+                        <input type="text" placeholder='ZIP' />
+                    </div>
+                    <div className="donation-form-rest-basic">
+                        <input type="text" placeholder='Country' />
+                        <input type="text" placeholder='Credit card number' />
+                    </div>
+                    <div className="donation-form-rest-triple">
+                        <input type="text" placeholder='Month' />
+                        <input type="text" placeholder='Year' />
+                        <input type="text" placeholder='CCV Number' />
+                    </div>
                 </div>
+                <button onClick={(e) => handleNothing(e)} >DONATE</button>
             </form>
         </div>
     )

@@ -79,7 +79,24 @@
         }
 
         .donation-form-rest{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 15px;
 
+            .donation-form-rest-double{
+                display: flex;
+            }
+
+            .donation-form-rest-basic{
+                display: flex;
+                flex-direction: column;
+            }
+
+            .donation-form-rest-triple{
+                display: flex;
+            }
         }
     }
 }
