@@ -1,30 +1,59 @@
 .register{
+    position: relative;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: $darkBlue;
+    color: black;
+    background-image: url('../assets/signup.png');
+    background-size: cover;
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 200;
+    font-size: 24px;
+    line-height: 36px;
 
+    @include mobile{
+        background-image: url('../assets/signupMobile.png');
+    }
 
     .register-form{
-        display: flex;
+        @include tabletMin{
+            position: absolute;
+            top: 16%;
+            left: 13%;
+        }
+
+        background-color: white;
+        @include flexCenterCenter;
         flex-direction: column;
-        gap: 20px;
-        background-color: $selago;
-        width: min(400px, 100vw);
+        gap: 11px;
+        width: min(540px, 100vw);
         padding: 10px 20px 10px 20px;
-        border: 3px solid $shipCove;
-        border-radius: 5px;
 
         .form-header{
-            display: flex;
+            width: 100%;
+            @include flexCenterCenter;
             flex-direction: column;
-            font-size: $font-30;
+            gap: 11px;
+            text-align: center;
+
+            hr{
+                width: 90%;
+            }
+
+            .form-header-title{
+                font-family: 'Oswald';
+                font-style: normal;
+                font-weight: 300;
+                font-size: 20px;
+                line-height: 30px;
+            }
 
             .form-header-error{
                 display: flex;
                 flex-direction: column;
-                max-height: 40px;
+                height: 40px;
                 text-align: center;
 
                 .register-error{
@@ -39,11 +68,22 @@
 
         form{
             display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: min(350px, 100vw);
+            display: flex;
             flex-direction: column;
             gap: 10px;
+
+            @include mobile{
+                padding: 0 10px 0 10px;
+            }
+
         }
 
         .form-inputwrapper{
+            width: 100%;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -60,5 +100,21 @@
             align-items: center;
             gap: 10px;
         }
+    }
+
+    .login-form-info{
+        @include flexCenterCenter;
+        flex-direction: column;
+        width: min(380px, 100vw);
+
+        color: #505050;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-size: 10px;
+        line-height: 12px;
+        text-align: center;
+
+        margin-bottom: 35px;
     }
 }

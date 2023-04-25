@@ -82,6 +82,7 @@ const Login = () => {
                     <label htmlFor="loginbtn" className='__orange-button-label'>
                         <input disabled={disabled} type="submit" value="Login"/>
                     </label>
+
                 </form>
                 <div className="login-form-redirect">
                     <span>Don’t have an account yet? Sign up</span>

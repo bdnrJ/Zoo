@@ -16,7 +16,6 @@ type User={
 
 const Register = () => {
     const [registerErr, setRegisterErr] = useState("");
-    const [success, setSuccess] = useState("");
     const [disabled, setDisabled] = useState(false);
     const navigate = useNavigate();
 
@@ -34,12 +33,11 @@ const Register = () => {
         path: ["confirmPwd"],
     })
 
-    const { register, handleSubmit,watch, formState: { errors } } = useForm<User>({resolver: zodResolver(schema)});
+    const { register, handleSubmit, watch, formState: { errors } } = useForm<User>({resolver: zodResolver(schema)});
 
     const onSubmit = (data: User) => handleRegister(data);
 
     const handleRegister = async (data: User) =>{
-        setSuccess("");
         try{
         const response = await axiosClient.post('/register',
         {
@@ -50,7 +48,6 @@ const Register = () => {
             confirmPwd: data.confirmPwd
         });
 
-        setSuccess("Registered succesfully");
         setRegisterErr("");
         setDisabled(true);
         setTimeout(() => navigate('/'), 1500);
@@ -65,53 +62,49 @@ const Register = () => {
                 <div className="form-header">
                     <div className="form-header-error">
                         {registerErr && <span className='register-error' >{registerErr}</span> }
-                        {success && <span className='register-success'>{success}</span> }
                     </div>
                     <div className="form-header-title">
-                        Sign up
+                        Create an account
                     </div>
+                    <hr />
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-inputwrapper">
-                        <span>Firstname</span>
                         <label htmlFor="firstname">
-                            <input className={`_formInput ${errors.firstname && "--error"}`} type="text" {...register("firstname", {required: true})}/>
+                            <input className={`_formInput ${errors.firstname && "--error"}`} type="text" {...register("firstname", {required: true})} placeholder='Firstname'/>
                             {errors.firstname && <span className={`_inputError`}>{errors.firstname.message}</span>}
                         </label>
                     </div>
                     <div className="form-inputwrapper">
-                        <span>Lastname</span>
                         <label htmlFor="lastname">
-                            <input className={`_formInput ${errors.lastname && "--error"}`} type="text" {...register("lastname", {required: true})}/>
+                            <input className={`_formInput ${errors.lastname && "--error"}`} type="text" {...register("lastname", {required: true})} placeholder='Lastname'/>
                             {errors.lastname && <span className={`_inputError`}>{errors.lastname.message}</span>}
                         </label>
                     </div>
                     <div className="form-inputwrapper">
-                        <span>Email</span>
                         <label htmlFor="email">
-                            <input className={`_formInput ${errors.email && "--error"}`} type="text" {...register("email", {required: true})}/>
+                            <input className={`_formInput ${errors.email && "--error"}`} type="text" {...register("email", {required: true})} placeholder='Email'/>
                             {errors.email && <span className={`_inputError`}>{errors.email.message}</span>}
                         </label>
                     </div>
                     <div className="form-inputwrapper">
-                        <span>Password</span>
                         <label htmlFor="password">
-                            <input className={`_formInput ${errors.password && "--error"}`} type="password" {...register("password", {required: true})}/>
+                            <input className={`_formInput ${errors.password && "--error"}`} type="password" {...register("password", {required: true})} placeholder='Password'/>
                             {errors.password && <span className={`_inputError`}>{errors.password.message}</span>}
                         </label>
                         <span className="password-requirements" >At least 8 characters, one lower letter, one upper letter</span>
                     </div>
                     <div className="form-inputwrapper">
-                        <span>Confirm Password</span>
                         <label htmlFor="confirmPwd">
-                            <input className={`_formInput ${errors.confirmPwd && "--error"}`} type="password" {...register("confirmPwd", {required: true})}/>
+                            <input className={`_formInput ${errors.confirmPwd && "--error"}`} type="password" {...register("confirmPwd", {required: true})} placeholder='Confirm Password'/>
                             {errors.confirmPwd && <span className={`_inputError`}>{errors.confirmPwd.message}</span>}
                         </label>
                     </div>
 
-                    <div className="login-form-button">
-                        <input disabled={disabled} type="submit" value="Sign up" className='_confirmButton' />
-                    </div>
+                    <label htmlFor="loginbtn" className='__orange-button-label'>
+                        <input disabled={disabled} type="submit" value="Sign up" />
+                    </label>
+
                 </form>
                 <div className="register-form-redirect">
                     <span>Already have an account?</span>
@@ -119,6 +112,12 @@ const Register = () => {
                         {disabled ? <span className='_link'>Log in</span>
                                 :<Link className='_link' to="/login">Log in</Link>}
                     </span>
+                </div>
+                <div className="login-form-info">
+                    <span>Why do I need an account?</span>
+                    45% of the income from tickets sold goes to our "Save wildlife"
+                    foundation, which is why it is so important for us to verify our
+                    guests. Thank you for your understanding and we wish you a pleasant visit to the zoo!
                 </div>
             </div>
         </div>
