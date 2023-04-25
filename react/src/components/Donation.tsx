@@ -36,33 +36,37 @@ const Donation = () => {
 
                 <div className="donation-form-rest">
                     <div className="donation-form-rest-double">
-                        <input type="text" placeholder='First name' />
-                        <input type="text" placeholder='Last name' />
+                        <input className='donation-input' type="text" placeholder='First name' />
+                        <input className='donation-input' type="text" placeholder='Last name' />
                     </div>
                     <div className="donation-form-rest-double">
-                        <input type="text" placeholder='Email' />
-                        <input type="text" placeholder='Phone' />
+                        <input className='donation-input' type="text" placeholder='Email' />
+                        <input className='donation-input' type="text" placeholder='Phone' />
                     </div>
                     <div className="donation-form-rest-basic">
-                        <input type="text" placeholder='Street 1' />
-                        <input type="text" placeholder='Street 2' />
+                        <input className='donation-input'type="text" placeholder='Street 1' />
+                        <input className='donation-input' type="text" placeholder='Street 2' />
                     </div>
                     <div className="donation-form-rest-triple">
-                        <input type="text" placeholder='City' />
-                        <input type="text" placeholder='State/Province' />
-                        <input type="text" placeholder='ZIP' />
+                        <input className='donation-input' type="text" placeholder='City' />
+                        <input className='donation-input' type="text" placeholder='State/Province' />
+                        <input className='donation-input' type="text" placeholder='ZIP' />
                     </div>
                     <div className="donation-form-rest-basic">
-                        <input type="text" placeholder='Country' />
-                        <input type="text" placeholder='Credit card number' />
+                        <input className='donation-input' type="text" placeholder='Country' />
+                        <input className='donation-input' type="text" placeholder='Credit card number' />
                     </div>
                     <div className="donation-form-rest-triple">
-                        <input type="text" placeholder='Month' />
-                        <input type="text" placeholder='Year' />
-                        <input type="text" placeholder='CCV Number' />
+                        <input className='donation-input' type="text" placeholder='Month' />
+                        <input className='donation-input' type="text" placeholder='Year' />
+                        <input className='donation-input' type="text" placeholder='CCV Number' />
                     </div>
                 </div>
-                <button onClick={(e) => handleNothing(e)} >DONATE</button>
+                <label htmlFor="donationbtn" className='donation-button-label'>
+                    <button name='donationbtn' onClick={(e) => handleNothing(e)} >
+                        DONATE
+                    </button>
+                </label>
             </form>
         </div>
     )

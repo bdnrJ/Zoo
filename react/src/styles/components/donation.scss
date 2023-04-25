@@ -18,8 +18,19 @@
     }
 
     .donation-form{
+        width: 100%;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        @include mobile{
+            margin: 0px 15px 0 15px;
+        }
 
         .donation-form-amount{
+            width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -79,23 +90,77 @@
         }
 
         .donation-form-rest{
+            margin-top: 15px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            gap: 15px;
+            gap: 25px;
+            max-width: 463px;
+
+            @include mobile{
+                padding: 0 30px 0 30px;
+            }
+
+            .donation-input{
+                height: 30px;
+                border-radius: 10px;
+                border: 1px solid black;
+                padding-left: 10px;
+            }
+
 
             .donation-form-rest-double{
+                width: 100%;
                 display: flex;
+                gap: 60px;
+
+                input{
+                    width: 100%;
+                }
             }
 
             .donation-form-rest-basic{
+                width: 100%;
                 display: flex;
                 flex-direction: column;
+                gap: 25px;
+                input{
+                    width: 100%;
+                }
             }
 
             .donation-form-rest-triple{
+                width: 100%;
                 display: flex;
+                gap: 25px;
+                input{
+                    width: 100%;
+                }
+            }
+        }
+
+        .donation-button-label{
+            width: 140px;
+            height: 40px;
+
+
+            &:hover{
+                button{
+                width: 130px;
+                height: 35px;
+                }
+            }
+
+            button{
+                background-color: $fadedOrange;
+                color: white;
+                width: 140px;
+                height: 40px;
+                border: 1px solid transparent;
+                border-radius: 10px;
+                transition: all 0.4s ease-in;
             }
         }
     }
