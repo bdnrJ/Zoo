@@ -129,14 +129,14 @@ const router = createBrowserRouter([
         path: "/login",
         element:
             <RequireUnloggedUser>
-                <Login />,
+                <Login />
             </RequireUnloggedUser>
     },
     {
         path: "/register",
         element:
             <RequireUnloggedUser >
-                <Register />,
+                <Register />
             </RequireUnloggedUser>
     },
 ]);
