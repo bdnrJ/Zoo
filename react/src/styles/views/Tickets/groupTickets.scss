@@ -1,4 +1,125 @@
-.group_tickets{
+.group {
     @include navbarMargin;
-    @include flexCenterCenter;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #f8f8f8;
+    color: #5d5d5d;
+    min-height: 800px;
+
+    .group-title {
+        font-family: 'Oswald';
+        font-style: normal;
+        font-weight: 500;
+        line-height: 47px;
+        color: black;
+    }
+
+    .group-wrapper {
+        margin-top: 40px;
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+
+        @include tablet {
+            width: 90%;
+        }
+
+        .group-select {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: $margin-medium;
+            width: 65%;
+
+            @include tablet {
+                width: 90%;
+            }
+
+            .group-select-title {
+                font-size: $font-18;
+
+            @include mobile {
+                font-size: $font-15;
+            }
+        }
+
+            .group-select-date {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                width: 80%;
+            }
+
+            .group-select-tickets {
+                width: 80%;
+
+                @include tablet {
+                width: 100%;
+                }
+
+                .group-select-tickets-wrapper {
+                margin-top: 30px;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                }
+            }
+
+            .group-select-services {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                width: 80%;
+
+                .group-select-label {
+                border-bottom: 1px solid $fontgrey;
+                font-size: $font-24;
+                letter-spacing: 2px;
+                }
+            }
+
+                .group-select-label {
+                    border-bottom: 1px solid $fontgrey;
+                    font-size: $font-24;
+                    letter-spacing: 2px;
+                }
+        }
+    }
+
+    .group_tickets-cart {
+        display: flex;
+        width: 350px;
+        justify-content: center;
+
+        @include tablet {
+        width: 80%;
+        margin-bottom: 70px;
+        min-height: 500px;
+        }
+    }
+
+    .group-buttons {
+        margin-top: 40px;
+        @include flexCenterCenter;
+
+        &:hover {
+        button {
+            font-size: 15px;
+        }
+        }
+    }
+    }
+
+    .react-datepicker__input-container {
+    input {
+        width: 300px;
+        padding-left: 10px;
+        font-family: inherit;
+        height: 50px;
+        border: 1px solid $border;
+
+        outline: none;
+    }
 }

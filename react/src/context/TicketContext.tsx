@@ -16,7 +16,7 @@ export type normalTicket = {
     type: string
 }
 
-type normalUserTicket = {
+export type normalUserTicket = {
     age_info: string,
     id: number,
     is_active: number,

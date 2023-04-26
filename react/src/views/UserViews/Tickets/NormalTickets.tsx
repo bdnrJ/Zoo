@@ -127,7 +127,7 @@ export const NormalTickets = () => {
                         </div>
                     </div>
                     <div className="normal_tickets-cart">
-                        <TicketSum date={normalUserTransaction.exp_date}/>
+                        <TicketSum date={normalUserTransaction.exp_date} ticketType='normal'/>
                     </div>
                 </div>
             </div>

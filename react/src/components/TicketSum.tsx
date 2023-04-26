@@ -1,13 +1,28 @@
 import React, { useContext } from 'react'
-import { TicketContext } from '../context/TicketContext'
+import { TicketContext, normalTicket, normalUserTicket } from '../context/TicketContext'
 
 type props ={
     date: Date
     addClass?: string
+    ticketType: "normal" | "group";
 }
 
-const TicketSum = ({date, addClass}: props) => {
-    const {normalUserTickets} = useContext(TicketContext);
+const TicketSum = ({ date, addClass, ticketType }: props) => {
+    const {normalUserTickets, availableGroupTicket, groupUserTransaction} = useContext(TicketContext);
+    const groupUserTicket: normalUserTicket[] = [{
+        id: availableGroupTicket.id,
+        name: availableGroupTicket.name,
+        age_info: availableGroupTicket.age_info,
+        price: availableGroupTicket.price,
+        amount: groupUserTransaction.items[0].amount,
+        is_active: 1,
+    }]
+    console.log(normalUserTickets);
+    console.log(availableGroupTicket);
+    console.log(groupUserTransaction);
+
+
+
     //Date formating
     const dayOfWeek = date.toLocaleString('en-US', { weekday: 'long' });
     const month = date.toLocaleString('en-US', { month: 'long' });
@@ -16,8 +31,10 @@ const TicketSum = ({date, addClass}: props) => {
     const formattedDate = `${dayOfWeek}, ${month} ${dayOfMonth}, ${year}`;
 
     const calculateTotalPrice = (): number => {
-        return normalUserTickets.reduce((acc, curr) => acc + (curr.price * curr.amount), 0);
-    }
+        const tickets = ticketType === "normal" ? normalUserTickets : groupUserTicket;
+
+        return tickets.reduce((acc, curr) => acc + curr.price * curr.amount, 0);
+    };
 
     return (
         <div className={`ticketsum --${addClass}`}>
@@ -30,13 +47,17 @@ const TicketSum = ({date, addClass}: props) => {
                         <span>{formattedDate}</span>
                     </div>
                     <div className="ticketsum-tickets-acutaltickets">
-                        {normalUserTickets.map((ticket) => {
-                            if(ticket.amount === 0 ) return;
+                        {(ticketType === "normal" ? normalUserTickets : groupUserTicket).map(
+                            (ticket) => {
+                            if (ticket.amount === 0) return;
                             return (
-                                <span key={ticket.name} >{`${ticket.name} - $${ticket.price} x ${ticket.amount}`}</span>
+                                <span key={ticket.name}>
+                                {`${ticket.name} - $${ticket.price} x ${ticket.amount}`}
+                                </span>
                             );
-                        })}
-                    </div>
+                            }
+                        )}
+                        </div>
                 </div>
                 <hr />
                 <div className="ticketsum-sum">

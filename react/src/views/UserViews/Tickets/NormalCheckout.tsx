@@ -34,7 +34,7 @@ const NormalCheckout = () => {
 
     return (
         <div className="normal_checkout">
-            <TicketSum date={normalUserTransaction.exp_date} addClass={'checkout'}/>
+            <TicketSum date={normalUserTransaction.exp_date} addClass={'checkout'} ticketType='normal'/>
 
             <button onClick={hanldeBuyTicket} >Buy</button>
         </div>
