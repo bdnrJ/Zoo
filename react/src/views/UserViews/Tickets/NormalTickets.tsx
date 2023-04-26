@@ -96,7 +96,7 @@ export const NormalTickets = () => {
 
                         <div className="normal-select-date">
                             <div className="normal-select-label">
-                                <h4>Select Date</h4>
+                                <h4>Select date of visit</h4>
                             </div>
                             <DatePicker
                                 minDate={new Date()}
@@ -132,16 +132,22 @@ export const NormalTickets = () => {
                 </div>
             </div>
             {!currentUser
-                ? <button onClick={() => navigate('/login')}>Log in to continue</button>
+                ?   <label htmlFor="login_redirect" className='__orange-button-label --nt'>
+                        <button name="login_redirect" onClick={() => navigate('/login')}>Log in to continue</button>
+                    </label>
                 :
-                <button
-                    //disabled when no tickets are selected
-                    //checked by calculating cost if(0) not selected
-                    disabled={normalUserTickets.reduce((acc, curr) => acc + (curr.price * curr.amount), 0) === 0}
-                    onClick={handleContiuneToCheckout}
-                    >
-                        Contiune
-                </button>}
+                    <label htmlFor="normalCheckout" className='__orange-button-label --nt'>
+                        <button
+                            name='normalCheckout'
+                            //disabled when no tickets are selected
+                            //checked by calculating cost if(0) not selected
+                            disabled={normalUserTickets.reduce((acc, curr) => acc + (curr.price * curr.amount), 0) === 0}
+                            onClick={handleContiuneToCheckout}
+                            >
+                                Contiune
+                        </button>
+                    </label>
+                }
         </div>
     )
 }

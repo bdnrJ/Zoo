@@ -7,6 +7,13 @@
     color: #5d5d5d;
     min-height: 800px;
 
+    .normal-title{
+        font-family: 'Oswald';
+        font-style: normal;
+        font-weight: 500;
+        line-height: 47px;
+        color: black;
+    }
 
     .normal-wrapper{
         margin-top: 40px;
@@ -18,8 +25,6 @@
         @include tablet{
             width: 90%;
         }
-
-
 
         .normal-buying{
             display: flex;
@@ -96,6 +101,17 @@
             width: 80%;
             margin-bottom: 70px;
             min-height: 500px;
+        }
+    }
+
+    .--nt{
+        margin-top: 40px;
+        @include flexCenterCenter;
+
+        &:hover{
+            button{
+                font-size: 15px;
+            }
         }
     }
 }

@@ -16,6 +16,10 @@
         line-height: 95px;
         color: white;
         width: 100%;
+
+        @include mobile{
+            background-image: url('../assets/tickets-headerMobile.png');
+        }
     }
 
     .tickets-main{

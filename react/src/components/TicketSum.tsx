@@ -48,7 +48,7 @@ const TicketSum = ({date, addClass}: props) => {
                     </div>
                     <div className="ticketsum-sum-block">
                         <span className='ticketsum-sum-block-total'>Total: </span>
-                        <span className='ticketsum-sum-block-total'>
+                        <span className='ticketsum-sum-block-total --dolar'>
                             ${calculateTotalPrice() == 0 ? 0 : (calculateTotalPrice()+5).toFixed(2)}
                         </span>
                     </div>
