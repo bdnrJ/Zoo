@@ -19,17 +19,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/isadmin', [AuthController::class, 'isadmin']);
     Route::get('/all_users', [AuthController::class, 'getUsers'])->middleware('isAdmin');
     Route::get('/user/{id}', [AuthController::class, 'user'])->middleware('isAdmin');
     Route::get('/user_to_user', [AuthController::class, 'userToUser']);
+    Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::post('/add_transactions', [TransactionController::class, 'store']);
     Route::get('/all_transactions', [TransactionController::class, 'getTransactions'])->middleware('isAdmin');
     Route::get('/transaction/{id}', [TransactionController::class, 'getTransaction'])->middleware('isAdmin');
     Route::put('/ticket_types/{id}', [TicketTypeController::class, 'update'])->middleware('isAdmin');
-
 });
 
 

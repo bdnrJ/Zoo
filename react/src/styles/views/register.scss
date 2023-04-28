@@ -17,13 +17,12 @@
         background-image: url('../assets/signupMobile.png');
     }
 
-    .register-form{
-        @include tabletMin{
-            position: absolute;
-            top: 16%;
-            left: 13%;
-        }
+    @include mobileMin{
+        justify-content: flex-start;
+        padding-left: 10%;
+    }
 
+    .register-form{
         background-color: white;
         @include flexCenterCenter;
         flex-direction: column;
