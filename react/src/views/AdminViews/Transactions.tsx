@@ -25,7 +25,7 @@ const Transactions = () => {
 
     const fetchTransactions = async (page: number) => {
         try{
-            const response = await axiosClient.get(`/all_transactions?page=${page}`, {withCredentials: true});
+            const response = await axiosClient.get(`/transactions?page=${page}`, {withCredentials: true});
             console.log("fetching: "+ page);
             return response.data;
         }catch(err: any){

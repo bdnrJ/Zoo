@@ -20,7 +20,7 @@ const UserPage = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try{
-                const response = await axiosClient.get(`/user/${id}`, {withCredentials: true});
+                const response = await axiosClient.get(`/users/${id}`, {withCredentials: true});
                 console.log(response);
                 setUser(response.data.user);
                 setTransactions(response.data.user.transactions);

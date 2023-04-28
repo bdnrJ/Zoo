@@ -62,26 +62,6 @@ class AuthController extends Controller
         ])->withCookie($cookie);
     }
 
-    public function user($id)
-    {
-        $user = User::with('transactions')->findOrFail($id);
-        return response()->json([
-            'user' => $user,
-        ]);
-    }
-
-    public function userToUser()
-    {
-        $user = Auth::user();
-
-        if ($user) {
-            $userWithTransactions = $user->load('transactions');
-            return response()->json($userWithTransactions);
-        } else {
-            return response()->json(['error' => 'User not authenticated'], 401);
-        }
-    }
-
     public function isadmin(){
         $user = Auth::user();
 
@@ -107,14 +87,5 @@ class AuthController extends Controller
         return response([
             'message' => "success"
         ])->withCookie($cookie);
-    }
-
-    public function getUsers(){
-        $users = User::paginate(15);
-
-        return response([
-            "message" => "success",
-            "paginationData" => $users
-        ], 200);
     }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\ServiceTypesController;
 use App\Http\Controllers\TicketTypeController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,17 +21,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/isadmin', [AuthController::class, 'isadmin']);
-    Route::get('/all_users', [AuthController::class, 'getUsers'])->middleware('isAdmin');
-    Route::get('/user/{id}', [AuthController::class, 'user'])->middleware('isAdmin');
-    Route::get('/user_to_user', [AuthController::class, 'userToUser']);
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    Route::post('/add_transactions', [TransactionController::class, 'store']);
-    Route::get('/all_transactions', [TransactionController::class, 'getTransactions'])->middleware('isAdmin');
-    Route::get('/transaction/{id}', [TransactionController::class, 'getTransaction'])->middleware('isAdmin');
+    Route::get('/users_unauth', [UserController::class, 'userToUser']);
+    Route::get('/users', [UserController::class, 'getUsers'])->middleware('isAdmin');
+    Route::get('/users/{id}', [UserController::class, 'user'])->middleware('isAdmin');
+
+    Route::post('/transactions', [TransactionController::class, 'store']);
+    Route::get('/transactions', [TransactionController::class, 'getTransactions'])->middleware('isAdmin');
+    Route::get('/transactions/{id}', [TransactionController::class, 'getTransaction'])->middleware('isAdmin');
+
     Route::put('/ticket_types/{id}', [TicketTypeController::class, 'update'])->middleware('isAdmin');
 });
-
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

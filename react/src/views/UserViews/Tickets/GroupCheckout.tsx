@@ -19,7 +19,7 @@ const GroupCheckout = () => {
         console.log(groupTransaction);
 
         try{
-            const res = await axiosClient.post('/add_transactions',
+            const res = await axiosClient.post('/transactions',
             {
                 ...groupTransaction
             },

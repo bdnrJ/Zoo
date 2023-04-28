@@ -27,7 +27,7 @@ const Users = () => {
 
     const fetchUsers = async (page: number) => {
         try {
-            const res = await axiosClient.get(`/all_users?page=${page}`, {withCredentials: true});
+            const res = await axiosClient.get(`/users?page=${page}`, {withCredentials: true});
             const paginationData = await res.data.paginationData;
             console.log("fetching: "+page);
 
