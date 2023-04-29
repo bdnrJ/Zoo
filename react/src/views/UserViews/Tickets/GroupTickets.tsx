@@ -5,13 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import {TicketContext} from '../../../context/TicketContext';
 import TicketChooser from '../../../components/TicketChooser';
 import TicketSum from '../../../components/TicketSum';
+import BackButton from '../../../components/BackButton';
+import { AuthContext } from '../../../context/AuthContext';
 
 export const GroupTickets = () => {
     //TODO amount needs to be either inside groupUserTicket or somwhere in the context, coz it's shit right now
     const {availableGroupTicket, userServices, setUserServices, groupUserTransaction, setGroupUserTransaction} = useContext(TicketContext);
-    console.log(groupUserTransaction);
+    const {currentUser} = useContext(AuthContext);
     const navigate = useNavigate();
-    if(!groupUserTransaction.items[0]) navigate('/');
+    if(!groupUserTransaction.items[0]) navigate('/tickets');
 
     const handleContiuneToGroupCheckout = () => {
         const chosenServices = userServices.filter((service) => service.is_choosen === true).map((service) => ({
@@ -78,70 +80,88 @@ export const GroupTickets = () => {
                 <h1>Group Tickets</h1>
             </div>
             <div className="group-wrapper">
-                <div className="group-select">
-                <div className="group-select-title">
-                    <h3>
-                    You have chosen group tickets. <br />
-                    Please complete your ticket details below.
-                    </h3>
+                <div className="backbtn">
+                    <BackButton direction='/tickets' />
                 </div>
-                <div className="group-select-date">
-                    <div className="group-select-label">
-                        <h4>Select date of visit</h4>
+                <div className="group-wrapper-buying">
+                    <div className="group-select">
+                    <div className="group-select-title">
+                        <h3>
+                        You have chosen group tickets. <br />
+                        Please complete your ticket details below.
+                        </h3>
                     </div>
-                    <DatePicker
-                    minDate={new Date()}
-                    selected={groupUserTransaction.exp_date}
-                    onChange={(date: Date) => setGroupTransactionDate(date)}
-                    value={formattedDate}
-                    />
-                </div>
-                <div className="group-select-tickets">
-                    <div className="group-select-tickets-wrapper">
-                    <div className="group-select-label">
-                        <h4>Select Group Tickets</h4>
-                    </div>
-                    <TicketChooser
-                        key={availableGroupTicket.name}
-                        idx={availableGroupTicket.id}
-                        amount={groupUserTransaction.items[0].amount}
-                        title={availableGroupTicket.name}
-                        ageInfo={availableGroupTicket.age_info}
-                        price={availableGroupTicket.price}
-                        handleAdd={handleAdd}
-                        handleSub={hanldeSub}
-                    />
-                </div>
-                <div className="group-select-services">
-                    <div className="group-select-label">
-                        <h4>Select Services</h4>
-                    </div>
-                    {userServices.map((userService, idx) => (
-                        <div
-                        className="group_tickets-services-service"
-                        key={userService.id}
-                        >
-                        <div>
-                            {userService.name}:
-                            <input
-                            type="checkbox"
-                            checked={userService.is_choosen}
-                            onChange={() => handleCheckboxChange(idx)}
-                            />
+                    <div className="group-select-date">
+                        <div className="group-select-label">
+                            <h4>Select date of visit</h4>
                         </div>
+                        <DatePicker
+                        minDate={new Date()}
+                        selected={groupUserTransaction.exp_date}
+                        onChange={(date: Date) => setGroupTransactionDate(date)}
+                        value={formattedDate}
+                        />
+                    </div>
+                    <div className="group-select-tickets">
+                        <div className="group-select-tickets-wrapper">
+                        <div className="group-select-label">
+                            <h4>Select Group Tickets</h4>
                         </div>
-                    ))}
-                </div>
-                </div>
-                </div>
-                <div className="group_tickets-cart">
-                    <TicketSum date={groupUserTransaction.exp_date} ticketType='group'/>
+                        <TicketChooser
+                            key={availableGroupTicket.name}
+                            idx={availableGroupTicket.id}
+                            amount={groupUserTransaction.items[0].amount}
+                            title={availableGroupTicket.name}
+                            ageInfo={availableGroupTicket.age_info}
+                            price={availableGroupTicket.price}
+                            handleAdd={handleAdd}
+                            handleSub={hanldeSub}
+                        />
+                    </div>
+                    <div className="group-select-services">
+                        <div className="group-select-label">
+                            <h4>Select Services</h4>
+                        </div>
+                        {userServices.map((userService, idx) => (
+                            <div
+                            className="group_tickets-services-service"
+                            key={userService.id}
+                            >
+                            <div>
+                                {userService.name}:
+                                <input
+                                type="checkbox"
+                                checked={userService.is_choosen}
+                                onChange={() => handleCheckboxChange(idx)}
+                                />
+                            </div>
+                            </div>
+                        ))}
+                    </div>
+                    </div>
+                    </div>
+                    <div className="group_tickets-cart">
+                        <TicketSum date={groupUserTransaction.exp_date} ticketType='group'/>
+                    </div>
                 </div>
             </div>
             <div className="group-buttons">
-                <button onClick={(e) => handleContiuneToGroupCheckout()}>
-                Continue
-                </button>
+                {!currentUser
+                ?   <label htmlFor="login_redirect" className='__orange-button-label --nt'>
+                        <button name="login_redirect" onClick={() => navigate('/login')}>Log in to continue</button>
+                    </label>
+                :
+                    <label htmlFor="normalCheckout" className='__orange-button-label --nt'>
+                        <button
+                            name='normalCheckout'
+                            //disabled when no tickets are selected
+                            //checked by calculating cost if(0) not selected
+                            onClick={handleContiuneToGroupCheckout}
+                            >
+                                Contiune
+                        </button>
+                    </label>
+                }
             </div>
         </div>
     );

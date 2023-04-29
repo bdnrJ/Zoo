@@ -37,8 +37,8 @@ const TicketSum = ({ date, addClass, ticketType }: props) => {
     };
 
     return (
-        <div className={`ticketsum --${addClass}`}>
-            <div className="ticketsum-title">
+        <div className={`ticketsum --${ticketType}`}>
+            <div className={`ticketsum-title --${ticketType}`}>
                 <h2>Ticketing</h2>
             </div>
             <div className="ticketsum-bottom">

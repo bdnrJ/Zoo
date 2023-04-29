@@ -5,7 +5,9 @@
     flex-direction: column;
     background-color: #f8f8f8;
     color: #5d5d5d;
+    padding-bottom: 40px;
     min-height: 800px;
+
 
     .group-title {
         font-family: 'Oswald';
@@ -17,10 +19,22 @@
 
     .group-wrapper {
         margin-top: 40px;
-        width: 70%;
         display: flex;
         flex-direction: column;
         gap: 40px;
+        width: 70%;
+
+        .group-wrapper-buying{
+            display: flex;
+
+            @include tablet{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+            }
+        }
 
         @include tablet {
             width: 90%;
@@ -92,6 +106,7 @@
         display: flex;
         width: 350px;
         justify-content: center;
+
 
         @include tablet {
         width: 80%;

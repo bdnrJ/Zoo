@@ -18,6 +18,10 @@
         background-size: cover;
         background-repeat: no-repeat;
 
+        &.--normal{
+            background-image: url('../assets/blueTicketBg.png');
+        }
+
         @include tablet{
             height: 250px;
         }
