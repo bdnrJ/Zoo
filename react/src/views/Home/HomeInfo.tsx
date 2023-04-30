@@ -47,9 +47,9 @@ const HomeInfo = () => {
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15810.124473949514!2d22.00452150926875!3d50.03197884882488!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473cfaf83c5a9833%3A0x432f7dd9b86f7a01!2sUniwersytet%20Rzeszowski%20(UR)!5e0!3m2!1spl!2spl!4v1682102815267!5m2!1spl!2spl"
                     width="600"
                     height="450"
-                    allowfullscreen=""
+                    allowFullScreen={true}
                     loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
+                    referrerPolicy="no-referrer-when-downgrade"
                     className='home_info-map_object'
                 >
                 </iframe>
