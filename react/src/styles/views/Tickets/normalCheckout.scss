@@ -3,6 +3,7 @@
     @include flexCenterCenter;
     flex-direction: column;
     gap: 30px;
+    margin-bottom: 30px;
 
     .checkout-title{
         font-family: 'Oswald';
@@ -16,17 +17,29 @@
         display: flex;
         flex-direction: column;
         gap: 30px;
+        padding: 0 30px 0 30px;
 
         .checkout-buying{
             display: flex;
             gap: 100px;
+
+            @include tablet{
+                flex-direction: column;
+                align-items: center;
+                gap: 40px;
+            }
 
             .checkout-buying-left{
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 gap: 60px;
-                max-width: 1000px;
+                width: 65%;
+                max-width: 600px;
+
+                @include tablet{
+                    width: 100%;
+                }
 
                 .checkout-buying-left-title{
                     font-family: 'Roboto';
@@ -38,9 +51,42 @@
                 }
 
                 .checkout-buying-left-payment{
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
 
                     .buying-left-payment-options{
+                        display: grid;
+                        grid-template-columns: 1fr 1fr 1fr 1fr;
+                        width: 100%;
 
+                        @include mobile{
+                            display: grid;
+                            grid-template-columns: 1fr 1fr;
+                            gap: 10px;
+                        }
+
+                        .left-payment-options-payment{
+                            cursor: pointer;
+                            justify-self: center;
+
+                            img{
+                                border: 2px solid transparent;
+                                border-radius: 5px;
+                            }
+
+                            &:hover{
+                                img{
+                                    border: 2px solid gold;
+                                }
+                            }
+
+                            &.--active{
+                                img{
+                                    border: 2px solid gold ;
+                                }
+                            }
+                        }
                     }
 
                     .buying-left-payment-desc{
@@ -87,6 +133,23 @@
 
                     /* identical to box height */
                     text-align: center;
+                }
+            }
+
+            .checkout-buying-right{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 326px;
+                padding-top: 10%;
+                padding-bottom: 10%;
+
+                @include tablet{
+                    width: 80%;
+                }
+
+                @include mobile{
+                    width: 100%;
                 }
             }
         }

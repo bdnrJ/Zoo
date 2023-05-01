@@ -14,9 +14,14 @@ const TicketSum = ({ date, addClass, ticketType }: props) => {
         name: availableGroupTicket.name,
         age_info: availableGroupTicket.age_info,
         price: availableGroupTicket.price,
-        amount: groupUserTransaction.items[0].amount,
+        amount: 0,
         is_active: 1,
     }]
+
+    if(ticketType === 'group'){
+        groupUserTicket[0].amount = groupUserTransaction.items[0].amount;
+    }
+
     console.log(normalUserTickets);
     console.log(availableGroupTicket);
     console.log(groupUserTransaction);
@@ -33,7 +38,7 @@ const TicketSum = ({ date, addClass, ticketType }: props) => {
     const calculateTotalPrice = (): number => {
         const tickets = ticketType === "normal" ? normalUserTickets : groupUserTicket;
 
-        return tickets.reduce((acc, curr) => acc + curr.price * curr.amount, 0);
+        return tickets.reduce((acc, curr) => acc + curr.price * curr.amount, 0) || 0;
     };
 
     return (

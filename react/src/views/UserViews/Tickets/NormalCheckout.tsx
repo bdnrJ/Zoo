@@ -1,15 +1,28 @@
-import React, { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { TicketContext } from '../../../context/TicketContext'
-import TicketSum from '../../../components/TicketSum';
-import axiosClient from '../../../axios-client';
-import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../../context/AuthContext';
-import BackButton from '../../../components/BackButton';
+import TicketSum from '../../../components/TicketSum'
+import axiosClient from '../../../axios-client'
+import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../../../context/AuthContext'
+import BackButton from '../../../components/BackButton'
+
+import applepay from '../../../assets/payment/applepay.png'
+import gpay from '../../../assets/payment/gpay.png'
+import maestro from '../../../assets/payment/maestro.png'
+import mastercard from '../../../assets/payment/mastercard.png'
+import paypal from '../../../assets/payment/paypal.png'
+import paysafe from '../../../assets/payment/paysafe.png'
+import visa from '../../../assets/payment/visa.png'
 
 const NormalCheckout = () => {
     const {normalUserTransaction, resetAllNormal} = useContext(TicketContext);
     const {currentUser} = useContext(AuthContext);
+    const [activeIndex, setActiveIndex] = useState<number>(-1);
+    const handleImageClick = (index: number) => {
+        setActiveIndex(index);
+    };
     const navigate = useNavigate();
+    const images = [paypal, applepay, gpay, paysafe, mastercard, maestro, visa];
 
     if(normalUserTransaction.items.reduce((acc, curr) => acc + curr.amount, 0) === 0 || !currentUser){
         navigate(-1);
@@ -52,7 +65,15 @@ const NormalCheckout = () => {
 
                         <div className="checkout-buying-left-payment">
                             <div className="buying-left-payment-options">
-                                paypal apple gpay paysafe mastercard visa costam
+                            {images.map((image, idx) => (
+                                <div
+                                    key={idx}
+                                    className={`left-payment-options-payment${idx === activeIndex ? ' --active' : ''}`}
+                                    onClick={() => handleImageClick(idx)}
+                                    >
+                                    <img src={image} alt="payment method" />
+                                </div>
+                            ))}
                             </div>
                             <div className="buying-left-payment-desc">
                                 After selecting the payment method and proceeding, you will be redirected to the operator's website
@@ -85,11 +106,12 @@ const NormalCheckout = () => {
                     </div>
                     <div className="checkout-buying-right">
                         <TicketSum date={normalUserTransaction.exp_date} addClass={'checkout'} ticketType='normal'/>
-                        <button onClick={hanldeBuyTicket} >Buy</button>
                     </div>
                 </div>
             </div>
-
+            <label htmlFor="buying" className='__orange-button-label --nt'>
+                <button name="buying" onClick={hanldeBuyTicket} >Buy</button>
+            </label>
         </div>
     )
 }
