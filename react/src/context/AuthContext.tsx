@@ -33,7 +33,11 @@ export const AuthProvider = ({children}: Props) => {
     useEffect(() => {
         const isAdmin = async () => {
             try{
-                await axiosClient.get('/isadmin', {withCredentials: true});
+                await axiosClient.get('/isadmin',
+                {
+                headers: { "X-Check-Admin": "true" },
+                withCredentials: true
+                });
                 setIsAdmin(true);
             }catch(err: any){
                 setIsAdmin(false);
