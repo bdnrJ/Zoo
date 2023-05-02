@@ -1,26 +1,15 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import Overlay from '../Overlay';
 
 type Props = {
-    buttonText: string;
-    children: React.ReactNode;
+    children: ReactElement<{ onClose: () => void }>,
+    closePopup: () => void
 };
 
-const PopupForm = ({ buttonText, children }: Props) => {
-    const [showPopup, setShowPopup] = useState(false);
-
-    const openPopup = () => {
-        setShowPopup(true);
-    };
-
-    const closePopup = () => {
-        setShowPopup(false);
-    };
-
+const PopupForm = ({children, closePopup }: Props) => {
     return (
         <>
-        <button onClick={openPopup}>{buttonText}</button>
-        {showPopup && <Overlay onClose={closePopup}>{children}</Overlay>}
+            <Overlay onClose={closePopup}>{children}</Overlay>
         </>
     );
 };

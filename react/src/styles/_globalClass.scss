@@ -202,6 +202,12 @@ input[type=number] {
             cursor: pointer;
         }
     }
+
+    &.--disabled{
+        button{
+            background-color: bisque;
+        }
+    }
 }
 
 .__noUnderline{

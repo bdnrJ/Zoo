@@ -13,6 +13,8 @@ import mastercard from '../../../assets/payment/mastercard.png'
 import paypal from '../../../assets/payment/paypal.png'
 import paysafe from '../../../assets/payment/paysafe.png'
 import visa from '../../../assets/payment/visa.png'
+import PopupForm from '../../../components/Popups/PopupForm'
+import BuyingSuccessPopup from '../../../components/Popups/BuyingSuccessPopup'
 
 const NormalCheckout = () => {
     const {normalUserTransaction, resetAllNormal} = useContext(TicketContext);
@@ -21,6 +23,11 @@ const NormalCheckout = () => {
     const handleImageClick = (index: number) => {
         setActiveIndex(index);
     };
+    const [checkbox1, setCheckbox1] = useState<boolean>(false);
+    const [checkbox2, setCheckbox2] = useState<boolean>(false);
+    const [showSuccessPopup, setShowSuccessPopup] = useState<boolean>(false);
+
+    const isBuyButtonDisabled = activeIndex === -1 || !checkbox1 || !checkbox2;
     const navigate = useNavigate();
     const images = [paypal, applepay, gpay, paysafe, mastercard, maestro, visa];
 
@@ -37,13 +44,16 @@ const NormalCheckout = () => {
                 exp_date: normalUserTransaction.exp_date.toISOString().slice(0, 19).replace('T', ' ')
             }, {withCredentials: true})
 
-            resetAllNormal();
-
-            //TODO: popup and then navigate back or smth
-            navigate('/');
+            setShowSuccessPopup(true);
         }catch(e){
             console.log(e);
         }
+    }
+
+    const closePopup = () => {
+        setShowSuccessPopup(false);
+        navigate('/');
+        resetAllNormal();
     }
 
     return (
@@ -85,13 +95,13 @@ const NormalCheckout = () => {
                         </div>
                         <div className="checkout-buying-left-checkboxes">
                             <span>
-                                <input type="checkbox" />
+                                <input type="checkbox" checked={checkbox1} onChange={() => setCheckbox1(!checkbox1)}  />
                                 *I accept the terms.
                                 I want to receive a VAT invoice. I have read and accept the regulations of the facility.
                                 I consent to the processing of my personal data for purposes related to participation in events or facilities for which tickets are sold, as well as for marketing and statistical purposes.
                             </span>
                             <span>
-                                <input type="checkbox" />
+                                <input type="checkbox" checked={checkbox2} onChange={() => setCheckbox2(!checkbox2)}  />
                                 *I agree to share my personal data with partners in order to receive commercial information from them, by e-mail to the e-mail address provided in the form.
                                 The administrator of your personal data in connection with the correspondence is the operator. You have the right to access your data and the right to request their rectification, objection, deletion or limitation of their processing, as well as the right to lodge a complaint to the President of the Office for Personal Data Protection
                             </span>
@@ -109,9 +119,16 @@ const NormalCheckout = () => {
                     </div>
                 </div>
             </div>
-            <label htmlFor="buying" className='__orange-button-label --nt'>
-                <button name="buying" onClick={hanldeBuyTicket} >Buy</button>
+            <label htmlFor="buying" className={`__orange-button-label --nt ${isBuyButtonDisabled && "--disabled"}`}>
+                <button name="buying" onClick={hanldeBuyTicket} disabled={isBuyButtonDisabled} >Buy</button>
             </label>
+            {isBuyButtonDisabled &&
+                <span>To contiune you must choose payment method, and confirm * required fields</span> }
+            {showSuccessPopup && (
+                <PopupForm closePopup={closePopup} >
+                    <BuyingSuccessPopup />
+                </PopupForm>
+            )}
         </div>
     )
 }
