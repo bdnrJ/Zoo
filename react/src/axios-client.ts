@@ -15,7 +15,7 @@ axiosClient.interceptors.response.use(
         !error.response.config.headers["X-Check-Admin"]
       ) {
         // Clear user data from local storage
-        localStorage.removeItem("currentUser");
+        localStorage.setItem('currentUser', null);
 
         // Redirect user to the login page
         window.location.href = "/login";
