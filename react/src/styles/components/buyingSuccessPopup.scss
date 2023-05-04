@@ -1,0 +1,33 @@
+.success_popup{
+    @include flexCenterCenter;
+    flex-direction: column;
+    gap: 30px;
+
+    .success_popup-text{
+        @include flexCenterCenter;
+        flex-direction: column;
+        text-align: center;
+        gap: 5px;
+
+        h1{
+            font-family: 'Oswald';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 32px;
+            line-height: 47px;
+        }
+
+        h3{
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 23px;
+            text-align: center;
+        }
+    }
+
+    .success_popup-ticketsum{
+        width: 80%;
+    }
+}

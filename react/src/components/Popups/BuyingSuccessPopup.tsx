@@ -1,12 +1,27 @@
 import React from 'react'
 import PopupForm from './PopupForm'
+import { BsTypeH1 } from 'react-icons/Bs'
+import TicketSum from '../TicketSum'
 
-const BuyingSuccessPopup = () => {
+type props = {
+    ticketType: "normal" | "group",
+    exp_date: Date
+}
+
+const BuyingSuccessPopup = ({ticketType, exp_date} : props) => {
     return (
-        <div>
-            <h2>Transaction Successful!</h2>
-            <p>Your ticket has been purchased successfully.</p>
-            {/* <button onClick={closePopup}>Close</button> */}
+        <div className='success_popup' >
+            <div className="success_popup-text">
+                { ticketType === "normal"
+                    ? <h1>You have bought normal tickets</h1>
+                    : <h1>You have bought group ticket</h1>
+                }
+                <h3>You can find your ticket on your profile in the “My tickets” tab</h3>
+            </div>
+
+            <div className="success_popup-ticketsum">
+                <TicketSum date={exp_date} ticketType={ticketType} />
+            </div>
         </div>
     )
 }
