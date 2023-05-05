@@ -1,7 +1,7 @@
 .navbar-user-popup{
     position: absolute;
-    background-color: $selago;
-    width: 180px;
+    background-color: white;
+    min-width: 180px;
     padding: 10px 10px 10px 10px;
     top: 39px;
     left: -75px;
@@ -9,20 +9,36 @@
     flex-direction: column;
     gap: 5px;
     border-radius: 5px;
-    border: 2px solid $shipCove;
+    box-shadow: 0px 19px 35px 0px rgba(0, 0, 0, 0.486);
+
+    span{
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        line-height: 23px;
+        letter-spacing: -0.01em;
+        text-align: left;
+        color: $fadedOrange;
+    }
 
     button{
-        color: $darkBlue;
+        color: black;
         background-color: transparent;
         text-align: left;
         border: 1px solid transparent;
         display: flex;
         align-items: center;
         gap: 5px;
-        font-size: $font-15;
+        font-style: normal;
+        font-weight: 300;
+        font-size: 15px;
+        line-height: 23px;
+        text-align: center;
+        letter-spacing: -0.01em;
 
         &:hover{
             //TODO
+            color: $fadedOrange;
         }
     }
 }
