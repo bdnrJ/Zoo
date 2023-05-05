@@ -130,7 +130,7 @@ const GroupCheckout = () => {
                 <span>To contiune you must choose payment method, and confirm * required fields</span> }
             {showSuccessPopup && (
                 <PopupForm closePopup={closePopup} >
-                    <BuyingSuccessPopup ticketType='group' exp_date={groupUserTransaction.exp_date} />
+                    <BuyingSuccessPopup closePopup={closePopup} ticketType='group' exp_date={groupUserTransaction.exp_date} />
                 </PopupForm>
             )}
             <button onClick={() => setShowSuccessPopup(true)}>x </button>

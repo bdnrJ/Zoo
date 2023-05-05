@@ -5,10 +5,11 @@ import TicketSum from '../TicketSum'
 
 type props = {
     ticketType: "normal" | "group",
-    exp_date: Date
+    exp_date: Date,
+    closePopup: () => void
 }
 
-const BuyingSuccessPopup = ({ticketType, exp_date} : props) => {
+const BuyingSuccessPopup = ({ticketType, exp_date, closePopup} : props) => {
     return (
         <div className='success_popup' >
             <div className="success_popup-text">
@@ -22,6 +23,9 @@ const BuyingSuccessPopup = ({ticketType, exp_date} : props) => {
             <div className="success_popup-ticketsum">
                 <TicketSum date={exp_date} ticketType={ticketType} />
             </div>
+            <label htmlFor="ok" className={`__orange-button-label --nt`}>
+                <button name='ok' onClick={closePopup}>OK</button>
+            </label>
         </div>
     )
 }

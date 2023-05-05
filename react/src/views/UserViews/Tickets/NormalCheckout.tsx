@@ -126,7 +126,7 @@ const NormalCheckout = () => {
                 <span>To contiune you must choose payment method, and confirm * required fields</span> }
             {showSuccessPopup && (
                 <PopupForm closePopup={closePopup} >
-                    <BuyingSuccessPopup ticketType='normal' exp_date={normalUserTransaction.exp_date} />
+                    <BuyingSuccessPopup closePopup={closePopup} ticketType='normal' exp_date={normalUserTransaction.exp_date} />
                 </PopupForm>
             )}
         </div>

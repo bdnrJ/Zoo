@@ -6,10 +6,13 @@ import NoUser from './NoUser';
 import LoggedUser from './LoggedUser';
 import UserButtons from './UserButtons';
 import AdminButtons from './AdminButtons';
+import BurgerMenu from './BurgerMenu';
+import BurgerPopup from './BurgerPopup';
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
     const {currentUser} = useContext(AuthContext);
+    const [isBurgerPopupOn, setIsBurgerPopupOn] = useState<boolean>(false);
     const navigate = useNavigate();
 
     //navbar scroll style change after scrolling from top
@@ -25,6 +28,10 @@ const Navbar = () => {
         window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
+    const togglePopup = () => {
+        setIsBurgerPopupOn(!isBurgerPopupOn);
+    }
 
     return (
         <div className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
@@ -43,6 +50,17 @@ const Navbar = () => {
                         { currentUser
                             ? <LoggedUser user={currentUser} />
                             : <NoUser />
+                        }
+                    </div>
+                    <div className="navbar-rightside-burger">
+                        <BurgerMenu isActive={isBurgerPopupOn} showPopup={togglePopup}/>
+                        { isBurgerPopupOn &&
+                            <BurgerPopup hideBurger={togglePopup}>
+                                {!currentUser?.role
+                                    ? <UserButtons />
+                                    : <AdminButtons />
+                                }
+                            </BurgerPopup>
                         }
                     </div>
                 </div>
