@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('service_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('type');
-            $table->double('price_per_customer');
+            $table->text('description');
+            $table->double('price_per_customer', 8, 2);
             $table->boolean('is_active');
         });
     }

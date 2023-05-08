@@ -18,7 +18,7 @@ class ServiceTypesController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string',
-            'type' => 'required|string',
+            'description' => 'required|string',
             'price_per_customer' => 'required|numeric',
             'is_active' => 'required|boolean',
         ]);
@@ -36,7 +36,7 @@ class ServiceTypesController extends Controller
     {
         $this->validate($request, [
             'name' => 'sometimes|required|string',
-            'type' => 'sometimes|required|string',
+            'description' => 'sometimes|required|string',
             'price_per_customer' => 'sometimes|required|numeric',
             'is_active' => 'sometimes|required|boolean',
         ]);
