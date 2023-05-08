@@ -103,6 +103,7 @@ export const NormalTickets = () => {
                                 selected={normalUserTransaction.exp_date}
                                 onChange={(date: Date) => setNormalTransactionDate(date)}
                                 value={formattedDate}
+                                className='react-datepicker-pointer'
                             />
                         </div>
 

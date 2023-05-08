@@ -7,6 +7,8 @@ import TicketChooser from '../../../components/TicketChooser';
 import TicketSum from '../../../components/TicketSum';
 import BackButton from '../../../components/BackButton';
 import { AuthContext } from '../../../context/AuthContext';
+import Tooltip from '../../../components/Tooltip';
+import {AiOutlineInfoCircle} from 'react-icons/ai';
 
 export const GroupTickets = () => {
     //TODO amount needs to be either inside groupUserTicket or somwhere in the context, coz it's shit right now
@@ -96,10 +98,11 @@ export const GroupTickets = () => {
                             <h4>Select date of visit</h4>
                         </div>
                         <DatePicker
-                        minDate={new Date()}
-                        selected={groupUserTransaction.exp_date}
-                        onChange={(date: Date) => setGroupTransactionDate(date)}
-                        value={formattedDate}
+                            minDate={new Date()}
+                            selected={groupUserTransaction.exp_date}
+                            onChange={(date: Date) => setGroupTransactionDate(date)}
+                            value={formattedDate}
+                            className='react-datepicker-pointer'
                         />
                     </div>
                     <div className="group-select-tickets">
@@ -123,21 +126,22 @@ export const GroupTickets = () => {
                             <h4>Select Services</h4>
                         </div>
                         {userServices.map((userService, idx) => (
-                            <div
-                            className="group_tickets-services-service"
-                            key={userService.id}
-                            >
-                            <div>
-                                {userService.name}:
-                                <input
+                            <div className="group_tickets-services-service" key={userService.id}>
+                            <input
                                 type="checkbox"
                                 checked={userService.is_choosen}
                                 onChange={() => handleCheckboxChange(idx)}
-                                />
-                            </div>
+                            />
+                            <span className="service-name">{userService.name}</span>
+                            <span className="service-price">(${userService.price_per_customer} per customer)</span>
+                            <span className="service-info-icon">
+                                <Tooltip content={userService.description}>
+                                    <AiOutlineInfoCircle />
+                                </Tooltip>
+                            </span>
                             </div>
                         ))}
-                    </div>
+                        </div>
                     </div>
                     </div>
                     <div className="group_tickets-cart">
@@ -166,61 +170,3 @@ export const GroupTickets = () => {
         </div>
     );
 };
-
-    // return (
-    //     <div className="group_tickets">
-    //         <form>
-    //             <h2>Select date of visit</h2>
-    //             <DatePicker
-    //                 minDate={new Date()}
-    //                 selected={groupUserTransaction.exp_date}
-    //                 onChange={(date: Date) => setGroupTransactionDate(date)}
-    //                 value={formattedDate}
-    //             />
-    //             People: {groupUserTransaction.items[0].amount}
-    //             <br></br>
-    //             <div className="group_tickets-people">
-    //                 <div className="group_tickets-people-slider">
-    //                 <input
-    //                     type="range"
-    //                     min="15"
-    //                     max="50"
-    //                     value={groupUserTransaction.items[0].amount}
-    //                     onChange={(event) => setGroupTransactionTicketAmount(event.target.valueAsNumber)}
-    //                 />
-    //                 </div>
-    //                 <div className="group_tickets-people-ticket">
-    //                     <div className="people-ticket-counter">
-    //                         {groupUserTransaction.items[0].amount}
-    //                     </div>
-    //                     <div className="people-ticket-info">
-    //                         {availableGroupTicket.name + " $"+ availableGroupTicket.price}
-    //                     </div>
-    //                     <div className="people-ticket-controls">
-    //                         <button>+</button>
-    //                         <button>-</button>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //             <div className="group_tickets-services">
-    //                 <h4>Services</h4>
-    //                 {userServices.map((userService, idx) => (
-    //                     <div className="group_tickets-services-service" key={userService.id}>
-    //                         <div>
-    //                             {userService.name}:
-    //                             <input
-    //                                 type="checkbox"
-    //                                 checked={userService.is_choosen}
-    //                                 onChange={() => handleCheckboxChange(idx)}
-    //                             />
-    //                         </div>
-    //                     </div>
-    //                 ))}
-    //             </div>
-    //         </form>
-    //             <button onClick={(e) => handleContiuneToGroupCheckout()} >Contiune</button>
-    //     </div>
-    // )
-    //
-// }
-

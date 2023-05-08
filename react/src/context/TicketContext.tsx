@@ -28,7 +28,7 @@ export type normalUserTicket = {
 export type serviceType = {
     id: number,
     name: string,
-    description?: string,
+    description: string,
     price_per_customer: string,
     is_active: number,
 }
@@ -45,6 +45,7 @@ export type service = {
 export type userService = {
     id: number,
     name: string,
+    description: string,
     price_per_customer: string,
     is_choosen: boolean,
 }

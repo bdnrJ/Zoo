@@ -94,6 +94,27 @@
                 }
             }
 
+            .group_tickets-services-service {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+
+                .service-name {
+                    margin-left: 10px;
+                    color: $fadedOrange;
+                }
+
+                .service-price {
+                    margin-left: 10px;
+                }
+
+                .service-info-icon {
+                    margin-left: 10px;
+                    cursor: pointer;
+                    @include flexCenterCenter;
+                }
+              }
+
                 .group-select-label {
                     border-bottom: 1px solid $fontgrey;
                     font-size: $font-24;

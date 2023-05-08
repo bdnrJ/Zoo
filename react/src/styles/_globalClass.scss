@@ -213,3 +213,39 @@ input[type=number] {
 .__noUnderline{
     text-decoration: none;
 }
+
+input[type='checkbox'] {
+    appearance: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border: 2px solid #C79E38;
+    border-radius: 4px;
+    position: relative;
+    outline: none;
+  }
+
+  input[type='checkbox']:checked {
+    background-color: #C79E38;
+  }
+
+  input[type='checkbox']:checked::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 12px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    left: 5.5px;
+    top: 1px;
+  }
+
+  input[type='checkbox']:hover {
+    border-color: darken(#C79E38, 10%);
+  }
+
+.react-datepicker-pointer{
+    cursor: pointer;
+}

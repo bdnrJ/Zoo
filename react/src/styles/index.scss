@@ -5,6 +5,7 @@
 @import "./mixins";
 @import "./globalClass";
 
+//example scss assets linking
 .br{
     background-image: url('../assets/tickets-header.png');
 }
@@ -45,6 +46,7 @@
 @import "./components/facility.scss";
 @import "./components/donation.scss";
 @import "./components/buyingSuccessPopup.scss";
+@import "./components/tooltip.scss";
 
 @import "./components/backbutton.scss";
 @import "./components/ticketChooser.scss";
