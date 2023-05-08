@@ -1,9 +1,8 @@
 import React, { useContext, useState } from 'react'
 import { TicketContext } from '../../../context/TicketContext'
-import axiosClient from '../../../axios-client';
-import { useNavigate } from 'react-router-dom';
+import axiosClient from '../../../axios-client'
+import { useNavigate } from 'react-router-dom'
 import TicketSum from '../../../components/TicketSum'
-import { AuthContext } from '../../../context/AuthContext'
 import BackButton from '../../../components/BackButton'
 
 import applepay from '../../../assets/payment/applepay.png'

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { TicketContext, normalTicket, normalUserTicket } from '../context/TicketContext'
+import { TicketContext, normalTicket, normalUserTicket, userService } from '../context/TicketContext'
 
 type props ={
     date: Date
@@ -7,8 +7,9 @@ type props ={
     ticketType: "normal" | "group";
 }
 
-const TicketSum = ({ date, addClass, ticketType }: props) => {
-    const {normalUserTickets, availableGroupTicket, groupUserTransaction} = useContext(TicketContext);
+const TicketSum = ({ date, addClass, ticketType,}: props) => {
+    const {normalUserTickets, availableGroupTicket, groupUserTransaction, userServices} = useContext(TicketContext);
+
     const groupUserTicket: normalUserTicket[] = [{
         id: availableGroupTicket.id,
         name: availableGroupTicket.name,
@@ -38,7 +39,14 @@ const TicketSum = ({ date, addClass, ticketType }: props) => {
     const calculateTotalPrice = (): number => {
         const tickets = ticketType === "normal" ? normalUserTickets : groupUserTicket;
 
-        return tickets.reduce((acc, curr) => acc + curr.price * curr.amount, 0) || 0;
+        let ticketTotal = tickets.reduce((acc, curr) => acc + curr.price * curr.amount, 0) || 0;
+
+        if (ticketType === 'group' && userServices) {
+            const selectedServices = userServices.filter(service => service.is_choosen);
+            const serviceTotal = selectedServices.reduce((acc, curr) => acc + parseFloat(curr.price_per_customer) * groupUserTicket[0].amount, 0);
+            return ticketTotal + serviceTotal;
+        }
+        return ticketTotal;
     };
 
     return (
@@ -60,8 +68,15 @@ const TicketSum = ({ date, addClass, ticketType }: props) => {
                                 {`${ticket.name} - $${ticket.price} x ${ticket.amount}`}
                                 </span>
                             );
-                            }
+                        }
                         )}
+                        { ticketType==='group' && userServices.map(service => (
+                            service.is_choosen && (
+                                <div key={service.id} className="ticketsum-service">
+                                    <span>{`${service.name} - $${service.price_per_customer} x ${groupUserTransaction.items[0].amount}`}</span>
+                                </div>
+                            )
+                        ))}
                         </div>
                 </div>
                 <hr />
