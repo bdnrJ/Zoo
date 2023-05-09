@@ -1,4 +1,27 @@
 .loggeduser{
     position: relative;
     width: 100px;
+
+    @include mobile{
+        width: auto;
+        padding-right: 10px;
+    }
+
+    //XD
+
+    .loggeduser-button{
+        background-color: transparent;
+        border: 2px solid transparent;
+        border-radius: 25px;
+        font-size: 18px;
+        color: $middleOrange;
+
+        &:hover{
+            color: $fadedOrange;
+        }
+    //     border: 1px solid transparent;
+    //     color: $fadedOrange;
+    //     font-weight: bold;
+    //     // font-size: 24px;
+    }
 }

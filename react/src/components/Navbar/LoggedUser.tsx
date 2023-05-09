@@ -39,7 +39,7 @@ const LoggedUser = ({user}: props) => {
 
     return (
         <div className='loggeduser' >
-            <button onClick={() => setVisible(true)}>{user.firstname}</button>
+            <button className='loggeduser-button' onClick={() => setVisible(true)}>{user.firstname}</button>
             {visible && <div className='navbar-user-popup' ref={popupRef}>
                 <span>{user.firstname + "  " + user.lastname}</span>
                 <span>{user.email}</span>

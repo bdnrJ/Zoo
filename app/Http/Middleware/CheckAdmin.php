@@ -16,8 +16,6 @@ class CheckAdmin
     {
         $user = Auth::user();
 
-        error_log("x");
-
         if (!$user || !$user->role) {
             return response()->json(['message' => 'You do not have permission to access this.'], 401);
         }

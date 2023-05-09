@@ -74,7 +74,7 @@ const Login = () => {
 
                     <div className="form-inputwrapper">
                         <label htmlFor="password">
-                            <input className={`_formInput ${errors.password && "--error"}`} type="text" {...register("password", {required: true})} placeholder='Password'/>
+                            <input className={`_formInput ${errors.password && "--error"}`} type="password" {...register("password", {required: true})} placeholder='Password'/>
                             {errors.password && <span className={`_inputError`}>{errors.password.message}</span>}
                         </label>
                     </div>
