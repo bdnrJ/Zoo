@@ -94,23 +94,35 @@ const GroupCheckout = () => {
                         </div>
 
                         <div className="checkout-buying-left-info">
-                            The recipients of your personal data may be entities cooperating with internet payment operators in the payment process. Depending on the payment method you choose, these may be: banks, payment institutions, loan institutions, payment card organizations, payment schemes), and entities supporting the activities of operators, i.e. IT infrastructure providers, providers of payment risk analysis tools, as well as entities authorized to their receipt under applicable law, including the competent judicial authorities. Your data may be made available to merchants to inform them about the status of the payment. You have the right to access data, as well as to rectify them, limit their processing, object to their processing, not to be subject to automated decision-making, including profiling, and to transfer and delete data. Providing data is voluntary, however, it is necessary to process the payment, and failure to provide data may result in the payment being rejected. More information about the rules of processing your personal data by operators can be found in the Privacy Policy.
+                            The recipients of your personal data may be entities cooperating with internet payment operators in the payment process.
+                            Depending on the payment method you choose, these may be: banks, payment institutions, loan institutions, payment card organizations,
+                            payment schemes), and entities supporting the activities of operators, i.e. IT infrastructure providers, providers of payment
+                            risk analysis tools, as well as entities authorized to their receipt under applicable law, including the competent judicial authorities.
+                             Your data may be made available to merchants to inform them about the status of the payment. You have the right to access data, as well
+                             as to rectify them, limit their processing, object to their processing, not to be subject to automated decision-making, including profiling,
+                             and to transfer and delete data. Providing data is voluntary, however, it is necessary to process the payment, and failure to provide data may
+                             result in the payment being rejected. More information about the rules of processing your personal data by operators can be found in the Privacy Policy.
                         </div>
                         <div className="checkout-buying-left-checkboxes">
                             <span>
                                 <input type="checkbox" checked={checkbox1} onChange={() => setCheckbox1(!checkbox1)}  />
                                 *I accept the terms.
                                 I want to receive a VAT invoice. I have read and accept the regulations of the facility.
-                                I consent to the processing of my personal data for purposes related to participation in events or facilities for which tickets are sold, as well as for marketing and statistical purposes.
+                                I consent to the processing of my personal data for purposes related to participation in events or facilities for which tickets are sold,
+                                 as well as for marketing and statistical purposes.
                             </span>
                             <span>
                                 <input type="checkbox" checked={checkbox2} onChange={() => setCheckbox2(!checkbox2)}  />
-                                *I agree to share my personal data with partners in order to receive commercial information from them, by e-mail to the e-mail address provided in the form.
-                                The administrator of your personal data in connection with the correspondence is the operator. You have the right to access your data and the right to request their rectification, objection, deletion or limitation of their processing, as well as the right to lodge a complaint to the President of the Office for Personal Data Protection
+                                *I agree to share my personal data with partners in order to receive commercial information from them, by
+                                e-mail to the e-mail address provided in the form.
+                                The administrator of your personal data in connection with the correspondence is the operator. You have the
+                                right to access your data and the right to request their rectification, objection, deletion or limitation of
+                                their processing, as well as the right to lodge a complaint to the President of the Office for Personal Data Protection
                             </span>
                             <span>
                                 <input type="checkbox" />
-                                I consent to the sending of commercial information to the e-mail address indicated in the form for purposes related to participation in events or facilities for which tickets are sold, competitions or promotional and marketing campaigns organized by it.
+                                I consent to the sending of commercial information to the e-mail address indicated in the form for purposes related
+                                to participation in events or facilities for which tickets are sold, competitions or promotional and marketing campaigns organized by it.
                             </span>
                             <div className="checkout-buying-left-required">
                                 *  Required
@@ -132,7 +144,6 @@ const GroupCheckout = () => {
                     <BuyingSuccessPopup closePopup={closePopup} ticketType='group' exp_date={groupUserTransaction.exp_date} />
                 </PopupForm>
             )}
-            <button onClick={() => setShowSuccessPopup(true)}>x </button>
         </div>
     )
 }

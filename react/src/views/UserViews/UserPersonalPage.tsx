@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react'
 import axiosClient from '../../axios-client';
 import { displayTransaction } from '../AdminViews/Transactions';
 import Transaction from '../../components/Transaction';
+import PopupForm from '../../components/Popups/PopupForm';
+import ChangePersonalDataPopup from '../../components/Popups/ChangePersonalDataPopup';
+import ChangeEmailPopup from '../../components/Popups/ChangeEmailPopup';
+import ChangePasswordPopup from '../../components/Popups/ChangePasswordPopup';
 
 type user = {
     firstname: string,
@@ -12,8 +16,10 @@ type user = {
 }
 
 const UserPersonalPage = () => {
-
     const [user, setUser] = useState<user>();
+    const [isChangePasswordOn, setIsChangePasswordOn] = useState<boolean>(false);
+    const [isChangeEmailOn, setIsChangeEmailOn] = useState<boolean>(false);
+    const [isChangePersonalDataOn, setIsChangePersonalDataOn] = useState<boolean>(false);
 
     const fetchUser = async () => {
         try {
@@ -45,7 +51,7 @@ const UserPersonalPage = () => {
                                 {user?.firstname + " " + user?.lastname}
                             </div>
                             <div className="rest-user-block-button">
-                                <button>change</button>
+                                <button onClick={() => setIsChangePersonalDataOn(true)}>change</button>
                             </div>
                         </div>
                     </div>
@@ -56,7 +62,7 @@ const UserPersonalPage = () => {
                                 {user?.email}
                             </div>
                             <div className="rest-user-block-button">
-                                <button>change</button>
+                                <button onClick={() => setIsChangeEmailOn(true)}>change</button>
                             </div>
                         </div>
                     </div>
@@ -67,10 +73,11 @@ const UserPersonalPage = () => {
                                 ********
                             </div>
                             <div className="rest-user-block-button">
-                                <button>change</button>
+                                <button onClick={() => setIsChangePasswordOn(true)}>change</button>
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <div className="personal-rest-cookies">
                     <span>
@@ -85,32 +92,22 @@ const UserPersonalPage = () => {
                     </span>
                 </div>
             </div>
+            {isChangePersonalDataOn &&
+                <PopupForm closePopup={() => setIsChangePersonalDataOn(false)}>
+                    <ChangePersonalDataPopup />
+                </PopupForm>
+            }
+            {isChangeEmailOn &&
+                <PopupForm closePopup={() => setIsChangeEmailOn(false)}>
+                    <ChangeEmailPopup />
+                </PopupForm>
+            }
+            {isChangePasswordOn &&
+                <PopupForm closePopup={() => setIsChangePasswordOn(false)}>
+                    <ChangePasswordPopup />
+                </PopupForm>
+            }
         </div>
-        // <div className="personal">
-        //     Personal
-        //     {/* TODO change pwd, change email after providing password into popups i guess */}
-        //     <button>change password</button>
-        //     <button>change email</button>
-        //     <div className="personal-userinfo">
-        //         {
-        //             <ul>
-        //                 <li>{ user?.lastname }</li>
-        //                 <li>{ user?.firstname }</li>
-        //                 <li>{ user?.email }</li>
-        //             </ul>
-        //         }
-        //     </div>
-        //     <div className="personal_transactions">
-        //         <h1>My transactions</h1>
-        //         <ul>
-        //         {user?.transactions.map((transaction) => (
-        //         <li key={transaction.id}>
-        //             <Transaction transaction={transaction} />
-        //         </li>
-        //         ))}
-        //     </ul>
-        //     </div>
-        // </div>
     )
 }
 
