@@ -17,6 +17,7 @@ type user = {
 
 const UserPersonalPage = () => {
     const [user, setUser] = useState<user>();
+    const [refreshUserData, setRefreshData] = useState<boolean>();
     const [isChangePasswordOn, setIsChangePasswordOn] = useState<boolean>(false);
     const [isChangeEmailOn, setIsChangeEmailOn] = useState<boolean>(false);
     const [isChangePersonalDataOn, setIsChangePersonalDataOn] = useState<boolean>(false);
@@ -34,7 +35,7 @@ const UserPersonalPage = () => {
 
     useEffect(() => {
         fetchUser();
-    }, [])
+    }, [refreshUserData])
 
     return (
         <div className="personal">
@@ -94,7 +95,7 @@ const UserPersonalPage = () => {
             </div>
             {isChangePersonalDataOn &&
                 <PopupForm closePopup={() => setIsChangePersonalDataOn(false)}>
-                    <ChangePersonalDataPopup />
+                    <ChangePersonalDataPopup closePopup={() => setIsChangePersonalDataOn(false)} refreshUserData={() => setRefreshData(!refreshUserData)}/>
                 </PopupForm>
             }
             {isChangeEmailOn &&

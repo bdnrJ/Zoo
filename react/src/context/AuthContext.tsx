@@ -1,4 +1,4 @@
-import { createContext,ReactNode, useEffect, useState } from "react";
+import { createContext,Dispatch,ReactNode, SetStateAction, useEffect, useState } from "react";
 import axiosClient from "../axios-client";
 import { User } from "../types/types";
 
@@ -16,13 +16,15 @@ interface AuthContext{
     login: (inputs: Inputs) => void,
     logout: () => void,
     isAdmin: boolean
+    setCurrentUser: Dispatch<SetStateAction<User | null>>,
 }
 
 export const AuthContext = createContext<AuthContext>({
     currentUser: null,
     login: () => {},
     logout: () => {},
-    isAdmin: false
+    isAdmin: false,
+    setCurrentUser: () => {}
 })
 
 export const AuthProvider = ({children}: Props) => {
@@ -82,7 +84,7 @@ export const AuthProvider = ({children}: Props) => {
     }
 
     return (
-        <AuthContext.Provider value={{currentUser, logout, login, isAdmin}}>
+        <AuthContext.Provider value={{currentUser, logout, login, isAdmin, setCurrentUser}}>
             {children}
         </AuthContext.Provider>
     )

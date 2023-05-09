@@ -26,6 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/users_unauth', [UserController::class, 'userToUser']);
     Route::get('/users', [UserController::class, 'getUsers'])->middleware('isAdmin');
     Route::get('/users/{id}', [UserController::class, 'user'])->middleware('isAdmin');
+    Route::put('/user/update', [UserController::class, 'update']);
 
     Route::post('/transactions', [TransactionController::class, 'store']);
     Route::get('/transactions', [TransactionController::class, 'getTransactions'])->middleware('isAdmin');
