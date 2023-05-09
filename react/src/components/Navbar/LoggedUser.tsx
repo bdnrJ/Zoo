@@ -45,8 +45,7 @@ const LoggedUser = ({user}: props) => {
                 <span>{user.email}</span>
                 <hr />
                 <button onClick={() => navigate('/my_account')} >My account</button>
-                <button>Transactions</button>
-                <button>cos tam</button>
+                <button>My tickets</button>
                 <button onClick={handleLogout} >Logout</button>
             </div>}
         </div>

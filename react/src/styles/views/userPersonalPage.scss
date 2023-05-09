@@ -2,5 +2,134 @@
     @include navbarMargin;
     @include flexCenterCenter;
     flex-direction: column;
+    padding: 20px 0 20px 0;
     gap: 20px;
+
+    .personal-top{
+        background-image: url("../assets/my_account.png");
+        @include flexCenterCenter;
+        height: 429px;
+        width: 100%;
+        background-size: cover;
+
+        @include mobile{
+            background-image: url("../assets/my_account_mobile.png");
+        }
+
+        h1{
+            font-family: 'Oswald';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 64px;
+            line-height: 95px;
+            color: white;
+        }
+    }
+
+    .personal-rest{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        gap: 100px;
+
+        @include mobile{
+            padding: 0 20px 0 20px;
+        }
+
+        .personal-rest-user{
+            @include flexCenterCenter;
+            flex-direction: column;
+            gap: 20px;
+
+            span{
+                font-family: 'Oswald';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 20px;
+                line-height: 30px;
+                font-variant: all-small-caps;
+            }
+
+            .rest-user-block{
+                display: flex;
+                flex-direction: column;
+                width: min(485px, 100vw);
+                span{
+                    font-family: 'Oswald';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 20px;
+                    line-height: 30px;
+
+                    /* identical to box height */
+                    font-variant: all-small-caps;
+
+                    color: #000000;
+                }
+
+                .rest-user-block-wrapper{
+                    height: 35px;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    gap: 15px;
+                    width: min(365px, 100vw);
+
+                    .rest-user-block-data{
+                        display: flex;
+                        align-items: center;
+                        padding-left: 7px;
+                        font-family: 'Roboto';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 19px;
+                        color: #353642;
+                        width: min(365px, 100vw);
+                        border: 1px solid black;
+
+                        border-radius: 5px;;
+                    }
+
+                    .rest-user-block-button{
+                        button{
+                            height: 35px;
+                            width: 82px;
+                            background-color: #C79E38;
+                            color: white;
+                            border: 1px solid transparent;
+                            font-family: 'Roboto';
+                            font-style: normal;
+                            font-weight: 400;
+                            font-size: 12px;
+                            line-height: 14px;
+                            font-variant: all-small-caps;
+                            border-radius: 5px;
+
+                            &:hover{
+                                background-color: lighten($fadedOrange, 10%);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .personal-rest-cookies{
+
+            max-width: 850px;
+            text-align: center;
+
+            span{
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 14px;
+                text-align: center;
+                color: #787878;
+            }
+        }
+    }
 }
