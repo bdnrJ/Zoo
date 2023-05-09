@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -65,4 +66,34 @@ class UserController extends Controller
             'user' => $user,
         ], 200);
     }
+
+    // UserController.php
+
+    public function updateEmail(Request $request)
+    {
+        // Validate request data
+        $request->validate([
+            'newEmail' => 'required|email|unique:users,email',
+            'confirmPassword' => 'required|min:8',
+        ]);
+
+        // Retrieve the authenticated user
+        $user = auth()->user();
+
+        // Check if the provided password matches the user's password
+        if (!Hash::check($request->confirmPassword, $user->password)) {
+            return response()->json([
+                'message' => 'Password confirmation does not match',
+            ], 422);
+        }
+
+        // Update the user's email
+        $user->email = $request->newEmail;
+        $user->save();
+
+        return response()->json([
+            'message' => 'Email updated successfully',
+        ]);
+    }
+
 }

@@ -100,7 +100,7 @@ const UserPersonalPage = () => {
             }
             {isChangeEmailOn &&
                 <PopupForm closePopup={() => setIsChangeEmailOn(false)}>
-                    <ChangeEmailPopup />
+                    <ChangeEmailPopup closePopup={() => setIsChangeEmailOn(false)} refreshUserData={() => setRefreshData(!refreshUserData)}/>
                 </PopupForm>
             }
             {isChangePasswordOn &&
