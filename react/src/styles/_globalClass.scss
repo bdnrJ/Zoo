@@ -26,11 +26,10 @@
 ._inputError{
     position: absolute;
     top: 15px;
-    left: -78px;
+    right: 3%;
     pointer-events: none;
     color: $error;
     text-align: right;
-    width: 400px;
     font-family: 'Roboto';
     font-style: normal;
     font-size: 16px;
@@ -81,6 +80,8 @@
     gap: 25px;
 
     label{
+        display: flex;
+        align-items: center;
         width: 100%;
         position: relative;
 
@@ -112,25 +113,25 @@
         }
     }
 
-    button{
-        width: 70%;
-        height: 38px;
-        background-color: $button;
-        border-radius: 10px;
-        border: 1px solid transparent;
-        color: white;
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 19px;
-        transition: all 0.5s ease;
+    // button{
+    //     width: 70%;
+    //     height: 38px;
+    //     background-color: $button;
+    //     border-radius: 10px;
+    //     border: 1px solid transparent;
+    //     color: white;
+    //     font-family: 'Roboto';
+    //     font-style: normal;
+    //     font-weight: 400;
+    //     font-size: 16px;
+    //     line-height: 19px;
+    //     transition: all 0.5s ease;
 
-        &:hover{
-            width: 40%;
-            height: 36px;
-        }
-    }
+    //     &:hover{
+    //         width: 40%;
+    //         height: 36px;
+    //     }
+    // }
 
     .form-checkbox{
         width: 20px;

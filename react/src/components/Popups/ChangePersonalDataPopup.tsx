@@ -55,10 +55,9 @@ const ChangePersonalDataPopup = ({ closePopup, refreshUserData }: props) => {
     };
 
     return (
-        <div className="change-personal-data-popup">
+        <div className="change-user_data-popup">
             <h2>Change Personal Data</h2>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="form-inputwrapper">
+            <form onSubmit={handleSubmit(onSubmit)} className='__form'>
                     <label htmlFor="firstname">
                         <input
                             className={`_formInput ${errors.firstname && '--error'}`}
@@ -70,8 +69,6 @@ const ChangePersonalDataPopup = ({ closePopup, refreshUserData }: props) => {
                             <span className={`_inputError`}>{errors.firstname.message}</span>
                         )}
                     </label>
-                </div>
-                <div className="form-inputwrapper">
                     <label htmlFor="lastname">
                         <input
                             className={`_formInput ${errors.lastname && '--error'}`}
@@ -83,12 +80,9 @@ const ChangePersonalDataPopup = ({ closePopup, refreshUserData }: props) => {
                             <span className={`_inputError`}>{errors.lastname.message}</span>
                         )}
                     </label>
-                </div>
-                <div className="form-inputwrapper">
                     <label htmlFor="savebtn" className="__orange-button-label">
-                        <input disabled={disabled} type="submit" value="Save" />
+                        <button type="submit">Save</button>
                     </label>
-                </div>
             </form>
             {updateError && (
                 <div className="update-error">

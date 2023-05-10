@@ -23,7 +23,7 @@ const ChangeEmailPopup = ({ closePopup, refreshUserData }: props) => {
 
     const schema = z.object({
         newEmail: z.string().email('Invalid email address'),
-        confirmPassword: z.string().min(8, 'Password must be at least 8 characters long'),
+        confirmPassword: z.string().min(8, 'at least 8 characters long'),
     });
 
     const {
@@ -54,10 +54,9 @@ const ChangeEmailPopup = ({ closePopup, refreshUserData }: props) => {
     };
 
     return (
-        <div className="change-email-popup">
+        <div className="change-user_data-popup">
             <h2>Change Email</h2>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="form-inputwrapper">
+            <form onSubmit={handleSubmit(onSubmit)} className='__form'>
                     <label htmlFor="currentEmail">
                         <input
                             className="_formInput"
@@ -67,8 +66,6 @@ const ChangeEmailPopup = ({ closePopup, refreshUserData }: props) => {
                             placeholder="Current Email"
                         />
                     </label>
-                </div>
-                <div className="form-inputwrapper">
                     <label htmlFor="newEmail">
                         <input
                             className={`_formInput ${errors.newEmail && '--error'}`}
@@ -80,8 +77,6 @@ const ChangeEmailPopup = ({ closePopup, refreshUserData }: props) => {
                             <span className={`_inputError`}>{errors.newEmail.message}</span>
                         )}
                     </label>
-                </div>
-                <div className="form-inputwrapper">
                     <label htmlFor="confirmPassword">
                         <input
                             className={`_formInput ${errors.confirmPassword && '--error'}`}
@@ -93,12 +88,9 @@ const ChangeEmailPopup = ({ closePopup, refreshUserData }: props) => {
                             <span className={`_inputError`}>{errors.confirmPassword.message}</span>
                         )}
                     </label>
-                </div>
-                <div className="form-inputwrapper">
                     <label htmlFor="savebtn" className="__orange-button-label">
-                        <input type="submit" value="Save" />
+                        <button type="submit">Save</button>
                     </label>
-                </div>
             </form>
             {updateError && (
                 <div className="update-error">

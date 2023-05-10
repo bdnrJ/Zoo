@@ -80,23 +80,24 @@ const TicketTypeEditPopup = ({ticketType, onClose}: Props) => {
             <form className='__form' onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor="name">
                     <input type="text" className={`${errors.name && "--error"}`} {...register('name', {required: true})} />
-                    {errors.name && <span className={`_inputError`}>{errors.name.message}</span>}
+                    {errors.name && <span className={`_inputError --big`}>{errors.name.message}</span>}
                 </label>
                 <label htmlFor="age_info">
                     <input type="text" className={`${errors.age_info && "--error"}`} {...register('age_info', {required: true})} />
-                    {errors.age_info && <span className={`_inputError`}>{errors.age_info.message}</span>}
+                    {errors.age_info && <span className={`_inputError --big`}>{errors.age_info.message}</span>}
                 </label>
                 <label htmlFor="price">
                     <input type="number" className={`${errors.price && "--error"}`} step="any" {...register('price', {required: true, valueAsNumber: true})} />
-                    {errors.price && <span className={`_inputError`}>{errors.price.message}</span>}
+                    {errors.price && <span className={`_inputError --big`}>{errors.price.message}</span>}
                 </label>
                 <label htmlFor="is_active">
                     <span>Is active: </span>
                     <input className='form-checkbox' type="checkbox" {...register('is_active')} />
                 </label>
-                <button type='submit'>
-                    Confirm
-                </button>
+
+                <label htmlFor="savebtn" className="__orange-button-label">
+                        <button type="submit">Confirm</button>
+                    </label>
             </form>
         </div>
     )

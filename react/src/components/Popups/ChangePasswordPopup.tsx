@@ -20,9 +20,9 @@ const ChangePasswordPopup = ({ closePopup, refreshUserData }: props) => {
     const [updateError, setUpdateError] = useState('');
 
     const schema = z.object({
-        currentPassword: z.string(),
-        newPassword: z.string().min(8, 'Password must be at least 8 characters'),
-        confirmNewPassword: z.string().min(8, 'Password must be at least 8 characters'),
+        currentPassword: z.string().min(1, 'required'),
+        newPassword: z.string().min(8, 'at least 8 characters'),
+        confirmNewPassword: z.string().min(8, 'at least 8 characters'),
     });
 
     const {
@@ -56,10 +56,9 @@ const ChangePasswordPopup = ({ closePopup, refreshUserData }: props) => {
     };
 
     return (
-        <div className="change-password-popup">
+        <div className="change-user_data-popup">
             <h2>Change Password</h2>
             <form onSubmit={handleSubmit(onSubmit)} className='__form'>
-                <div className="form-inputwrapper">
                     <label htmlFor="currentPassword">
                         <input
                             className={`_formInput ${errors.currentPassword && '--error'}`}
@@ -72,8 +71,6 @@ const ChangePasswordPopup = ({ closePopup, refreshUserData }: props) => {
                             <span className={`_inputError`}>{errors.currentPassword.message}</span>
                         )}
                     </label>
-                </div>
-                <div className="form-inputwrapper">
                     <label htmlFor="newPassword">
                         <input
                             className={`_formInput ${errors.newPassword && '--error'}`}
@@ -85,8 +82,6 @@ const ChangePasswordPopup = ({ closePopup, refreshUserData }: props) => {
                             <span className={`_inputError`}>{errors.newPassword.message}</span>
                         )}
                     </label>
-                </div>
-                <div className="form-inputwrapper">
                     <label htmlFor="confirmNewPassword">
                         <input
                             className={`_formInput ${errors.confirmNewPassword && '--error'}`}
@@ -98,12 +93,9 @@ const ChangePasswordPopup = ({ closePopup, refreshUserData }: props) => {
                             <span className={`_inputError`}>{errors.confirmNewPassword.message}</span>
                         )}
                     </label>
-                </div>
-                <div className="form-inputwrapper">
                     <label htmlFor="savebtn" className="__orange-button-label">
-                        <input type="submit" value="Save" />
+                        <button type="submit">Save</button>
                     </label>
-                </div>
             </form>
             {updateError && (
                 <div className="update-error">
