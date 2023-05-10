@@ -6,6 +6,7 @@ import PopupForm from '../../components/Popups/PopupForm';
 import ChangePersonalDataPopup from '../../components/Popups/ChangePersonalDataPopup';
 import ChangeEmailPopup from '../../components/Popups/ChangeEmailPopup';
 import ChangePasswordPopup from '../../components/Popups/ChangePasswordPopup';
+import DeleteAccountPopup from '../../components/Popups/DeleteAccountPopup';
 
 type user = {
     firstname: string,
@@ -21,6 +22,7 @@ const UserPersonalPage = () => {
     const [isChangePasswordOn, setIsChangePasswordOn] = useState<boolean>(false);
     const [isChangeEmailOn, setIsChangeEmailOn] = useState<boolean>(false);
     const [isChangePersonalDataOn, setIsChangePersonalDataOn] = useState<boolean>(false);
+    const [isDeleteAccountOn, setIsDeleteAccountOn] = useState<boolean>(false);
 
     const fetchUser = async () => {
         try {
@@ -78,7 +80,9 @@ const UserPersonalPage = () => {
                             </div>
                         </div>
                     </div>
-
+                    <div className="rest-user-delete">
+                        <button onClick={() => setIsDeleteAccountOn(true)} className='rest-user-delete-btn'>Delete account</button>
+                    </div>
                 </div>
                 <div className="personal-rest-cookies">
                     <span>
@@ -106,6 +110,11 @@ const UserPersonalPage = () => {
             {isChangePasswordOn &&
                 <PopupForm closePopup={() => setIsChangePasswordOn(false)}>
                     <ChangePasswordPopup closePopup={() => setIsChangePasswordOn(false)} refreshUserData={() => setRefreshData(!refreshUserData)}/>
+                </PopupForm>
+            }
+            {isDeleteAccountOn &&
+                <PopupForm closePopup={() => setIsDeleteAccountOn(false)}>
+                    <DeleteAccountPopup closePopup={() => setIsDeleteAccountOn(false)} refreshUserData={() => setRefreshData(!refreshUserData)}/>
                 </PopupForm>
             }
         </div>

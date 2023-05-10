@@ -118,4 +118,21 @@ class UserController extends Controller
         return response()->json(['message' => 'Password updated successfully']);
     }
 
+    public function deleteAccount(Request $request)
+{
+    $request->validate([
+        'password' => 'required',
+    ]);
+
+    $user = auth()->user();
+
+    if (!Hash::check($request->password, $user->password)) {
+        return response()->json(['message' => 'Incorrect password'], 400);
+    }
+
+    $user->delete();
+
+    return response()->json(['message' => 'Account deleted successfully']);
+}
+
 }

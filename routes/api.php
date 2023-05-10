@@ -29,6 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/user/update', [UserController::class, 'update']);
     Route::put('/user/update/email', [UserController::class, 'updateEmail']);
     Route::put('/user/update/password', [UserController::class, 'updatePassword']);
+    Route::delete('/user/delete', [UserController::class, 'deleteAccount']);
 
     Route::post('/transactions', [TransactionController::class, 'store']);
     Route::get('/transactions', [TransactionController::class, 'getTransactions'])->middleware('isAdmin');

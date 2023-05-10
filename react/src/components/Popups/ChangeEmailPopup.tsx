@@ -22,8 +22,8 @@ const ChangeEmailPopup = ({ closePopup, refreshUserData }: props) => {
     const { setCurrentUser, currentUser } = useContext(AuthContext);
 
     const schema = z.object({
-        newEmail: z.string().email('Invalid email address'),
-        confirmPassword: z.string().min(8, 'at least 8 characters long'),
+        newEmail: z.string().email('invalid email format'),
+        confirmPassword: z.string().min(1, 'required'),
     });
 
     const {

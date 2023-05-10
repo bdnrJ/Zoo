@@ -28,7 +28,7 @@ export const AuthContext = createContext<AuthContext>({
 })
 
 export const AuthProvider = ({children}: Props) => {
-    const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    const user = JSON.parse(localStorage.getItem('currentUser') || null);
     const [currentUser, setCurrentUser] = useState<User | null>(user || null);
     const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
