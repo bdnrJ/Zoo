@@ -20,7 +20,7 @@ const ChangePasswordPopup = ({ closePopup, refreshUserData }: props) => {
     const [updateError, setUpdateError] = useState('');
 
     const schema = z.object({
-        currentPassword: z.string().min(8, 'Password must be at least 8 characters'),
+        currentPassword: z.string(),
         newPassword: z.string().min(8, 'Password must be at least 8 characters'),
         confirmNewPassword: z.string().min(8, 'Password must be at least 8 characters'),
     });
@@ -43,12 +43,14 @@ const ChangePasswordPopup = ({ closePopup, refreshUserData }: props) => {
             const response = await axiosClient.put('/user/update/password', {
                 currentPassword: data.currentPassword,
                 newPassword: data.newPassword,
+                confirmNewPassword: data.confirmNewPassword
             }, { withCredentials: true });
 
             setUpdateError('');
             closePopup();
             refreshUserData();
         } catch (err: any) {
+            console.log(err);
             setUpdateError(err.response.data.message);
         }
     };
@@ -56,7 +58,7 @@ const ChangePasswordPopup = ({ closePopup, refreshUserData }: props) => {
     return (
         <div className="change-password-popup">
             <h2>Change Password</h2>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)} className='__form'>
                 <div className="form-inputwrapper">
                     <label htmlFor="currentPassword">
                         <input

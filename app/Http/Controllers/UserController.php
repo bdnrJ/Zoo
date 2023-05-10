@@ -102,8 +102,11 @@ class UserController extends Controller
 
         $request->validate([
             'currentPassword' => 'required',
-            'newPassword' => 'required|min:8|confirmed',
+            'newPassword' => 'required|min:8',
+            'confirmNewPassword' => 'required|same:newPassword'
         ]);
+
+        error_log('im here');
 
         if (!Hash::check($request->currentPassword, $user->password)) {
             return response()->json(['message' => 'Current password is incorrect'], 400);
