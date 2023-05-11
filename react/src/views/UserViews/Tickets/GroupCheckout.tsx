@@ -66,7 +66,7 @@ const GroupCheckout = () => {
             </div>
             <div className="checkout-wrapper">
                 <div className="backbtn">
-                        <BackButton direction='/tickets/normal' />
+                        <BackButton direction='/tickets/group' />
                 </div>
                 <div className="checkout-buying">
                     <div className="checkout-buying-left">

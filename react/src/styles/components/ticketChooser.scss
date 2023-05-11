@@ -27,6 +27,12 @@
         align-items: center;
         border-left: 2px solid transparent;
 
+        @media (max-width: 450px){
+            justify-content: flex-start;
+            padding: 0 0 0 0;
+            gap: 0px;
+        }
+
         .ageInfo{
             font-size: $font-12;
             font-weight: bold;

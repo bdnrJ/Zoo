@@ -99,6 +99,10 @@
                 align-items: center;
                 margin-bottom: 10px;
 
+                input{
+                    min-width: 20px;
+                }
+
                 .service-name {
                     margin-left: 10px;
                     color: $fadedOrange;

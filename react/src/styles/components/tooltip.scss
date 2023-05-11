@@ -3,10 +3,14 @@
     display: inline-block;
     cursor: pointer;
 
-    .tooltip-container-children{
-        @include flexCenterCenter;
-        font-size: 24px;
-        color: $fadedOrange;
+    .tooltip-container-children {
+      @include flexCenterCenter;
+      font-size: 24px;
+      color: $fadedOrange;
+
+      &.active {
+        color: darken($fadedOrange, 10%); // replace with the color you want when active
+      }
     }
   }
 
@@ -17,17 +21,27 @@
     padding: 5px 10px;
     border-radius: 4px;
     font-size: 14px;
-    white-space: nowrap;
+    white-space: normal; // make content wrap
+    max-width: 90vw; // adjust as needed to prevent overflow
+    min-width: 600px;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s;
     z-index: 5;
+
+    @include mobile{
+        min-width: 300px;
+    }
 
     &.top {
       bottom: 100%;
       left: 50%;
       transform: translateX(-50%);
       margin-bottom: 5px;
+
+      @include mobile{
+        left:-168%;
+      }
     }
 
     &.bottom {
@@ -52,6 +66,7 @@
     }
   }
 
-  .tooltip-container:hover .tooltip {
+  .tooltip-container:hover .tooltip,
+  .tooltip-container.show .tooltip {
     opacity: 1;
   }
