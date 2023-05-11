@@ -10,7 +10,8 @@ type user = {
     email: string,
     role: string
     created_at: string,
-    updated_at: string
+    updated_at: string,
+    deleted_at: string,
 }
 
 const Users = () => {
@@ -64,7 +65,7 @@ const Users = () => {
                 //TODO user componenet
                 data?.data.map((user: user) => (
                     <Link to={`/admin/user_page/${user.id}`} key={user.email} style={{ textDecoration: 'none' }}>
-                        <li className='tempUser'>{user.id+" "+user.firstname +" "+ user.lastname+" " +user.email}</li>
+                        <li className='tempUser'>{user.id} {user.deleted_at ? '(DELETED) ' : ''}{user.firstname} {user.lastname} {user.email}</li>
                     </Link>
                 ))
             }

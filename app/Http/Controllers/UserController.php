@@ -10,8 +10,9 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function getUsers(){
-        $users = User::paginate(15);
+    public function getUsers()
+    {
+        $users = User::withTrashed()->paginate(15);
 
         return response([
             "message" => "success",
@@ -33,7 +34,10 @@ class UserController extends Controller
 
     public function user($id)
     {
-        $user = User::with('transactions')->findOrFail($id);
+        $user = User::withTrashed()->with('transactions')->findOrFail($id);
+
+        $user->deleted_at = $user->deleted_at;
+
         return response()->json([
             'user' => $user,
         ]);
@@ -119,20 +123,19 @@ class UserController extends Controller
     }
 
     public function deleteAccount(Request $request)
-{
-    $request->validate([
-        'password' => 'required',
-    ]);
+    {
+        $request->validate([
+            'password' => 'required',
+        ]);
 
-    $user = auth()->user();
+        $user = auth()->user();
 
-    if (!Hash::check($request->password, $user->password)) {
-        return response()->json(['message' => 'Incorrect password'], 400);
+        if (!Hash::check($request->password, $user->password)) {
+            return response()->json(['message' => 'Incorrect password'], 400);
+        }
+
+        $user->delete();
+
+        return response()->json(['message' => 'Account deleted successfully']);
     }
-
-    $user->delete();
-
-    return response()->json(['message' => 'Account deleted successfully']);
-}
-
 }

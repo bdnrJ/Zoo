@@ -9,7 +9,8 @@ interface user {
     firstname: string;
     lastname: string;
     email: string;
-    transactions: displayTransaction[]
+    transactions: displayTransaction[];
+    deleted_at: any;
 }
 
 const UserPage = () => {
@@ -40,7 +41,7 @@ const UserPage = () => {
         <div className='userpage'>
             <h2>User Information</h2>
             <p>ID: {user.id}</p>
-            <p>First Name: {user.firstname}</p>
+            <p>First Name: {user.deleted_at ? '(DELETED) ' : ''}{user.firstname}</p>
             <p>Last Name: {user.lastname}</p>
             <p>Email: {user.email}</p>
             <h2>User Transactions</h2>
@@ -53,6 +54,7 @@ const UserPage = () => {
             </ul>
         </div>
     );
+
 };
 
 export default UserPage;

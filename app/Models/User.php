@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class User extends Authenticatable
+
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
@@ -27,6 +30,16 @@ class User extends Authenticatable
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Remove the global scope that excludes soft deleted records
+        static::addGlobalScope('withTrashed', function (Builder $builder) {
+            $builder->withTrashed();
+        });
     }
 
 }
