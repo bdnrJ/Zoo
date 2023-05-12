@@ -22,6 +22,7 @@ import UserPersonalPage from "./views/UserViews/UserPersonalPage";
 import Statute from "./views/Statute";
 import Facilities from "./views/Facilities";
 import Foundation from "./views/Foundation";
+import RequireUser from "./components/ProtectedRoutes/RequireUser";
 
 const queryClient = new QueryClient();
 
@@ -105,7 +106,10 @@ const router = createBrowserRouter([
             },
             {
                 path: '/my_account',
-                element: <UserPersonalPage />
+                element:
+                <RequireUser>
+                    <UserPersonalPage />
+                </RequireUser>
             },
             {
                 path: '/statute',

@@ -5,6 +5,8 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import PopupForm from './PopupForm';
+import DeleteAccountSuccessPopup from './DeleteAccountSuccessPopup';
 
 type props = {
     closePopup: () => void;
@@ -16,8 +18,9 @@ type DeleteAccountData = {
 };
 
 const DeleteAccountPopup = ({ closePopup, refreshUserData }: props) => {
-    const [deleteError, setDeleteError] = useState('');
+    const [deleteError, setDeleteError] = useState<string>('');
     const {setCurrentUser} = useContext(AuthContext);
+    const [isDeleteSuccessPopupOn, setIsDeleteSuccessPopupOn] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const schema = z.object({
@@ -38,11 +41,7 @@ const DeleteAccountPopup = ({ closePopup, refreshUserData }: props) => {
                 data: { password: data.password },
                 withCredentials: true,
             });
-
-            setCurrentUser(null);
-            closePopup();
-            refreshUserData();
-            navigate("/");
+            setIsDeleteSuccessPopupOn(true);
         } catch (err: any) {
             setDeleteError(err.response.data.message);
         }
@@ -76,6 +75,12 @@ const DeleteAccountPopup = ({ closePopup, refreshUserData }: props) => {
                     <span>{deleteError}</span>
                 </div>
             )}
+            {
+                isDeleteSuccessPopupOn &&
+                <PopupForm closePopup={() => setIsDeleteSuccessPopupOn(false)} >
+                    <DeleteAccountSuccessPopup refreshUserData={refreshUserData}/>
+                </PopupForm>
+            }
         </div>
     );
 };
