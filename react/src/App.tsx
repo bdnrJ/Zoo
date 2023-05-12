@@ -22,6 +22,7 @@ import UserPersonalPage from "./views/UserViews/UserPersonalPage";
 import Statute from "./views/Statute";
 import Facilities from "./views/Facilities";
 import Foundation from "./views/Foundation";
+import UserTickets from './views/UserViews/UserTickets';
 import RequireUser from "./components/ProtectedRoutes/RequireUser";
 
 const queryClient = new QueryClient();
@@ -109,6 +110,13 @@ const router = createBrowserRouter([
                 element:
                 <RequireUser>
                     <UserPersonalPage />
+                </RequireUser>
+            },
+            {
+                path: '/my_tickets',
+                element:
+                <RequireUser>
+                    <UserTickets />
                 </RequireUser>
             },
             {

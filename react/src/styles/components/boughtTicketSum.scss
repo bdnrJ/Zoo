@@ -1,0 +1,59 @@
+.bought_ticket_sum{
+    min-height: 350px;
+    border: 2px solid black;
+    width: min(392px, 90vw);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+
+    @include mobile{
+        width: min(392px, 90vw);
+
+    }
+
+    .bought_ticket_sum-image{
+        border-bottom: 2px solid black;
+        width: 100%;
+        height: 177px;
+        background-image: url('../assets/boughtTicketSumImg.png');
+        background-size: cover;
+
+        @media (max-width:415px){
+            height: 130px;
+        }
+    }
+
+    .bought_ticket_sum-rest{
+        height: 50%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+
+        .bought_ticket_sum-rest-ticket_type{
+            width: 80%;
+            text-align: center;
+
+            hr{
+                width: 100%;
+            }
+        }
+
+        .bought_ticket_sum-rest-info{
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            width: 100%;
+            padding-left: 10%;
+        }
+
+        .bought_ticket_sum-rest-cost{
+            text-align: right;
+            padding-right: 10%;
+            width: 100%;
+        }
+    }
+}

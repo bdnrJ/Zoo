@@ -24,6 +24,7 @@
 @import "./views/statute.scss";
 @import "./views/facilities.scss";
 @import "./views/foundation.scss";
+@import "./views/userTickets.scss";
 
 //Tickets
 @import "./views/Tickets/tickets.scss";
@@ -49,6 +50,7 @@
 @import "./components/tooltip.scss";
 @import "./components/changeUserPopups.scss";
 @import "./components/deleteAccountSuccessPopup.scss";
+@import "./components/boughtTicketSum.scss";
 
 @import "./components/backbutton.scss";
 @import "./components/ticketChooser.scss";
