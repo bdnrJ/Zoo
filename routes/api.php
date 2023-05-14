@@ -32,6 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/user/delete', [UserController::class, 'deleteAccount']);
 
     Route::post('/transactions', [TransactionController::class, 'store']);
+    Route::get('/transactions_user', [TransactionController::class, 'getUserTransactions']);
     Route::get('/transactions', [TransactionController::class, 'getTransactions'])->middleware('isAdmin');
     Route::get('/transactions/{id}', [TransactionController::class, 'getTransaction'])->middleware('isAdmin');
 

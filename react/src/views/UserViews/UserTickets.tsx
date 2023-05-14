@@ -1,7 +1,64 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import BoughtTicketSum from '../../components/BoughtTicketSum';
+import axiosClient from '../../axios-client';
+
+type serviceType = {
+    name: string,
+    price_per_customer: number,
+}
+
+type service = {
+    service_type: serviceType
+}
+
+type ticketType = {
+    name: string,
+    price: number
+}
+
+export type ticket = {
+    amount: number,
+    ticket_type: ticketType
+}
+
+type transaction = {
+    exp_date: string,
+    services: service[],
+    tickets: ticket[],
+    total_cost: number,
+    type: string,
+}
+
 
 const UserTransactions = () => {
+    const [currentTransactions, setCurrentTransactions] = useState<transaction[]>([]);
+    const [previousTransactions, setPreviousTransactions] = useState<transaction[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await axiosClient.get('/transactions_user', { withCredentials: true });
+
+                const now = new Date();
+                now.setHours(0, 0, 0, 0); // set to start of day
+                const tomorrow = new Date(now);
+                tomorrow.setDate(tomorrow.getDate() + 1); // get tomorrow's date
+                console.log(res);
+
+                const upcomingTickets = res.data.filter((transaction: transaction) => new Date(transaction.exp_date) >= tomorrow);
+                const pastTickets = res.data.filter((transaction: transaction) => new Date(transaction.exp_date) < tomorrow);
+
+                setCurrentTransactions(upcomingTickets);
+                setPreviousTransactions(pastTickets);
+                console.log(previousTransactions[1].services[0].service_type.name);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     return (
         <div className="user-tickets">
             <div className="user-tickets-top">
@@ -15,10 +72,17 @@ const UserTransactions = () => {
                     <h2>UPCOMING ZOO VISITS</h2>
                     <hr />
                     <div className="tickets-rest-ticketsums-blocks">
-                        <BoughtTicketSum />
-                        <BoughtTicketSum />
-                        <BoughtTicketSum />
-                        <BoughtTicketSum />
+                        {
+                            currentTransactions.map((transaction: transaction) => (
+                                <BoughtTicketSum
+                                    exp_date={transaction.exp_date}
+                                    tickets={transaction.tickets}
+                                    total_cost={transaction.total_cost}
+                                    type={transaction.type}
+                                    services={transaction.services}
+                                />
+                            ))
+                        }
                     </div>
                 </div>
 
@@ -26,8 +90,17 @@ const UserTransactions = () => {
                     <h2>PREVIOUS TICKETS</h2>
                     <hr />
                     <div className="tickets-rest-ticketsums-blocks">
-                        <BoughtTicketSum />
-
+                        {
+                            previousTransactions.map((transaction: transaction) => (
+                                <BoughtTicketSum
+                                    exp_date={transaction.exp_date}
+                                    tickets={transaction.tickets}
+                                    total_cost={transaction.total_cost}
+                                    type={transaction.type}
+                                    services={transaction.services}
+                                />
+                            ))
+                        }
                     </div>
                 </div>
 

@@ -1,6 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { ticket } from '../views/UserViews/UserTickets'
 
-const BoughtTicketSum = () => {
+type serviceType = {
+    name: string,
+    price_per_customer: number,
+}
+
+type service = {
+    service_type: serviceType
+}
+
+type props = {
+    tickets: ticket[],
+    services?: service[], // services are optional
+    exp_date: string,
+    total_cost: number,
+    type: string,
+}
+
+const BoughtTicketSum = ({tickets, services, exp_date, total_cost, type}: props) => {
+
+    const [amount, setAmount] = useState<number>(0);
+
+    console.log(services);
+
+    useEffect(() => {
+        if(type === 'group'){
+            setAmount(tickets[0].amount);
+        }
+    }, [])
+
     return (
         <div className="bought_ticket_sum">
             <div className="bought_ticket_sum-image">
@@ -8,15 +37,25 @@ const BoughtTicketSum = () => {
             </div>
             <div className="bought_ticket_sum-rest">
                 <div className="bought_ticket_sum-rest-ticket_type">
-                    <h3>GROUP TICKET</h3>
+                    <h3>{type.toUpperCase()} TICKET</h3>
                     <hr />
                 </div>
                 <div className="bought_ticket_sum-rest-info">
-                    <span>Date: Monday 03/04/2023</span>
-                    <span>Tickets: Adult - $11 x 7</span>
+                    <span>Date: {new Date(exp_date).toLocaleDateString()}</span>
+                    {
+                        tickets.map((ticket, index) => (
+                            <p key={index}>{ticket.ticket_type.name} x {ticket.amount}</p>
+                        ))
+                    }
+                    services:
+                    {
+                        services?.map((service, index) => (
+                            <p key={index}>{service.service_type.name}</p>
+                        ))
+                    }
                 </div>
                 <div className="bought_ticket_sum-rest-cost">
-                    <span>Total cost: $2137</span>
+                    <span>Total cost: ${total_cost}</span>
                 </div>
             </div>
         </div>
