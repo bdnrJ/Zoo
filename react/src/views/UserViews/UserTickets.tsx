@@ -80,6 +80,7 @@ const UserTransactions = () => {
                                     total_cost={transaction.total_cost}
                                     type={transaction.type}
                                     services={transaction.services}
+                                    isPrevious={false}
                                 />
                             ))
                         }
@@ -98,6 +99,7 @@ const UserTransactions = () => {
                                     total_cost={transaction.total_cost}
                                     type={transaction.type}
                                     services={transaction.services}
+                                    isPrevious={true}
                                 />
                             ))
                         }
