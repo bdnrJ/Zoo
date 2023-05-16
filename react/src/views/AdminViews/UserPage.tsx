@@ -39,21 +39,25 @@ const UserPage = () => {
 
     return (
         <div className='userpage'>
-            <h2>User Information</h2>
-            <p>ID: {user.id}</p>
-            <p>First Name: {user.deleted_at ? '(DELETED) ' : ''}{user.firstname}</p>
-            <p>Last Name: {user.lastname}</p>
-            <p>Email: {user.email}</p>
-            <h2>User Transactions</h2>
-            <ul>
+            <h2 className='userpage-header'>User Information</h2>
+            <div className='user-info'>
+                <p className='user-info-item'>ID: {user.id}</p>
+                <p className='user-info-item'>First Name: {user.deleted_at ? '(DELETED) ' : ''}{user.firstname}</p>
+                <p className='user-info-item'>Last Name: {user.lastname}</p>
+                <p className='user-info-item'>Email: {user.email}</p>
+            </div>
+            <button className='edit-button'>EDIT</button>
+            <h2 className='userpage-header'>User Transactions</h2>
+            <ul className='transactions-list'>
                 {transactions.map((transaction) => (
-                <li key={transaction.id}>
-                    <Transaction transaction={transaction} />
-                </li>
+                    <li key={transaction.id} className='transaction-item'>
+                        <Transaction transaction={transaction} />
+                    </li>
                 ))}
             </ul>
         </div>
     );
+
 
 };
 
