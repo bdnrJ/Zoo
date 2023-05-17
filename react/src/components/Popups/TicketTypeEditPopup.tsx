@@ -16,7 +16,8 @@ type ticketType = {
     name: string,
     age_info: string,
     price: number,
-    is_active: boolean
+    is_active: boolean,
+    confirmPassword: string
 }
 
 
@@ -28,6 +29,7 @@ const TicketTypeEditPopup = ({ticketType, onClose}: Props) => {
         age_info: z.string().max(15, 'too long').min(1, 'required'),
         price: z.number(),
         is_active: z.boolean(),
+        confirmPassword: z.string().min(1, 'required'),
     })
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<ticketType>({resolver: zodResolver(schema)});
@@ -39,6 +41,7 @@ const TicketTypeEditPopup = ({ticketType, onClose}: Props) => {
         if (
             data.name === ticketType.name &&
             data.age_info === ticketType.age_info &&
+            //technically it's wrong, but it works as intended
             parseFloat(data.price) ===  parseFloat(ticketType.price) &&
             data.is_active === (ticketType.is_active === 0 ? false : true)
             ) {
@@ -93,6 +96,10 @@ const TicketTypeEditPopup = ({ticketType, onClose}: Props) => {
                 <label htmlFor="is_active">
                     <span>Is active: </span>
                     <input className='form-checkbox' type="checkbox" {...register('is_active')} />
+                </label>
+                <label htmlFor="confirmPassword">
+                    <input type="password" className={`${errors.confirmPassword && "--error"}`} {...register('confirmPassword', {required: true})} placeholder="Confirm Password" />
+                    {errors.confirmPassword && <span className={`_inputError --big`}>{errors.confirmPassword.message}</span>}
                 </label>
 
                 <label htmlFor="savebtn" className="__orange-button-label">

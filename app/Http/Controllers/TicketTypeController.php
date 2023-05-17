@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TicketType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 
 class TicketTypeController extends Controller
@@ -44,6 +45,7 @@ class TicketTypeController extends Controller
             'age_info' => 'required|max:100',
             'price' => 'required|numeric',
             'is_active' => 'required|boolean',
+            'confirmPassword' => 'required',
         ]);
 
         $ticketType = TicketType::find($id);
@@ -51,10 +53,16 @@ class TicketTypeController extends Controller
             return response()->json(['message' => 'Ticket type not found'], 404);
         }
 
-        $ticketType->update($request->all());
+        $user = auth()->user();
+        if (!Hash::check($request->confirmPassword, $user->password)) {
+            return response()->json(['message' => 'Invalid password'], 403);
+        }
+
+        $ticketType->update($request->except('confirmPassword'));
 
         return response()->json($ticketType, 200);
     }
+
 
     public function destroy($id)
     {
