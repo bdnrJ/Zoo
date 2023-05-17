@@ -1,0 +1,50 @@
+.userlink {
+    width: 672px;
+    height: 100px;
+
+    @include mobile{
+        height: 120px;
+        width: min(372px, 90vw);
+    }
+
+    .userlink-block{
+        border-radius: 10px;
+        padding: 0 40px 0 40px;
+        border: 1px solid transparent;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: white;
+        transition: all 0.2s ease;
+
+        @include mobile{
+            padding: 0 10px 0 10px;
+        }
+
+        &:hover{
+            border: 1px solid $fadedOrange;
+        }
+
+        .userlink-left,
+        .userlink-right{
+            display: flex;
+            gap: 20px;
+
+            @include mobile{
+                flex-direction: column;
+                gap: 5px;
+                align-items: center;
+            }
+        }
+    }
+}
+
+.black{
+    color: black;
+}
+
+.grey{
+    color: #9398b7;
+}

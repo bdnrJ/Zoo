@@ -1,16 +1,17 @@
-.testadmin{
+.users{
     @include navbarMargin;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    gap: 25px;
+    background-color: $greyBg;
 
-    .tempUser{
-        margin-top: 10px;
-        background-color: bisque;
-
-        &:hover{
-            background-color: rgb(230, 170, 81);
-        }
+    .users-list{
+        display: flex;
+        align-items: left;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
     }
 }
