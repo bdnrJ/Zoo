@@ -10,7 +10,7 @@ const BackButton = ({direction}: props) => {
     const navigate = useNavigate();
 
     return (
-        <button className='backbutton' onClick={() => navigate(direction)} ><MdArrowBackIosNew /> Back</button>
+        <button className='backbutton' onClick={() => navigate(-1)} ><MdArrowBackIosNew /> Back</button>
     )
 }
 

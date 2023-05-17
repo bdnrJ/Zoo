@@ -9,6 +9,8 @@ interface user {
     firstname: string;
     lastname: string;
     email: string;
+    updated_at: string,
+    created_at: string,
     transactions: displayTransaction[];
     deleted_at: any;
 }
@@ -45,16 +47,17 @@ const UserPage = () => {
                 <p className='user-info-item'>First Name: {user.deleted_at ? '(DELETED) ' : ''}{user.firstname}</p>
                 <p className='user-info-item'>Last Name: {user.lastname}</p>
                 <p className='user-info-item'>Email: {user.email}</p>
+                <p className='user-info-item'>Registration Date: {user.updated_at.split('T')[0]}</p>
+                <p className='user-info-item'>Update Date: {user.created_at.split('T')[0]}</p>
+                <p className='user-info-item'>Deleted at: {user.deleted_at ? user?.deleted_at.split('T')[0] : "None"}</p>
             </div>
             <button className='edit-button'>EDIT</button>
             <h2 className='userpage-header'>User Transactions</h2>
-            <ul className='transactions-list'>
+            <div className='transactions-list'>
                 {transactions.map((transaction) => (
-                    <li key={transaction.id} className='transaction-item'>
                         <Transaction transaction={transaction} />
-                    </li>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 

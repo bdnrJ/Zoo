@@ -43,6 +43,10 @@
 .transactions-list {
     list-style-type: none;
     padding: 0;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
 }
 
 .transaction-item {

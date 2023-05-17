@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Ticket from '../../components/Ticket';
 import axiosClient from '../../axios-client';
 import { useParams } from 'react-router-dom';
+import BackButton from '../../components/BackButton';
 
 type user = {
     id: number,
@@ -95,7 +96,7 @@ const TransactionPage = () => {
                 <li>Transaction ID: {transaction?.id}</li>
                 <li>Buy Date: {transaction?.buy_date}</li>
                 <li>Exp Date: {transaction?.exp_date}</li>
-                <li>Total Cost: {transaction?.total_cost}</li>
+                <li>Total Cost: {transaction?.total_cost.toFixed(2)}</li>
                 <li>Type: {transaction?.type}</li>
                 <br />
         </ul>
@@ -105,13 +106,13 @@ const TransactionPage = () => {
     const ticketDivs = tickets.map((ticket: normalTicket) => (
         <li key={ticket.id}>
             <Ticket ticket={ticket} />
-            <span>Total Cost: ${ticket.amount * ticket.ticket_type.price}</span>
+            <span>Total Cost: ${(ticket.amount * ticket.ticket_type.price).toFixed(2)}</span>
         </li>
     ));
 
     return (
         <div className="transaction-page" style={{marginTop: "100px"}}>
-
+            <BackButton direction=''/>
             <div className="user-info">
                 USER:
                 {userDivs}
@@ -135,16 +136,16 @@ const TransactionPage = () => {
                         <li>
                             <span style={{display: "block"}}>Service name: {service.service_type.name}</span>
                             <span style={{display: "block"}}>Price per customer: ${service.service_type.price_per_customer}</span>
-                            <span>Total cost: ${service.service_type.price_per_customer * tickets[0].amount}</span>
+                            <span>Total cost: ${(service.service_type.price_per_customer * tickets[0].amount).toFixed(2)}</span>
                         </li>
                     ))}
                 </ol>
             </div>
             }
 
-            <button onClick={() => console.log(transaction)}>show transaction</button>
+            {/* <button onClick={() => console.log(transaction)}>show transaction</button>
             <button onClick={() => console.log(tickets)}>show tickets</button>
-            <button onClick={() => console.log(user)}>show user</button>
+            <button onClick={() => console.log(user)}>show user</button> */}
 
         </div>
     );

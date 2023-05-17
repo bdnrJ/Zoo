@@ -22,17 +22,12 @@ export type displayTransaction = {
 const Transactions = () => {
     const [page, setPage] = useState<number>(1);
     const queryClient = useQueryClient();
-    const [search, setSearch] = useState("");
-    const [startDate, setStartDate] = useState("");
-    const [endDate, setEndDate] = useState("");
+    const [search, setSearch] = useState<string>("");
+    const [startDate, setStartDate] = useState<string>("");
+    const [endDate, setEndDate] = useState<string>("");
     const [reload, setReload] = useState<number>(0);
 
     const fetchTransactions = async (page: number) => {
-
-        console.log(search);
-        console.log(startDate);
-        console.log(endDate);
-
         try{
             const response = await axiosClient.get(`/transactions?page=${page}`, {
                 params: {

@@ -81,6 +81,7 @@ const Users = () => {
                 {
                     data?.data.map((user: user) => (
                         <UserLink
+                            key={user.email}
                             id={user.id}
                             firstname={user.firstname}
                             lastname={user.lastname}
