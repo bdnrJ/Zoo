@@ -120,18 +120,33 @@ class TransactionController extends Controller
         return response()->json(null, 204);
     }
 
-    public function getTransactions()
+    public function getTransactions(Request $request)
     {
-        //returns transaction with user, email, id, lastname and firstname
-        //has to return id even if useless just because it throws error otherwise
+
         $transactions = Transaction::with(['user' => function ($query) {
-            $query->select('email', 'firstname', 'lastname', 'id');
-        }])
-            ->orderBy('id', 'desc')
-            ->paginate(15);
+            $query->withTrashed()->select('email', 'firstname', 'lastname', 'id');
+        }]);
+
+        // Add search filter if keyword is provided
+        if ($request->input('search')) {
+            $transactions = $transactions->whereHas('user', function ($query) use ($request) {
+                $query->withTrashed()->where('email', 'like', '%' . $request->input('search') . '%');
+            });
+        }
+
+        // Add date range filter if start and end dates are provided
+        if ($request->input('start_date') && $request->input('end_date')) {
+            $transactions = $transactions->whereBetween('buy_date', [$request->input('start_date'), $request->input('end_date')]);
+        }
+
+        $transactions = $transactions->orderBy('id', 'desc')->paginate(15);
+
+        error_log($request->input('search'));
 
         return response()->json($transactions);
     }
+
+
 
     public function getTransaction(Request $request, $id)
     {

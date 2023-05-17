@@ -22,17 +22,34 @@ export type displayTransaction = {
 const Transactions = () => {
     const [page, setPage] = useState<number>(1);
     const queryClient = useQueryClient();
+    const [search, setSearch] = useState("");
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+    const [reload, setReload] = useState<number>(0);
 
     const fetchTransactions = async (page: number) => {
+
+        console.log(search);
+        console.log(startDate);
+        console.log(endDate);
+
         try{
-            const response = await axiosClient.get(`/transactions?page=${page}`, {withCredentials: true});
+            const response = await axiosClient.get(`/transactions?page=${page}`, {
+                params: {
+                    search: search,
+                    start_date: startDate,
+                    end_date: endDate
+                },
+                withCredentials: true
+            });
+
             console.log("fetching: "+ page);
+
             return response.data;
         }catch(err: any){
             console.log(err);
         }
     };
-
 
     const { data , isError, isFetching, isSuccess, isPreviousData } = useQuery(
         ['transactions', page],
@@ -42,6 +59,11 @@ const Transactions = () => {
             keepPreviousData: true,
         }
     );
+
+    const handleFilter = () => {
+        queryClient.removeQueries({ queryKey: ['transactions']});
+        setReload(prev => prev+1)
+    };
 
     useEffect(() => {
         if (!isPreviousData && data?.next_page_url) {
@@ -53,7 +75,7 @@ const Transactions = () => {
                 queryClient.prefetchQuery(['transactions', nextPage], () => fetchTransactions(nextPage));
             else console.log("not fetching");
         }
-    }, [data, isPreviousData ,page, queryClient]);
+    }, [data, isPreviousData ,page, queryClient, reload]);
 
     if (isError) {
         return <div>Error fetching transactions</div>;
@@ -65,6 +87,29 @@ const Transactions = () => {
 
     return (
         <div className="transactions">
+
+            <div>
+                <input
+                    type="text"
+                    placeholder="Search by email"
+                    value={search}
+                    onChange={(e) => {setSearch(e.target.value); handleFilter()}}
+                />
+                <input
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                />
+                <input
+                    type="date"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                />
+                <button onClick={handleFilter}>
+                    Filter
+                </button>
+            </div>
+
             <div className='transactions-buttons'>
                 <button
                     onClick={() => setPage((old) => Math.max(old - 1, 1))}
@@ -72,9 +117,7 @@ const Transactions = () => {
                 >
                     Previous
                 </button>
-
                 <span>Page {page}</span>
-
                 <button
                     onClick={() =>
                         setPage((old) => (!data || !data.next_page_url ? old : old + 1))
@@ -98,13 +141,9 @@ const Transactions = () => {
                 >
                     Previous
                 </button>
-
                 <span>Page {page}</span>
-
                 <button
-                    onClick={() =>
-                        setPage((old) => (!data || !data.next_page_url ? old : old + 1))
-                    }
+                    onClick={() =>  setPage((old) => (!data || !data.next_page_url ? old : old + 1))}
                     disabled={!data || !data.next_page_url}
                 >
                     Next
