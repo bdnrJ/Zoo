@@ -139,7 +139,7 @@ class TransactionController extends Controller
             $transactions = $transactions->whereBetween('buy_date', [$request->input('start_date'), $request->input('end_date')]);
         }
 
-        $transactions = $transactions->orderBy('id', 'desc')->paginate(15);
+        $transactions = $transactions->orderBy('id', 'desc')->paginate(5);
 
         error_log($request->input('search'));
 

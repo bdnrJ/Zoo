@@ -55,10 +55,21 @@ const Transactions = () => {
         }
     );
 
-    const handleFilter = () => {
+    const resetData = () => {
         queryClient.removeQueries({ queryKey: ['transactions']});
         setReload(prev => prev+1)
+        setPage(1);
     };
+
+    const handldeStartDataChange = () => {
+        if(!endDate) return
+        resetData();
+    }
+
+    const handleEndDataChange = () => {
+        if(!startDate) return
+        resetData();
+    }
 
     useEffect(() => {
         if (!isPreviousData && data?.next_page_url) {
@@ -80,29 +91,34 @@ const Transactions = () => {
         return <div>Loading transactions...</div>;
     }
 
+    let pages = [page - 2, page - 1, page, page + 1, page + 2].filter(page => page > 0 && (!data || page <= data.last_page));
+
     return (
         <div className="transactions">
 
-            <div>
+            <div className='transactions-params'>
+                Email:
+
                 <input
                     type="text"
                     placeholder="Search by email"
                     value={search}
-                    onChange={(e) => {setSearch(e.target.value); handleFilter()}}
+                    onChange={(e) => {setSearch(e.target.value); resetData()}}
                 />
+                Start Date:
+
                 <input
                     type="date"
                     value={startDate}
-                    onChange={(e) => setStartDate(e.target.value)}
+                    onChange={(e) =>{ setStartDate(e.target.value); handldeStartDataChange()}}
                 />
+
+                End Date:
                 <input
                     type="date"
                     value={endDate}
-                    onChange={(e) => setEndDate(e.target.value)}
+                    onChange={(e) => {setEndDate(e.target.value); handleEndDataChange()}}
                 />
-                <button onClick={handleFilter}>
-                    Filter
-                </button>
             </div>
 
             <div className='transactions-buttons'>
@@ -112,7 +128,17 @@ const Transactions = () => {
                 >
                     Previous
                 </button>
-                <span>Page {page}</span>
+
+                {pages.map((pageNumber) => (
+                    <button
+                        key={pageNumber}
+                        onClick={() => setPage(pageNumber)}
+                        disabled={pageNumber === page}
+                    >
+                        {pageNumber}
+                    </button>
+                ))}
+
                 <button
                     onClick={() =>
                         setPage((old) => (!data || !data.next_page_url ? old : old + 1))
@@ -136,9 +162,21 @@ const Transactions = () => {
                 >
                     Previous
                 </button>
-                <span>Page {page}</span>
+
+                {pages.map((pageNumber) => (
+                    <button
+                        key={pageNumber}
+                        onClick={() => setPage(pageNumber)}
+                        disabled={pageNumber === page}
+                    >
+                        {pageNumber}
+                    </button>
+                ))}
+
                 <button
-                    onClick={() =>  setPage((old) => (!data || !data.next_page_url ? old : old + 1))}
+                    onClick={() =>
+                        setPage((old) => (!data || !data.next_page_url ? old : old + 1))
+                    }
                     disabled={!data || !data.next_page_url}
                 >
                     Next
