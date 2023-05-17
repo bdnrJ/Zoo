@@ -5,9 +5,10 @@ import Overlay from '../Overlay';
 type Props = {
     buttonText: string;
     children: ReactElement<{ onClose: () => void }>;
+    buttonClass?: string
 };
 
-const PopupFormWithButton = ({ buttonText, children }: Props) => {
+const PopupFormWithButton = ({ buttonText, children, buttonClass }: Props) => {
     const [showPopup, setShowPopup] = useState(false);
 
     const openPopup = () => {
@@ -20,7 +21,7 @@ const PopupFormWithButton = ({ buttonText, children }: Props) => {
 
     return (
         <>
-            <button onClick={openPopup}>{buttonText}</button>
+            <button className={buttonClass} onClick={openPopup}>{buttonText}</button>
             {showPopup && <Overlay onClose={closePopup}>{children}</Overlay>}
         </>
     );

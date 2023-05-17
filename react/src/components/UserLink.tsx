@@ -16,12 +16,12 @@ const UserLink = ({id, deleted_at, firstname, lastname, email, created_at}: prop
             <Link to={`/admin/user_page/${id}`} style={{ textDecoration: 'none' }}>
                 <div className="userlink-block">
                     <div className="userlink-left">
-                        <span className='black'><span className='grey'>#</span>{id}</span>
-                        <span className='grey' >{deleted_at ? '(DELETED) ' : ''}{firstname + " " + lastname} </span>
+                        <span className='__font-black'><span className='__font-grey'>#</span>{id}</span>
+                        <span className='__font-grey' >{deleted_at ? '(DELETED) ' : ''}{firstname + " " + lastname} </span>
                     </div>
                     <div className="userlink-right">
-                        <span className='grey' >{email}</span>
-                        <span className='black' >creation date: {created_at.split('T')[0]}</span>
+                        <span className='__font-grey' >{email}</span>
+                        <span className='__font-black' >creation date: {created_at.split('T')[0]}</span>
                     </div>
                 </div>
             </Link>

@@ -63,7 +63,8 @@ const SlideShow = ({currentIdx, setCurrentIdx}: props) => {
                                 key={image}
                                 id={image}
                                 className={`slidecontrolls-ball ${imageArray[currentIdx] === image ? "--active" : ""}`}
-                                onClick={() => switchIndex(image)}>
+                                onClick={() => switchIndex(image)}
+                            >
                             </span>
                         )})}
                     </div>

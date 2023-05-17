@@ -1,0 +1,27 @@
+.is_active{
+    background-color: #fff8f0;
+    color: #ff8f00;
+    display: flex;
+    align-items: center;
+    padding: 0 2px 0 2px;
+    min-width: 50px;
+    height: 30px;
+    gap: 5px;
+
+    span{
+        height: 5px;
+        width: 5px;
+        background-color: #ff8f00;
+        border-radius: 999px;
+    }
+
+    &.--active{
+        color: #33d69f;
+        background-color: #f3fdf9;
+
+        span{
+            border-radius: 999px;
+            background-color: #33d69f;
+        }
+    }
+}
