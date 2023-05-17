@@ -65,14 +65,33 @@ const Transactions = () => {
 
     return (
         <div className="transactions">
-            <ul>
+            <div className='transactions-buttons'>
+                <button
+                    onClick={() => setPage((old) => Math.max(old - 1, 1))}
+                    disabled={page === 1}
+                >
+                    Previous
+                </button>
+
+                <span>Page {page}</span>
+
+                <button
+                    onClick={() =>
+                        setPage((old) => (!data || !data.next_page_url ? old : old + 1))
+                    }
+                    disabled={!data || !data.next_page_url}
+                >
+                    Next
+                </button>
+            </div>
+
+            <div className="transactions-list">
                 {data?.data.map((transaction: displayTransaction) => (
-                <li key={transaction.id}>
-                    <Transaction transaction={transaction} />
-                </li>
+                    <Transaction transaction={transaction} key={transaction.id}  />
                 ))}
-            </ul>
-            <div>
+            </div>
+
+            <div className='transactions-buttons'>
                 <button
                     onClick={() => setPage((old) => Math.max(old - 1, 1))}
                     disabled={page === 1}

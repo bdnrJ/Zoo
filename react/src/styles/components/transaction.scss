@@ -1,12 +1,50 @@
 .transaction {
-    background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
+    background-color: white;
+    width: 700px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px 0 20px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    color: black;
 
-    div {
-      margin-bottom: 0.5rem;
+    @include mobile{
+        height: 150px;
+        width: min(372px, 90vw);
+    }
+
+    &:hover{
+        border: 1px solid $fadedOrange;
+    }
+
+    .transaction-left,
+    .transaction-right{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        text-align: center;
+        gap: 10px;
+
+        .column{
+            display: flex;
+            flex-direction: column;
+          }
+
+
+        @include mobile{
+            flex-direction: column;
+            gap: 5px;
+        }
+    }
+
+    .transaction-right{
+
+        @include mobile{
+            max-width: 120px;
+        }
     }
   }
+
