@@ -1,4 +1,4 @@
-import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, Outlet, RouterProvider, ScrollRestoration} from "react-router-dom";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import RequireAdmin from "./components/ProtectedRoutes/RequireAdmin";
@@ -24,16 +24,19 @@ import Facilities from "./views/Facilities";
 import Foundation from "./views/Foundation";
 import UserTickets from './views/UserViews/UserTickets';
 import RequireUser from "./components/ProtectedRoutes/RequireUser";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
 export const Layout = () => {
     return (
-        <>
-        <Navbar/>
-        <Outlet />
-        <Footer />
-        </>
+        <ScrollToTop>
+            <div className="layout">
+                <Navbar/>
+                <Outlet />
+                <Footer />
+            </div>
+        </ScrollToTop>
     )
 }
 
@@ -157,7 +160,7 @@ const router = createBrowserRouter([
 function App() {
     return (
         <div className="App">
-                <RouterProvider router={router} />
+            <RouterProvider router={router} />
         </div>
     )
 }

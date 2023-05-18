@@ -36,11 +36,16 @@ const UserPage = () => {
     }, [id]);
 
     if (!user) {
-        return <div>Loading user data...</div>;
+        return (
+            <div className="userpage">
+                <div>Loading user data...</div>
+            </div>
+        );
     }
 
     return (
         <div className='userpage'>
+            {!user ? <div>Loading user data...</div> :<>
             <h2 className='userpage-header'>User Information</h2>
             <div className='user-info'>
                 <p className='user-info-item'>ID: {user.id}</p>
@@ -58,6 +63,7 @@ const UserPage = () => {
                         <Transaction transaction={transaction} />
                 ))}
             </div>
+            </>}
         </div>
     );
 
