@@ -5,6 +5,7 @@ import { displayTransaction } from './Transactions';
 import axiosClient from '../../axios-client';
 import PopupForm from '../../components/Popups/PopupForm';
 import DeleteAccountByAdminPopup from '../../components/Popups/DeleteAccountByAdminPopup';
+import ChangeUserByAdminPopup from '../../components/Popups/ChangeUserByAdminPopup';
 
 interface user {
     id: number;
@@ -22,6 +23,7 @@ const UserPage = () => {
     const [user, setUser] = useState<user | null>(null);
     const [transactions, setTransactions] = useState<displayTransaction[]>([]);
     const [isDeletePopupOn, setIsDeletePopupOn] = useState<boolean>(false);
+    const [isEditPopupOn, setIsEditPopupOn] = useState<boolean>(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -83,10 +85,10 @@ const UserPage = () => {
                 <p className='user-info-item'>Update Date: {user.created_at.split('T')[0]}</p>
                 <p className='user-info-item'>Deleted at: {user.deleted_at ? user?.deleted_at.split('T')[0] : "None"}</p>
             </div>
-            <button className='edit-button'>EDIT</button>
+            {/* <button className='edit-button' onClick={() => setIsEditPopupOn(true)}>EDIT</button> */}
             {user?.deleted_at
-                ? <button onClick={handleUserRestoration} className='restore-button'>RESTORE</button>
-                : <button onClick={() => setIsDeletePopupOn(true)} className='delete-button'>DELETE</button>
+                ? <button onClick={() => setIsEditPopupOn(true)} className='restore-button'>RESTORE ACCOUNT</button>
+                : <button onClick={() => setIsDeletePopupOn(true)} className='delete-button'>DELETE ACCOUNT</button>
             }
             <h2 className='userpage-header'>User Transactions</h2>
             <div className='transactions-list'>
@@ -100,6 +102,11 @@ const UserPage = () => {
                     <DeleteAccountByAdminPopup handleDelete={handleUserDeletion} email={user.email} closePopup={() => setIsDeletePopupOn(false)}/>
                 </PopupForm>
             }
+            {/* {isEditPopupOn &&
+                <PopupForm closePopup={() => setIsEditPopupOn(false)}>
+                    <ChangeUserByAdminPopup user={user} refreshUserData={() => {}} closePopup={() => setIsEditPopupOn(false)}/>
+                </PopupForm>
+            } */}
         </div>
     );
 

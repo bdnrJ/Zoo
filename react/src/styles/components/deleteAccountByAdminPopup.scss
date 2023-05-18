@@ -1,0 +1,48 @@
+.admindel{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    text-emphasis: center;
+
+    h1{
+        text-align: center;
+    }
+
+    p{
+        color: $error;
+        text-align: center;
+    }
+
+    .admindel-buttons{
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+
+        button{
+            background-color: transparent;
+            border: 1px solid transparent;
+            width: 100px;
+            height: 35px;
+            border-radius: 10px;
+            color:white;
+        }
+
+        .delete-cancel-button{
+            background-color: rgb(156, 156, 156);
+
+            &:hover{
+                background-color: darken(rgb(197, 197, 197), 10%);
+            }
+        }
+
+        .delete-confirm-button{
+            background-color: $error;
+
+            &:hover{
+                background-color: darken($error, 10%);
+            }
+        }
+    }
+}
