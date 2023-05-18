@@ -37,7 +37,7 @@ const DeleteAccountPopup = ({ closePopup, refreshUserData }: props) => {
 
     const handleDeleteAccount = async (data: DeleteAccountData) => {
         try {
-            const response = await axiosClient.delete('/user/delete', {
+            const response = await axiosClient.delete('/users/delete', {
                 data: { password: data.password },
                 withCredentials: true,
             });

@@ -71,27 +71,22 @@ class UserController extends Controller
         ], 200);
     }
 
-    // UserController.php
 
     public function updateEmail(Request $request)
     {
-        // Validate request data
         $request->validate([
             'newEmail' => 'required|email|unique:users,email',
             'confirmPassword' => 'required|min:8',
         ]);
 
-        // Retrieve the authenticated user
         $user = auth()->user();
 
-        // Check if the provided password matches the user's password
         if (!Hash::check($request->confirmPassword, $user->password)) {
             return response()->json([
                 'message' => 'Password confirmation does not match',
             ], 422);
         }
 
-        // Update the user's email
         $user->email = $request->newEmail;
         $user->save();
 

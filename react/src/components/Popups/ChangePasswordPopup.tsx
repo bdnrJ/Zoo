@@ -40,7 +40,7 @@ const ChangePasswordPopup = ({ closePopup, refreshUserData }: props) => {
         }
 
         try {
-            const response = await axiosClient.put('/user/update/password', {
+            const response = await axiosClient.put('/users/password', {
                 currentPassword: data.currentPassword,
                 newPassword: data.newPassword,
                 confirmNewPassword: data.confirmNewPassword

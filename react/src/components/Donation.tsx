@@ -2,7 +2,7 @@ import React from 'react'
 
 const Donation = () => {
 
-    const handleNothing = (e) => {
+    const handleNothing = (e: any) => {
         e.preventDefault();
         // i proudly can handle nothing
     }

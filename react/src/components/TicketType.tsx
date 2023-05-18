@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import PopupFormWithButton from './Popups/PopupFormWithButton'
 import TicketTypeEditPopup from './Popups/TicketTypeEditPopup'
-import IsActive from './isActive'
+import IsActive from './IsActive'
 
 type props = {
     ticketType: any,

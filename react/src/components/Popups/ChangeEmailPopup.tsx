@@ -21,6 +21,8 @@ const ChangeEmailPopup = ({ closePopup, refreshUserData }: props) => {
     const [updateError, setUpdateError] = useState('');
     const { setCurrentUser, currentUser } = useContext(AuthContext);
 
+    if(!currentUser) return;
+
     const schema = z.object({
         newEmail: z.string().email('invalid email format'),
         confirmPassword: z.string().min(1, 'required'),
@@ -36,7 +38,7 @@ const ChangeEmailPopup = ({ closePopup, refreshUserData }: props) => {
 
     const handleChangeEmail = async (data: EmailData) => {
         try {
-            const response = await axiosClient.put('/user/update/email', {
+            const response = await axiosClient.put('/users/email', {
                 newEmail: data.newEmail,
                 confirmPassword: data.confirmPassword,
             }, { withCredentials: true });
@@ -61,7 +63,7 @@ const ChangeEmailPopup = ({ closePopup, refreshUserData }: props) => {
                         <input
                             className="_formInput"
                             type="email"
-                            value={currentUser.email}
+                            value={currentUser?.email}
                             disabled
                             placeholder="Current Email"
                         />
