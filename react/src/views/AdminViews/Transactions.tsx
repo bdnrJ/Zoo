@@ -98,15 +98,14 @@ const Transactions = () => {
 
             <div className='transactions-params'>
                 Email:
-
                 <input
                     type="text"
                     placeholder="Search by email"
                     value={search}
                     onChange={(e) => {setSearch(e.target.value); resetData()}}
                 />
-                Start Date:
 
+                Start Date:
                 <input
                     type="date"
                     value={startDate}
@@ -129,15 +128,17 @@ const Transactions = () => {
                     Previous
                 </button>
 
-                {pages.map((pageNumber) => (
-                    <button
-                        key={pageNumber}
-                        onClick={() => setPage(pageNumber)}
-                        disabled={pageNumber === page}
-                    >
-                        {pageNumber}
-                    </button>
-                ))}
+                <div className="transactions-buttons-pages">
+                    {pages.map((pageNumber) => (
+                        <button
+                            key={pageNumber}
+                            onClick={() => setPage(pageNumber)}
+                            disabled={pageNumber === page}
+                        >
+                            {pageNumber}
+                        </button>
+                    ))}
+                </div>
 
                 <button
                     onClick={() =>
@@ -163,15 +164,17 @@ const Transactions = () => {
                     Previous
                 </button>
 
-                {pages.map((pageNumber) => (
-                    <button
-                        key={pageNumber}
-                        onClick={() => setPage(pageNumber)}
-                        disabled={pageNumber === page}
-                    >
-                        {pageNumber}
-                    </button>
-                ))}
+                <div className="transactions-buttons-pages">
+                    {pages.map((pageNumber) => (
+                        <button
+                            key={pageNumber}
+                            onClick={() => setPage(pageNumber)}
+                            disabled={pageNumber === page}
+                        >
+                            {pageNumber}
+                        </button>
+                    ))}
+                </div>
 
                 <button
                     onClick={() =>

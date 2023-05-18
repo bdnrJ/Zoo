@@ -12,8 +12,8 @@
     color: black;
 
     @include mobile{
-        height: 150px;
-        width: min(372px, 90vw);
+        height: 170px;
+        width: min(400px, 90vw);
     }
 
     &:hover{
