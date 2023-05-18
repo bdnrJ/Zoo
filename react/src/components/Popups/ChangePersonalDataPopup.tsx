@@ -22,7 +22,6 @@ const ChangePersonalDataPopup = ({ closePopup, refreshUserData }: props) => {
     const [disabled, setDisabled] = useState(false);
     const { setCurrentUser, currentUser } = useContext(AuthContext);
 
-    if(!currentUser) return;
 
     const schema: ZodType<PersonalData> = z.object({
         firstname: z.string().min(1, 'Required').max(30, 'Too long'),

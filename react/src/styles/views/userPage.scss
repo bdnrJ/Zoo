@@ -25,19 +25,37 @@
     color: #666;
 }
 
-.edit-button {
-    display: inline-block;
-    background-color: #007BFF;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
+.edit-button,
+.delete-button,
+.restore-button {
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-.edit-button:hover {
-    background-color: #0056b3;
+.edit-button {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+
+.delete-button {
+  background-color: #f44336; /* Red */
+  color: white;
+}
+
+.restore-button {
+  background-color: #008CBA; /* Blue */
+  color: white;
+}
+
+/* Add a hover effect for buttons */
+.edit-button:hover,
+.delete-button:hover,
+.restore-button:hover {
+  opacity: 0.8;
 }
 
 .transactions-list {

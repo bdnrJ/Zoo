@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Transaction from '../../components/Transaction';
 import { displayTransaction } from './Transactions';
 import axiosClient from '../../axios-client';
+import PopupForm from '../../components/Popups/PopupForm';
+import DeleteAccountByAdminPopup from '../../components/Popups/DeleteAccountByAdminPopup';
 
 interface user {
     id: number;
@@ -19,6 +21,8 @@ const UserPage = () => {
     const { id } = useParams<{ id: string }>();
     const [user, setUser] = useState<user | null>(null);
     const [transactions, setTransactions] = useState<displayTransaction[]>([]);
+    const [isDeletePopupOn, setIsDeletePopupOn] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -34,6 +38,29 @@ const UserPage = () => {
 
         fetchUserData();
     }, [id]);
+
+    const handleUserDeletion = async () => {
+        try {
+            await axiosClient.delete(`/users/destroy/${id}`, {withCredentials: true});
+            const response = await axiosClient.get(`/users/${id}`, {withCredentials: true});
+            alert('User deleted succsefully');
+            navigate('/admin/users');
+        } catch (err) {
+            alert(err);
+        }
+    };
+
+    const handleUserRestoration = async () => {
+        setUser(null)
+        try {
+            await axiosClient.post(`/users/${id}/restore`, {withCredentials: true});
+            const response = await axiosClient.get(`/users/${id}`, {withCredentials: true});
+            setUser(response.data.user);
+            setIsDeletePopupOn(false);
+        } catch (err) {
+            alert(err);
+        }
+    };
 
     if (!user) {
         return (
@@ -57,6 +84,10 @@ const UserPage = () => {
                 <p className='user-info-item'>Deleted at: {user.deleted_at ? user?.deleted_at.split('T')[0] : "None"}</p>
             </div>
             <button className='edit-button'>EDIT</button>
+            {user?.deleted_at
+                ? <button onClick={handleUserRestoration} className='restore-button'>RESTORE</button>
+                : <button onClick={() => setIsDeletePopupOn(true)} className='delete-button'>DELETE</button>
+            }
             <h2 className='userpage-header'>User Transactions</h2>
             <div className='transactions-list'>
                 {transactions.map((transaction) => (
@@ -64,6 +95,11 @@ const UserPage = () => {
                 ))}
             </div>
             </>}
+            {isDeletePopupOn &&
+                <PopupForm closePopup={() => setIsDeletePopupOn(false)}>
+                    <DeleteAccountByAdminPopup handleDelete={handleUserDeletion} email={user.email} closePopup={() => setIsDeletePopupOn(false)}/>
+                </PopupForm>
+            }
         </div>
     );
 

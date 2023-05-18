@@ -21,7 +21,6 @@ const ChangeEmailPopup = ({ closePopup, refreshUserData }: props) => {
     const [updateError, setUpdateError] = useState('');
     const { setCurrentUser, currentUser } = useContext(AuthContext);
 
-    if(!currentUser) return;
 
     const schema = z.object({
         newEmail: z.string().email('invalid email format'),

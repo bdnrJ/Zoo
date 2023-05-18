@@ -43,7 +43,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function updateCredentials(Request $request)
     {
         $user = Auth::user();
 
@@ -132,5 +132,24 @@ class UserController extends Controller
         $user->delete();
 
         return response()->json(['message' => 'Account deleted successfully']);
+    }
+
+    public function destroy($id)
+    {
+        $user = User::find($id);
+
+        if(!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found'
+            ], 400);
+        }
+
+        $user->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User deleted successfully'
+        ], 200);
     }
 }
