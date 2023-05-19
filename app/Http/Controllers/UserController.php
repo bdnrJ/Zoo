@@ -10,15 +10,23 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function getUsers()
-    {
-        $users = User::withTrashed()->paginate(15);
+    public function getUsers(Request $request)
+{
+    $search = $request->get('search');
+    $query = User::withTrashed();
 
-        return response([
-            "message" => "success",
-            "paginationData" => $users
-        ], 200);
+    if ($search) {
+        $query->where('email', 'like', '%' . $search . '%');
     }
+
+    $users = $query->paginate(5);
+
+    return response([
+        "message" => "success",
+        "paginationData" => $users
+    ], 200);
+}
+
 
     public function userToUser()
     {

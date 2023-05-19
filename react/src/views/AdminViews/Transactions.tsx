@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Transaction from '../../components/Transaction';
 import axiosClient from '../../axios-client';
+import { useDebounce } from '../../hooks/useDebounce';
 
 type user = {
     email: string,
@@ -23,11 +24,11 @@ const Transactions = () => {
     const [page, setPage] = useState<number>(1);
     const queryClient = useQueryClient();
     const [search, setSearch] = useState<string>("");
+    const debouncedSearch = useDebounce(search, 500);
     const [startDate, setStartDate] = useState<string>("");
     const [endDate, setEndDate] = useState<string>("");
-    const [reload, setReload] = useState<number>(0);
 
-    const fetchTransactions = async (page: number) => {
+    const fetchTransactions = async (page: number, search: string, startDate: string, endDate: string) => {
         try{
             const response = await axiosClient.get(`/transactions?page=${page}`, {
                 params: {
@@ -46,49 +47,30 @@ const Transactions = () => {
         }
     };
 
+    useEffect(() => {
+        setPage(1); // Reset page number when search changes
+    }, [debouncedSearch]);
+
     const { data , isError, isFetching, isSuccess, isPreviousData } = useQuery(
-        ['transactions', page],
-        () => fetchTransactions(page),
+        ['transactions', page, debouncedSearch, startDate, endDate],
+        () => fetchTransactions(page, debouncedSearch, startDate, endDate),
         {
             staleTime: 1000 * 60 * 5, // 5 minutes
             keepPreviousData: true,
         }
     );
 
-    const resetData = () => {
-        queryClient.removeQueries({ queryKey: ['transactions']});
-        setReload(prev => prev+1)
-        setPage(1);
-    };
-
-    const handldeStartDataChange = () => {
-        if(!endDate) return
-        resetData();
-    }
-
-    const handleEndDataChange = () => {
-        if(!startDate) return
-        resetData();
-    }
-
     useEffect(() => {
         if (!isPreviousData && data?.next_page_url) {
             const nextPage = page + 1;
-            // if we go from page 4 -> 3 without this if statement
-            // it would refetch page 4 again, even if
-            // it was just fetched
-            if(!queryClient.getQueryData(['transactions', nextPage]))
-                queryClient.prefetchQuery(['transactions', nextPage], () => fetchTransactions(nextPage));
+            if(!queryClient.getQueryData(['transactions', nextPage, debouncedSearch, startDate, endDate]))
+                queryClient.prefetchQuery(['transactions', nextPage, debouncedSearch, startDate, endDate], () => fetchTransactions(nextPage, debouncedSearch, startDate, endDate));
             else console.log("not fetching");
         }
-    }, [data, isPreviousData ,page, queryClient, reload]);
+    }, [data, isPreviousData ,page, debouncedSearch, startDate, endDate, queryClient]);
 
     if (isError) {
-        return <div>Error fetching transactions</div>;
-    }
-
-    if (isFetching && !isSuccess) {
-        return <div>Loading transactions...</div>;
+        return <div className='transactions' >Error fetching transactions</div>;
     }
 
     let pages = [page - 2, page - 1, page, page + 1, page + 2].filter(page => page > 0 && (!data || page <= data.last_page));
@@ -102,22 +84,26 @@ const Transactions = () => {
                     type="text"
                     placeholder="Search by email"
                     value={search}
-                    onChange={(e) => {setSearch(e.target.value); resetData()}}
+                    onChange={(e) => setSearch(e.target.value)}
                 />
 
                 Start Date:
                 <input
                     type="date"
                     value={startDate}
-                    onChange={(e) =>{ setStartDate(e.target.value); handldeStartDataChange()}}
+                    onChange={(e) => setStartDate(e.target.value)}
                 />
 
                 End Date:
                 <input
                     type="date"
                     value={endDate}
-                    onChange={(e) => {setEndDate(e.target.value); handleEndDataChange()}}
+                    onChange={(e) => setEndDate(e.target.value)}
                 />
+            </div>
+
+            <div className="transactions-loading">
+                {isFetching && <div>Loading transactions...</div>}
             </div>
 
             <div className='transactions-buttons'>
@@ -151,7 +137,9 @@ const Transactions = () => {
             </div>
 
             <div className="transactions-list">
-                {data?.data.map((transaction: displayTransaction) => (
+                {isSuccess && !data?.data.length ?
+                <div>No users match your search</div>
+                : data?.data.map((transaction: displayTransaction) => (
                     <Transaction transaction={transaction} key={transaction.id}  />
                 ))}
             </div>

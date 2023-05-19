@@ -13,6 +13,10 @@
         gap: 10px;
     }
 
+    .transactions-loading{
+        height: 15px;
+    }
+
     .transactions-buttons{
         padding: 20px 0 10px 0;
         display: flex;
@@ -24,7 +28,7 @@
         }
 
         .transactions-buttons-pages{
-            width: 213px;
+            width: 240px;
             display: flex;
             align-items: center;
             justify-content: center;

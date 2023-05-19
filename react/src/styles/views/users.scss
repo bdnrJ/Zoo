@@ -2,10 +2,11 @@
     @include navbarMargin;
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
     gap: 25px;
     background-color: $greyBg;
+    min-height: 800px;
+    padding: 35px 0 35px 0;
 
     .users-list{
         display: flex;
