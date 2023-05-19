@@ -39,8 +39,19 @@
         gap: 10px;
 
         .bought_ticket_sum-rest-ticket_type{
+            padding: 10px 0 10px 0;
             width: 80%;
             text-align: center;
+
+            h3{
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 20px;
+                line-height: 23px;
+
+                color: #2E2E2E;
+            }
 
             hr{
                 width: 100%;

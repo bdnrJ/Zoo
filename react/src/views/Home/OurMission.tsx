@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import image from '../../assets/elephant_drinking_milk.png';
+import { useNavigate } from 'react-router-dom';
 
 const OurMission = () => {
+    const navigate = useNavigate();
   const [isTextExpanded, setIsTextExpanded] = useState(false);
   const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
 
@@ -55,7 +57,7 @@ const OurMission = () => {
           </div>
           <div className="our_mission-content-button">
             <label htmlFor="learn-more" className="__orange-button-label">
-              <button name="learn-more"> Learn more </button>
+              <button name="learn-more" onClick={() => navigate('/foundation')} > Learn more </button>
             </label>
           </div>
         </div>

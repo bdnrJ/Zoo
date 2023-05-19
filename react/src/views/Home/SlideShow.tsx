@@ -75,7 +75,8 @@ const SlideShow = ({currentIdx, setCurrentIdx}: props) => {
                         <h1>Explore the biggest ZOO in the country!</h1>
                     </div>
                     <div className="slideshow-content-button">
-                        <button className='__border-button' >EXPLORE</button>
+                        {/* no idea what this button would do :/ */}
+                        {/* <button className='__border-button' >EXPLORE</button> */}
                     </div>
                 </div>
             </div>

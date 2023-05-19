@@ -195,6 +195,11 @@ input[type=number] {
         transition: all 500ms ease-in;
     }
 
+    button:disabled{
+        background-color: darken($button, 10%);
+        color: darken(white, 10%);
+    }
+
     &:hover{
 
         button, input{

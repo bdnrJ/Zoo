@@ -35,9 +35,9 @@ const HomeInfo = () => {
                         <div className="home_info-info-content">
                             <span>591 McKinley St .100, South Stildol, Iowa</span>
                         </div>
-                        <label htmlFor="borderbtn">
+                        {/* <label htmlFor="borderbtn">
                             <button name="borderbtn" className='border-button' >See the details</button>
-                        </label>
+                        </label> */}
                     </div>
 
                 </div>
