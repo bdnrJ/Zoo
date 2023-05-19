@@ -62,9 +62,13 @@ const Users = () => {
         }
     }, [data, isPreviousData, currentPage, debouncedSearch, queryClient]);
 
+    let pages = [currentPage - 2, currentPage - 1, currentPage, currentPage + 1, currentPage + 2]
+        .filter(page => page > 0 && (!data || page <= data.last_page));
+
     return (
         <div className='users'>
             <div className='search-field'>
+                Email:
                 <input
                     type='text'
                     placeholder='Search by email'
@@ -79,7 +83,19 @@ const Users = () => {
                 >
                     {"Previous"}
                 </button>
-                <span>Page {currentPage}</span>
+
+                <div className="paginationbtns-pages">
+                    {pages.map((pageNumber) => (
+                        <button
+                            key={pageNumber}
+                            onClick={() => setCurrentPage(pageNumber)}
+                            disabled={pageNumber === currentPage}
+                        >
+                            {pageNumber}
+                        </button>
+                    ))}
+                </div>
+
                 <button
                     onClick={() => setCurrentPage((old) => (!isPreviousData && data?.next_page_url) ? old + 1 : old)}
                     disabled={isPreviousData || data?.next_page_url == null}
@@ -107,6 +123,34 @@ const Users = () => {
                         <div>No users found matching the search criteria.</div>
                     )}
                 </div>
+
+                <div className="paginationbtns">
+                <button
+                    onClick={() => setCurrentPage((old) => Math.max(old - 1, 1))}
+                    disabled={currentPage === 1}
+                >
+                    {"Previous"}
+                </button>
+
+                <div className="paginationbtns-pages">
+                    {pages.map((pageNumber) => (
+                        <button
+                            key={pageNumber}
+                            onClick={() => setCurrentPage(pageNumber)}
+                            disabled={pageNumber === currentPage}
+                        >
+                            {pageNumber}
+                        </button>
+                    ))}
+                </div>
+
+                <button
+                    onClick={() => setCurrentPage((old) => (!isPreviousData && data?.next_page_url) ? old + 1 : old)}
+                    disabled={isPreviousData || data?.next_page_url == null}
+                >
+                    {"Next"}
+                </button>
+            </div>
         </div>
     );
 };

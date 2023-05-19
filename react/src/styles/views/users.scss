@@ -15,4 +15,60 @@
         flex-direction: column;
         gap: 10px;
     }
+
+    .search-field{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        input{
+            height: 35px;
+        }
+    }
+
+    .paginationbtns{
+        justify-content: space-between;
+        display: flex;
+        align-items: center;
+
+        @include mobile{
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .paginationbtns-pages{
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            justify-content: center;
+            width: 250px;
+
+        }
+
+    }
+
+    button {
+        cursor: pointer;
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        border-radius: 4px;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        transition: background-color 0.3s;
+        max-width: 76px;
+
+        &:hover {
+          background-color: #0069d9;
+        }
+
+        &:disabled {
+          background-color: #6c757d;
+          cursor: not-allowed;
+
+          &:hover {
+            background-color: #6c757d;
+          }
+        }
+      }
+
 }
