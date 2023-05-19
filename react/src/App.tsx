@@ -25,6 +25,7 @@ import Foundation from "./views/Foundation";
 import UserTickets from './views/UserViews/UserTickets';
 import RequireUser from "./components/ProtectedRoutes/RequireUser";
 import ScrollToTop from "./components/ScrollToTop";
+import Services from "./views/AdminViews/Services";
 
 const queryClient = new QueryClient();
 
@@ -86,6 +87,13 @@ const router = createBrowserRouter([
                 element:
                 <RequireAdmin>
                     <TicketTypes />
+                </RequireAdmin>
+            },
+            {
+                path: '/admin/services',
+                element:
+                <RequireAdmin>
+                    <Services />
                 </RequireAdmin>
             },
             {

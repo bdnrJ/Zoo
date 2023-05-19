@@ -1,7 +1,7 @@
 import React from 'react'
 
 type props = {
-    is_active: boolean
+    is_active: boolean | number
 }
 
 const IsActive = ({is_active}: props) => {

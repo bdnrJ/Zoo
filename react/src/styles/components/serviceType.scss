@@ -1,0 +1,47 @@
+.service_type{
+    background-color: white;
+    width: 700px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px 0 20px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    color: black;
+
+    @include mobile{
+        height: 170px;
+        width: min(400px, 90vw);
+    }
+
+    &:hover{
+        border: 1px solid $fadedOrange;
+    }
+
+    .serivce_type-left,
+    .serivce_type-right{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        gap: 10px;
+
+        .column{
+            display: flex;
+            flex-direction: column;
+        }
+
+        @include mobile{
+            flex-direction: column;
+            gap: 5px;
+        }
+    }
+
+    .serivce_type-right{
+
+        @include mobile{
+            max-width: 120px;
+        }
+    }
+}

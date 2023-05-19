@@ -31,6 +31,8 @@ export type serviceType = {
     description: string,
     price_per_customer: string,
     is_active: number,
+    created_at?: string,
+    updated_at?: string,
 }
 
 export interface normalTransactionTickets {

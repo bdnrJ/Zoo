@@ -26,6 +26,7 @@
 @import "./views/foundation.scss";
 @import "./views/userTickets.scss";
 @import "./views/transactionPage.scss";
+@import "./views/services.scss";
 
 //Tickets
 @import "./views/Tickets/tickets.scss";
@@ -55,6 +56,7 @@
 @import "./components/userLink.scss";
 @import "./components/deleteAccountByAdminPopup.scss";
 @import "./components/addTicketTypePopup.scss";
+@import "./components/serviceType.scss";
 
 @import "./components/backbutton.scss";
 @import "./components/ticketChooser.scss";
