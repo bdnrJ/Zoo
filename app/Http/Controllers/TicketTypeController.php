@@ -25,18 +25,21 @@ class TicketTypeController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|max:45',
-            'age_info' => 'required|max:100',
-            'price' => 'required|numeric',
-            'is_active' => 'required|boolean',
-        ]);
+{
+    $request->validate([
+        'name' => 'required|max:45',
+        'age_info' => 'required|max:100',
+        'price' => 'required|numeric'
+    ]);
 
-        $ticketType = TicketType::create($request->all());
+    $ticketTypeData = $request->all();
+    $ticketTypeData['is_active'] = 0; // Set 'is_active' to 0 by default
 
-        return response()->json($ticketType, 201);
-    }
+    $ticketType = TicketType::create($ticketTypeData);
+
+    return response()->json($ticketType, 201);
+}
+
 
     public function update(Request $request, $id)
     {

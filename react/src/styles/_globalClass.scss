@@ -214,6 +214,23 @@ input[type=number] {
             background-color: bisque;
         }
     }
+
+    &.wide{
+        width: 180px;
+
+        button{
+            width: 180px;
+
+        }
+
+        &:hover{
+
+            button{
+                width: 150px;
+            }
+        }
+
+    }
 }
 
 .__noUnderline{

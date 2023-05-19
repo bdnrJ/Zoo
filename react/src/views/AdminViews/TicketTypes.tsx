@@ -1,14 +1,14 @@
 import React, { useContext, useState } from 'react'
 import { TicketContext } from '../../context/TicketContext'
-import Overlay from '../../components/Overlay';
-import PopupFormWithButton from '../../components/Popups/PopupFormWithButton';
-import TicketTypeEditPopup from '../../components/Popups/TicketTypeEditPopup';
 import TicketType from '../../components/TicketType';
+import PopupForm from '../../components/Popups/PopupForm';
+import AddTicketTypePopup from '../../components/Popups/AddTicketTypePopup';
 
 type Props = {}
 
 const TicketTypes = (props: Props) => {
     const {allNormalTicketTypes} = useContext(TicketContext);
+    const [isAddPopupOn, setIsAddPopupOn] = useState<boolean>(false);
 
 return (
     <div className="ticket_types">
@@ -18,6 +18,16 @@ return (
                     <TicketType ticketType={ticketType} />
                 ))}
             </div>
+
+            <label htmlFor="addBtn" className="__orange-button-label wide">
+                <button onClick={() => setIsAddPopupOn(true)}> ADD TICKET TYPE </button>
+            </label>
+
+            {isAddPopupOn &&
+                <PopupForm closePopup={() => setIsAddPopupOn(false)}>
+                    <AddTicketTypePopup closePopup={() => setIsAddPopupOn(false)}/>
+                </PopupForm>
+            }
 
     </div>
 )

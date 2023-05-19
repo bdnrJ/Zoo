@@ -1,10 +1,12 @@
 .ticket_types{
     @include navbarMargin;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     gap: 20px;
     background-color: $greyBg;
     min-height: 800px;
+    padding: 15px 0 20px 0;
 
     .ticket_types-list{
         margin-top: 20px;
@@ -72,6 +74,10 @@
                 }
             }
         }
+    }
+
+    .ticket_types-buttons{
+
     }
 
 }

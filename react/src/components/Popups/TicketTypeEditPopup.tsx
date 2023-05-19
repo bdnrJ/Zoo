@@ -57,6 +57,7 @@ const TicketTypeEditPopup = ({ticketType, onClose}: Props) => {
             if (response.status === 200) {
                 alert('Ticket type updated successfully.');
                 getAllTickets();
+                //disgusting hack
                 if(onClose)
                 onClose();
             }
@@ -104,7 +105,7 @@ const TicketTypeEditPopup = ({ticketType, onClose}: Props) => {
 
                 <label htmlFor="savebtn" className="__orange-button-label">
                         <button type="submit">Confirm</button>
-                    </label>
+                </label>
             </form>
         </div>
     )

@@ -1,0 +1,29 @@
+.add_ttype{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    h1{
+        font-family: "Oswald";
+        font-style: normal;
+        font-weight: 200;
+        font-size: 28px;
+        line-height: 36px;
+    }
+
+}
+
+.custom-select {
+    appearance: none; /* Remove default style */
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid $fadedOrange;
+    background-color: #fff;
+  }
+
+  .select-type{
+    display: flex;
+    gap: 15px;
+  }
