@@ -17,17 +17,20 @@ class ServiceTypesController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $this->validate($request, [
-            'name' => 'required|string',
-            'description' => 'required|string',
-            'price_per_customer' => 'required|numeric',
-            'is_active' => 'required|boolean',
-        ]);
+{
+    $this->validate($request, [
+        'name' => 'required|string',
+        'description' => 'required|string',
+        'price_per_customer' => 'required|numeric',
+    ]);
 
-        $serviceType = ServiceType::create($request->all());
-        return response()->json($serviceType, 201);
-    }
+    $serviceTypeData = $request->all();
+    $serviceTypeData['is_active'] = false; // set to always false
+    $serviceType = ServiceType::create($serviceTypeData);
+
+    return response()->json($serviceType, 201);
+}
+
 
     public function show(ServiceType $serviceType)
     {

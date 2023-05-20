@@ -25,7 +25,7 @@ const ServiceTypeEditPopup = ({service, closePopup}: Props) => {
     const {resetServices} = useContext(TicketContext);
 
     const schema: ZodType<serviceFormType> = z.object({
-        name: z.string().max(15, 'too long').min(1, 'required'),
+        name: z.string().max(45, 'too long').min(1, 'required'),
         description: z.string().max(500, 'too long').min(1, 'required'),
         price_per_customer: z.number(),
         is_active: z.boolean(),

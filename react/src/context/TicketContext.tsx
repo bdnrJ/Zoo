@@ -216,6 +216,12 @@ export const TicketProvider = ({children}: props) => {
 
         const avaliableServiceTypesTemp = servicesData.data.filter((serviceType: serviceType) => serviceType.is_active === 1);
         setAvaliableServiceTypes(avaliableServiceTypesTemp);
+
+        const userServicesTemp: userService[] = avaliableServiceTypesTemp.map((serviceType: serviceType) => ({
+            ...serviceType,
+            is_choosen: false
+        }));
+        setUserServices(userServicesTemp);
     }
 
     return (
