@@ -94,7 +94,7 @@ const TicketTypeEditPopup = ({ticketType, onClose}: Props) => {
                     <input type="number" className={`${errors.price && "--error"}`} step="any" {...register('price', {required: true, valueAsNumber: true})} />
                     {errors.price && <span className={`_inputError --big`}>{errors.price.message}</span>}
                 </label>
-                <label htmlFor="is_active">
+                <label htmlFor="is_active" className='__form-is_active'>
                     <span>Is active: </span>
                     <input className='form-checkbox' type="checkbox" {...register('is_active')} />
                 </label>

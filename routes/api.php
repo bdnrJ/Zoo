@@ -39,6 +39,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::put('/ticket_types/{id}', [TicketTypeController::class, 'update'])->middleware('isAdmin');
     Route::post('/ticket_types', [TicketTypeController::class, 'store']);
+
+    Route::put('/service_types/{id}', [ServiceTypesController::class, 'update'])->middleware('isAdmin');
 });
 
 Route::post('/register', [AuthController::class, 'register']);

@@ -78,7 +78,8 @@ interface TicketContext{
     setGroupUserTransaction: Dispatch<SetStateAction<transaction>>,
     userServices: userService[],
     setUserServices: Dispatch<SetStateAction<userService[]>>,
-    resetAllGroup: () => void
+    resetAllGroup: () => void,
+    resetServices: () => void,
 }
 
 const normalTransactionSample: transaction ={
@@ -126,7 +127,8 @@ export const TicketContext = createContext<TicketContext>({
     setGroupUserTransaction: () => {},
     userServices: [],
     setUserServices: () => {},
-    resetAllGroup: () => {}
+    resetAllGroup: () => {},
+    resetServices: () => {}
 });
 
 export const TicketProvider = ({children}: props) => {
@@ -208,6 +210,14 @@ export const TicketProvider = ({children}: props) => {
         }]})
     }
 
+    const resetServices = async () => {
+        const servicesData = await axiosClient.get('/service_types');
+        setAllServiceTypes(servicesData.data);
+
+        const avaliableServiceTypesTemp = servicesData.data.filter((serviceType: serviceType) => serviceType.is_active === 1);
+        setAvaliableServiceTypes(avaliableServiceTypesTemp);
+    }
+
     return (
         <TicketContext.Provider value={{
             availableNormalTickets,
@@ -226,6 +236,7 @@ export const TicketProvider = ({children}: props) => {
             userServices,
             setUserServices,
             resetAllGroup,
+            resetServices
             }}>
             {children}
         </TicketContext.Provider>
