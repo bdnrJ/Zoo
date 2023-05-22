@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import axiosClient from '../../axios-client';
 import { AuthContext } from '../../context/AuthContext';
 import { User } from '../../types/types';
+import SuccessPopupTemplate from './SuccessPopupTemplate';
 
 type props = {
     closePopup: () => void,
@@ -21,6 +22,8 @@ const ChangePersonalDataPopup = ({ closePopup, refreshUserData }: props) => {
     const [updateError, setUpdateError] = useState('');
     const [disabled, setDisabled] = useState(false);
     const { setCurrentUser, currentUser } = useContext(AuthContext);
+    const [isSuccessPopupOn, setIsSuccessPopupOn] = useState<boolean>(false);
+
 
 
     const schema: ZodType<PersonalData> = z.object({
@@ -47,7 +50,7 @@ const ChangePersonalDataPopup = ({ closePopup, refreshUserData }: props) => {
 
             setUpdateError('');
             setDisabled(true);
-            closePopup();
+            setIsSuccessPopupOn(true);
             setCurrentUser(newUser);
             refreshUserData();
         } catch (err: any) {
@@ -59,28 +62,34 @@ const ChangePersonalDataPopup = ({ closePopup, refreshUserData }: props) => {
         <div className="change-user_data-popup">
             <h2>Change Personal Data</h2>
             <form onSubmit={handleSubmit(onSubmit)} className='__form'>
-                    <label htmlFor="firstname">
-                        <input
-                            className={`_formInput ${errors.firstname && '--error'}`}
-                            type="text"
-                            {...register('firstname', { required: true })}
-                            placeholder="First name"
-                        />
-                        {errors.firstname && (
-                            <span className={`_inputError`}>{errors.firstname.message}</span>
-                        )}
-                    </label>
-                    <label htmlFor="lastname">
-                        <input
-                            className={`_formInput ${errors.lastname && '--error'}`}
-                            type="text"
-                            {...register('lastname', { required: true })}
-                            placeholder="Last name"
-                        />
-                        {errors.lastname && (
-                            <span className={`_inputError`}>{errors.lastname.message}</span>
-                        )}
-                    </label>
+                    <div className="input-wrapper">
+                        <p>Firstname</p>
+                        <label htmlFor="firstname">
+                            <input
+                                className={`_formInput ${errors.firstname && '--error'}`}
+                                type="text"
+                                {...register('firstname', { required: true })}
+                                placeholder="First name"
+                            />
+                            {errors.firstname && (
+                                <span className={`_inputError`}>{errors.firstname.message}</span>
+                            )}
+                        </label>
+                    </div>
+                    <div className="input-wrapper">
+                        <p>Lastname</p>
+                        <label htmlFor="lastname">
+                            <input
+                                className={`_formInput ${errors.lastname && '--error'}`}
+                                type="text"
+                                {...register('lastname', { required: true })}
+                                placeholder="Last name"
+                            />
+                            {errors.lastname && (
+                                <span className={`_inputError`}>{errors.lastname.message}</span>
+                            )}
+                        </label>
+                    </div>
                     <label htmlFor="savebtn" className="__orange-button-label">
                         <button type="submit">Save</button>
                     </label>
@@ -90,6 +99,9 @@ const ChangePersonalDataPopup = ({ closePopup, refreshUserData }: props) => {
                     <span>{updateError}</span>
                 </div>
             )}
+            {isSuccessPopupOn &&
+                <SuccessPopupTemplate closePopup={() => setIsSuccessPopupOn(false)} text='Your credentials has been changed successfully' closeOriginPopup={closePopup}/>
+            }
         </div>
     );
 };

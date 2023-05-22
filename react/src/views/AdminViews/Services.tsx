@@ -17,7 +17,7 @@ const Services = () => {
             </div>
 
             <label htmlFor="addBtn" className="__orange-button-label wide">
-                <button onClick={() => setIsAddPopupOn(true)}> ADD TICKET TYPE </button>
+                <button onClick={() => setIsAddPopupOn(true)}> ADD SERVICE TYPE </button>
             </label>
 
             {isAddPopupOn &&

@@ -43,6 +43,7 @@ const ServiceTypeEditPopup = ({service, closePopup}: Props) => {
             ) {
                 alert('No changes were made.');
                 closePopup();
+                return;
             }
 
         try {
