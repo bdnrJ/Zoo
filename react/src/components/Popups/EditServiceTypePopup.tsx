@@ -1,10 +1,11 @@
-import React, {useContext, useEffect} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {useForm} from 'react-hook-form'
 import {z} from "zod"
 import { ZodType } from 'zod/lib'
 import { zodResolver} from '@hookform/resolvers/zod'
 import axiosClient from '../../axios-client'
 import { TicketContext, serviceType } from '../../context/TicketContext'
+import SuccessPopupTemplate from './SuccessPopupTemplate'
 
 type Props = {
     service: serviceType,
@@ -21,6 +22,11 @@ type serviceFormType = {
 
 
 const ServiceTypeEditPopup = ({service, closePopup}: Props) => {
+    const [isSuccessPopupOn, setIsSuccessPopupOn] = useState<boolean>(false);
+    const [isFailPopupOn, setIsFailPopupOn] = useState<boolean>(false);
+    const [isNoChangesPopupOn, setIsNoChangesPopupOn] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState<string>('');
+
 
     const {resetServices} = useContext(TicketContext);
 
@@ -41,20 +47,19 @@ const ServiceTypeEditPopup = ({service, closePopup}: Props) => {
             parseFloat(data.price_per_customer) ===  parseFloat(service.price_per_customer) &&
             data.is_active === (service.is_active === 0 ? false : true)
             ) {
-                alert('No changes were made.');
-                closePopup();
+                setIsNoChangesPopupOn(true);
                 return;
             }
 
         try {
             const response = await axiosClient.put(`/service_types/${service.id}`, data, {withCredentials: true});
             console.log(response);
-            alert('Service updated successfully.');
             resetServices();
-            closePopup();
+            setIsSuccessPopupOn(true);
         } catch (error: any) {
-            alert('Error updating service. ' +  error.response.statusText);
-            closePopup();
+            const message =  'Failed to update service type, ' + error.response?.data?.message;
+            setErrorMessage(message);
+            setIsFailPopupOn(true);
         }
     };
 
@@ -107,6 +112,15 @@ const ServiceTypeEditPopup = ({service, closePopup}: Props) => {
                     <button type='submit' >Update</button>
                 </label>
             </form>
+            {isSuccessPopupOn &&
+                <SuccessPopupTemplate closePopup={() => setIsSuccessPopupOn(false)} text='Service type updated successfully' closeOriginPopup={closePopup}/>
+            }
+            {isFailPopupOn &&
+                <SuccessPopupTemplate closePopup={() => setIsFailPopupOn(false)} text={errorMessage} closeOriginPopup={closePopup}/>
+            }
+            {isNoChangesPopupOn &&
+                <SuccessPopupTemplate closePopup={() => setIsFailPopupOn(false)} text="No changes were made" closeOriginPopup={closePopup}/>
+            }
         </div>
     );
 }
