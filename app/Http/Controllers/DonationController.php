@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Donation;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DonationController extends Controller
 {
@@ -16,20 +18,33 @@ class DonationController extends Controller
     }
 
     public function store(Request $request) {
-        $donation = Donation::create($request->all());
+        $this->validate($request, [
+            'donor_name' => 'required',
+            'donor_email' => 'required|email',
+            'amount' => 'required|numeric|min:0.01',
+        ]);
+
+        $donation = Donation::create([
+            'donor_name' => $request->donor_name,
+            'donor_email' => $request->donor_email,
+            'amount' => $request->amount,
+            'donated_at' => Carbon::now()
+        ]);
 
         return response()->json($donation, 201);
     }
 
-    public function update(Request $request, Donation $donation) {
-        $donation->update($request->all());
+    public function storeAuth(Request $request) {
+        $this->validate($request, [
+            'amount' => 'required|numeric|min:0.01',
+        ]);
 
-        return response()->json($donation, 200);
-    }
+        $donation = Donation::create([
+            'user_id' => Auth::user()->id,
+            'amount' => $request->amount,
+            'donated_at' => Carbon::now()
+        ]);
 
-    public function delete(Donation $donation) {
-        $donation->delete();
-
-        return response()->json(null, 204);
+        return response()->json($donation, 201);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\DonationController;
 use App\Http\Controllers\ServiceTypesController;
 use App\Http\Controllers\TicketTypeController;
 use App\Http\Controllers\TransactionController;
@@ -42,7 +43,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::put('/service_types/{id}', [ServiceTypesController::class, 'update'])->middleware('isAdmin');
     Route::post('/service_types', [ServiceTypesController::class, 'store'])->middleware('isAdmin');
+
+    Route::post('/donations/auth', [DonationController::class, 'storeAuth']);
 });
+
+Route::post('/donations/anon', [DonationController::class, 'store']);
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
