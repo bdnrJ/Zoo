@@ -25,9 +25,7 @@
         justify-content: center;
         flex-direction: column;
 
-        @include mobile{
-            margin: 0px 15px 0 15px;
-        }
+        margin: 0px 15px 0 15px;
 
         .donation-form-amount{
             width: 100%;
@@ -49,12 +47,9 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-around;
-
-                @include tablet{
-                    display: grid;
-                    grid-template-columns: 1fr 1fr 1fr;
-                    gap: 10px;
-                }
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 10px;
 
                 button{
                     background-color: $darkGreen;
@@ -65,9 +60,7 @@
                     height: 32px;
                     border-radius: 5px;
 
-                    @include tablet{
-                        justify-self: center;
-                    }
+                    justify-self: center;
                 }
 
                 input{
@@ -77,10 +70,8 @@
                     border: 1px solid black;
                     padding-left: 10px;
 
-                    @include tablet{
-                        grid-column: 2;
-                        grid-row: 3;
-                    }
+                    grid-column: 2;
+                    grid-row: 3;
                 }
             }
 
@@ -144,6 +135,8 @@
         .donation-button-label{
             width: 140px;
             height: 40px;
+            margin-top: 30px;
+            margin-bottom: 30px;
 
 
             &:hover{

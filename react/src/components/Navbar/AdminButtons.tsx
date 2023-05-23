@@ -10,6 +10,7 @@ const AdminButtons = () => {
             <button onClick={() => navigate('/tickets')}>Tickets</button>
             <button onClick={() => navigate('/admin/ticket_types')}>Ticket Types</button>
             <button onClick={() => navigate('/admin/services')}>Services</button>
+            <button onClick={() => navigate('/foundation')}>Foundation</button>
         </>
 )}
 
