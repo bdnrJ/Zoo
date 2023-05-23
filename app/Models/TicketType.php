@@ -17,6 +17,10 @@ class TicketType extends Model
         'type'
     ];
 
+    protected $attributes = [
+        'is_active' => 0,
+    ];
+
     public function Items()
     {
         return $this->hasMany(Item::class);

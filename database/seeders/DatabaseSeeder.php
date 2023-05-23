@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Donation;
 use App\Models\Item;
 use App\Models\Service;
 use App\Models\ServiceType;
@@ -209,6 +210,27 @@ class DatabaseSeeder extends Seeder
                 $service = new Service($serviceData);
                 $service->save();
             }
+        }
+
+
+        foreach($usersIds as $user){
+            Donation::create([
+                'donor_name' => null,
+                'donor_email' => null,
+                'user_id' => $faker->randomElement($usersIds),
+                'amount' => rand(10, 1000),
+                'donated_at' => now(),
+            ]);
+        }
+
+        for ($i = 0; $i < 10; $i++) {
+            Donation::create([
+                'donor_name' => $faker->firstName . " " . $faker->lastName,
+                'donor_email' => $faker->email,
+                'user_id' => null,
+                'amount' => rand(10, 1000),
+                'donated_at' => now(),
+            ]);
         }
     }
 }
