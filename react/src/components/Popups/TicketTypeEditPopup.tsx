@@ -1,10 +1,11 @@
-import React, {useContext, useEffect} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import { TicketContext, normalTicket } from '../../context/TicketContext'
 import {useForm} from 'react-hook-form'
 import {z} from "zod"
 import { ZodType } from 'zod/lib'
 import { zodResolver} from '@hookform/resolvers/zod'
 import axiosClient from '../../axios-client'
+import SuccessPopupTemplate from './SuccessPopupTemplate'
 
 
 type Props = {
@@ -23,6 +24,12 @@ type ticketType = {
 
 const TicketTypeEditPopup = ({ticketType, onClose}: Props) => {
     const {getAllTickets} = useContext(TicketContext)
+    const [isSuccessPopupOn, setIsSuccessPopupOn] = useState<boolean>(false);
+    const [isFailPopupOn, setIsFailPopupOn] = useState<boolean>(false);
+    const [isNoChangesPopupOn, setIsNoChangesPopupOn] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState<string>('');
+
+
 
     const schema: ZodType<ticketType> = z.object({
         name: z.string().max(15, 'too long').min(1, 'required'),
@@ -45,27 +52,20 @@ const TicketTypeEditPopup = ({ticketType, onClose}: Props) => {
             parseFloat(data.price) ===  parseFloat(ticketType.price) &&
             data.is_active === (ticketType.is_active === 0 ? false : true)
             ) {
-                alert('No changes were made.');
-                console.log('No changes were made.');
-                if(onClose)
-                onClose();
+                setIsNoChangesPopupOn(true);
                 return;
             }
 
         try {
             const response = await axiosClient.put(`/ticket_types/${ticketType.id}`, data, {withCredentials: true});
             if (response.status === 200) {
-                alert('Ticket type updated successfully.');
                 getAllTickets();
-                //disgusting hack
-                if(onClose)
-                onClose();
+                setIsSuccessPopupOn(true);
             }
-        } catch (error) {
-            console.error('Error updating ticket type:', error);
-            alert('Error updating ticket type.');
-            if(onClose)
-            onClose();
+        } catch (error: any) {
+            const message =  'Failed to update service type, ' + error.response?.data?.message;
+            setErrorMessage(message);
+            setIsFailPopupOn(true);
         }
     };
 
@@ -119,6 +119,15 @@ const TicketTypeEditPopup = ({ticketType, onClose}: Props) => {
                         <button type="submit">Confirm</button>
                 </label>
             </form>
+            {isSuccessPopupOn &&
+                <SuccessPopupTemplate closePopup={() => setIsSuccessPopupOn(false)} text='Service type updated successfully' closeOriginPopup={onClose}/>
+            }
+            {isFailPopupOn &&
+                <SuccessPopupTemplate closePopup={() => setIsFailPopupOn(false)} text={errorMessage} closeOriginPopup={onClose}/>
+            }
+            {isNoChangesPopupOn &&
+                <SuccessPopupTemplate closePopup={() => setIsFailPopupOn(false)} text="No changes were made" closeOriginPopup={onClose}/>
+            }
         </div>
     )
 }

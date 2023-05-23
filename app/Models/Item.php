@@ -23,7 +23,6 @@ class Item extends Model
         return $this->belongsTo(TicketType::class);
     }
 
-
     public function transaction()
     {
         return $this->belongsTo(Transaction::class);

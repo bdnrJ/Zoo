@@ -15,7 +15,7 @@ return (
 
             <div className="ticket_types-list">
                 {allNormalTicketTypes.map((ticketType) => (
-                    <TicketType ticketType={ticketType} />
+                    <TicketType key={ticketType.id} ticketType={ticketType} />
                 ))}
             </div>
 
