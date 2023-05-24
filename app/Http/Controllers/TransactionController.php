@@ -65,6 +65,14 @@ class TransactionController extends Controller
             }
         }
 
+        $discountPercent = $user->getDiscountPercent();
+
+        // Calculate the discount
+        $discount = $totalCost * ($discountPercent / 100);
+
+        // Apply the discount
+        $totalCost -= $discount;
+
         $validatedData['total_cost'] = $totalCost;
 
         DB::beginTransaction();

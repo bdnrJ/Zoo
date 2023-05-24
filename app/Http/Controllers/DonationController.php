@@ -52,4 +52,14 @@ class DonationController extends Controller
 
         return response()->json($donation, 201);
     }
+
+    public function discount(){
+
+        $user = Auth::user();
+
+        $discount = $user->getDiscountPercent();
+
+        return response()->json($discount, 200);
+
+    }
 }

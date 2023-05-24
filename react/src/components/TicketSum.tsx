@@ -8,7 +8,7 @@ type props ={
 }
 
 const TicketSum = ({ date, addClass, ticketType,}: props) => {
-    const {normalUserTickets, availableGroupTicket, groupUserTransaction, userServices} = useContext(TicketContext);
+    const {normalUserTickets, availableGroupTicket, groupUserTransaction, userServices, discount} = useContext(TicketContext);
 
     const groupUserTicket: normalUserTicket[] = [{
         id: availableGroupTicket.id,
@@ -49,6 +49,13 @@ const TicketSum = ({ date, addClass, ticketType,}: props) => {
         return ticketTotal;
     };
 
+    const calculateTotalDiscount = (total: number) => {
+        return total * (discount / 100);
+    }
+
+    const totalDiscount = calculateTotalDiscount(calculateTotalPrice()+5);
+    const finalPrice = calculateTotalPrice() - totalDiscount;
+
     return (
         <div className={`ticketsum --${ticketType}`}>
             <div className={`ticketsum-title --${ticketType}`}>
@@ -87,10 +94,15 @@ const TicketSum = ({ date, addClass, ticketType,}: props) => {
                     <div className="ticketsum-sum-block">
                         {calculateTotalPrice() != 0 && <><span>Service fee: </span> <span>$5</span></>}
                     </div>
+                    {discount > 0 &&
+                        <div className="ticketsum-sum-block">
+                            {discount > 0 && <><span>Discount: </span> <span> 10%</span></>}
+                        </div>
+                    }
                     <div className="ticketsum-sum-block">
                         <span className='ticketsum-sum-block-total'>Total: </span>
                         <span className='ticketsum-sum-block-total --dolar'>
-                            ${calculateTotalPrice() == 0 ? 0 : (calculateTotalPrice()+5).toFixed(2)}
+                            ${finalPrice == 0 ? 0 : (finalPrice+5).toFixed(2)}
                         </span>
                     </div>
                 </div>

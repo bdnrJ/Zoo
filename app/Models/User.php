@@ -47,4 +47,17 @@ class User extends Authenticatable
         });
     }
 
+    public function getDiscountPercent() {
+        $totalDonation = $this->donations->sum('amount');
+        if ($totalDonation >= 500 && $totalDonation < 1000) {
+            return 5;
+        } else if ($totalDonation >= 1000 && $totalDonation < 2000) {
+            return 10;
+        } else if ($totalDonation >= 2000) {
+            return 20;
+        } else {
+            return 0;
+        }
+    }
+
 }

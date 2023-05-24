@@ -95,6 +95,8 @@ interface TicketContext{
     setDonorName: Dispatch<SetStateAction<string>>,
     donorEmail: string,
     setDonorEmail: Dispatch<SetStateAction<string>>,
+    discount: number,
+    setDiscount: Dispatch<SetStateAction<number>>,
 }
 
 const normalTransactionSample: transaction ={
@@ -150,6 +152,8 @@ export const TicketContext = createContext<TicketContext>({
     setDonorName: () => {},
     donorEmail: "",
     setDonorEmail: () => {},
+    discount: 0,
+    setDiscount: () => {},
 });
 
 export const TicketProvider = ({children}: props) => {
@@ -169,7 +173,9 @@ export const TicketProvider = ({children}: props) => {
     const [donorName, setDonorName] = useState<string>("");
     const [donorEmail, setDonorEmail] = useState<string>("");
 
-    const getAllTickets = async () => {
+    const [discount, setDiscount] = useState<number>(0);
+
+    const getAllInfo = async () => {
         const ticketData = await axiosClient.get('/ticket_types');
         setAllNormalTicketTypes(ticketData.data);
 
@@ -202,12 +208,15 @@ export const TicketProvider = ({children}: props) => {
             ticket_type_id: availableGroupTicket.id,
             amount: 15
         }]})
+
+        const discountInPrecent = await axiosClient.get('/donations/discount', {withCredentials: true});
+        setDiscount(discountInPrecent.data);
     }
 
 
 
     useEffect(() => {
-        getAllTickets();
+        getAllInfo();
     }, []);
 
     const resetAllNormal = () => {
@@ -258,7 +267,7 @@ export const TicketProvider = ({children}: props) => {
             normalUserTransaction,
             setNormalUserTransaction,
             resetAllNormal,
-            getAllTickets,
+            getAllTickets: getAllInfo,
             availableGroupTicket,
             allServiceTypes,
             availableServiceTypes,
@@ -274,6 +283,8 @@ export const TicketProvider = ({children}: props) => {
             setDonorName,
             donorEmail,
             setDonorEmail,
+            discount,
+            setDiscount,
             }}>
             {children}
         </TicketContext.Provider>
