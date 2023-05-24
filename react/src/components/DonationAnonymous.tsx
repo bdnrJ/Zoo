@@ -7,15 +7,19 @@ import { TicketContext } from "../context/TicketContext";
 import { AuthContext } from "../context/AuthContext";
 
 type DonationFormValues = {
+    name: string;
+    email: string;
     amount: number;
 };
 
-const Donation = () => {
+const DonationAnonymous = () => {
     const { currentUser } = useContext(AuthContext);
-    const { donationAmount, setDonationAmount } = useContext(TicketContext);
+    const { donationAmount, setDonationAmount, setDonorEmail, setDonorName } = useContext(TicketContext);
     const navigate = useNavigate();
 
     const donationFormSchema: ZodType<DonationFormValues> = z.object({
+        name: z.string().min(1, "Required"),
+        email: z.string().email("Invalid email address"),
         amount: z.number().min(5, "Minimum donation amount is $5"),
     });
 
@@ -27,12 +31,21 @@ const Donation = () => {
         formState: { errors },
     } = useForm<DonationFormValues>({ resolver: zodResolver(donationFormSchema) });
 
+    // Watch for changes in inputs
+    const watchedInputs = watch();
+
+    // Update context values when watched inputs change
+    useEffect(() => {
+        setDonorName(watchedInputs.name);
+        setDonorEmail(watchedInputs.email);
+    }, [watchedInputs, setDonorName, setDonorEmail, setDonationAmount]);
+
     const onSubmit = (data: DonationFormValues) => {
-        if (donationAmount >= 5) {
-            setDonationAmount(data.amount)
+        if (data.amount >= 5 && ((currentUser && currentUser !== null) || (!currentUser && watchedInputs.name && watchedInputs.email))) {
+            setDonationAmount(data.amount);
             navigate('/donation_checkout');
         } else {
-            alert('Wrong donation amount!');
+            alert('Wrong donation amount or missing donor information!');
         }
     };
     return (
@@ -75,6 +88,28 @@ const Donation = () => {
 
                     <div className='__form smallerGap'>
                         <div className="input-wrapper">
+                            <p>Full Name:</p>
+                            <label htmlFor="name">
+                                <input
+                                    type="text"
+                                    className={`${errors.name && "--error"}`}
+                                    {...register('name', { required: currentUser === null })}
+                                />
+                                {errors.name && <span className={`_inputError --big`}>{errors.name.message}</span>}
+                            </label>
+                        </div>
+                        <div className="input-wrapper">
+                            <p>Email:</p>
+                            <label htmlFor="email">
+                                <input
+                                    type="email"
+                                    className={`${errors.email && "--error"}`}
+                                    {...register('email', { required: currentUser === null })}
+                                />
+                                {errors.email && <span className={`_inputError --big`}>{errors.email.message}</span>}
+                            </label>
+                        </div>
+                        <div className="input-wrapper">
                             <p>Amount:</p>
                             <label htmlFor="amount">
                                 <input
@@ -99,4 +134,4 @@ const Donation = () => {
     );
 };
 
-export default Donation;
+export default DonationAnonymous;

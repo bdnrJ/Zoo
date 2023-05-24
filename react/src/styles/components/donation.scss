@@ -34,6 +34,14 @@
             align-items: center;
             gap: 5px;
 
+            .__form {
+
+                .input-wrapper{
+                    text-align: left;
+                    width: 80%;
+                }
+            }
+
             .donation-form-amount-title{
                 font-family: 'Roboto';
                 font-style: normal;
@@ -77,6 +85,15 @@
 
             hr{
                 width: 80%;
+            }
+
+            .donation-form-amount-inputs{
+                display: flex;
+                gap: 5px;
+                flex-direction: column;
+                margin: 15px 0 15px 0;
+                width: 100%;
+
             }
         }
 
@@ -158,3 +175,4 @@
         }
     }
 }
+

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import foundationLogo from '../assets/foundationLogo.png'
 import Donation from '../components/Donation'
 import {AiFillMail, AiFillPhone} from 'react-icons/ai'
@@ -7,8 +7,13 @@ import Ize from '../assets/organisations/Ize.png'
 import Species360 from '../assets/organisations/Species360.png'
 import Waza from '../assets/organisations/Waza.png'
 import Wwf from '../assets/organisations/Wwf.png'
+import { AuthContext } from '../context/AuthContext'
+import DonationAnonymous from '../components/DonationAnonymous'
 
 const Foundation = () => {
+
+    const {currentUser} = useContext(AuthContext);
+
     return (
         <div className="foundation">
             <div className="foundation-image">
@@ -101,7 +106,7 @@ const Foundation = () => {
                         <h3>How you can support the foundation?</h3>
                         <span>Buy a ticket to our zoo. 45% of the income from zoo tickets goes to the "Save wildlife" foundation</span>
                         <span>Leave a donation.</span>
-                        <Donation />
+                        {currentUser ? <Donation /> : <DonationAnonymous />}
                         <span>If you are interested in cooperation or volunteering, please contact us at the number or e-mail address below</span>
                         <div className="content-donation-support-contact">
                             <div className="donation-support-contact-block">
