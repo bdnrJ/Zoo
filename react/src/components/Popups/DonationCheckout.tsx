@@ -12,10 +12,6 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import axiosClient from "../../axios-client";
 
-type props = {
-    amount?: number;
-};
-
 const DonationCheckout = () => {
     const [activeIndex, setActiveIndex] = useState<number>(-1);
     const [termsChecked, setTermsChecked] = useState<boolean>(false);
@@ -39,12 +35,12 @@ const DonationCheckout = () => {
         setDonorEmail("");
     }
 
-    const handleBuyTicket = (e: any) => {
+    const handleBuyTicket = async (e: any) => {
         e.preventDefault();
 
         try{
             if(currentUser){
-                const res = axiosClient.post('/donations/auth', {
+                const res = await axiosClient.post('/donations/auth', {
                     'amount': donationAmount
                 }, {withCredentials: true})
 
@@ -52,7 +48,7 @@ const DonationCheckout = () => {
                 handleResetDonationInfo();
                 navigate('/');
             }else{
-                const res = axiosClient.post('/donations/anon', {
+                const res = await axiosClient.post('/donations/anon', {
                     'amount': donationAmount,
                     'donor_name': donorName,
                     'donor_email': donorEmail
@@ -64,15 +60,17 @@ const DonationCheckout = () => {
             }
         }catch(err: any){
             console.log('lmao xd');
-
+            console.log(err);
         }
     };
 
     const isBuyButtonDisabled =
         activeIndex === -1 || !termsChecked || !policyChecked;
 
-    return (
+
+        return (
         <div className="donation_checkout">
+            <button onClick={() => console.log(donationAmount + " " + donorName + " " + donorEmail)}>log state</button>
             <h1>Donation Checkout</h1>
             <div className="donation_summary">
                 <p>You're about to donate ${donationAmount}</p>

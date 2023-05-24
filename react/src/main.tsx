@@ -5,7 +5,6 @@ import { AuthProvider } from './context/AuthContext'
 import "./styles/index.scss"
 import { TicketProvider } from './context/TicketContext'
 
-
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 <React.StrictMode>
     <AuthProvider>
@@ -15,9 +14,3 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     </AuthProvider>
 </React.StrictMode>,
 )
-
-
-//TODO
-// auth fail -> login page
-// choose the fucking color pallete already :)
-// instaed of checking localstorage just user info and isLoggedIn in state?
