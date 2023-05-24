@@ -11,11 +11,14 @@ import { TicketContext } from "../../context/TicketContext";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import axiosClient from "../../axios-client";
+import SuccessPopupTemplate from "./SuccessPopupTemplate";
 
 const DonationCheckout = () => {
     const [activeIndex, setActiveIndex] = useState<number>(-1);
     const [termsChecked, setTermsChecked] = useState<boolean>(false);
     const [policyChecked, setPolicyChecked] = useState<boolean>(false);
+    const [isSuccessPopupOn, setIsSuccessPopupOn] = useState<boolean>(false);
+    const [isFailurePopupOn, setIsFailurePopupOn] = useState<boolean>(false);
     const {currentUser} = useContext(AuthContext);
     const { donationAmount, donorName, donorEmail, setDonationAmount, setDonorEmail, setDonorName } = useContext(TicketContext);
     const images = [paypal, applepay, gpay, paysafe, mastercard, maestro, visa];
@@ -35,6 +38,12 @@ const DonationCheckout = () => {
         setDonorEmail("");
     }
 
+    const handleClose = () => {
+        handleResetDonationInfo();
+        setIsSuccessPopupOn(false);
+        navigate('/');
+    }
+
     const handleBuyTicket = async (e: any) => {
         e.preventDefault();
 
@@ -44,23 +53,18 @@ const DonationCheckout = () => {
                     'amount': donationAmount
                 }, {withCredentials: true})
 
-                alert("thanks for donating :D");
-                handleResetDonationInfo();
-                navigate('/');
+                setIsSuccessPopupOn(true);
             }else{
                 const res = await axiosClient.post('/donations/anon', {
                     'amount': donationAmount,
                     'donor_name': donorName,
                     'donor_email': donorEmail
                 })
-
-                alert("thanks for donating :D");
-                handleResetDonationInfo();
-                navigate('/');
+                setIsSuccessPopupOn(true);
             }
         }catch(err: any){
-            console.log('lmao xd');
             console.log(err);
+            setIsFailurePopupOn(true);
         }
     };
 
@@ -161,6 +165,12 @@ const DonationCheckout = () => {
                     </button>
                 </label>
             </div>
+            {isSuccessPopupOn &&
+                <SuccessPopupTemplate closePopup={handleClose} text="Thank you for supporting our foundation!" />
+            }
+            {isFailurePopupOn &&
+                <SuccessPopupTemplate closePopup={handleClose} text="Something went wrong, please try again later" />
+            }
         </div>
     );
 };

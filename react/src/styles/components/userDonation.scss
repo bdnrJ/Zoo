@@ -1,0 +1,44 @@
+.donation {
+    background-color: white;
+    width: 700px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px 0 20px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    color: black;
+
+    @include mobile{
+        height: 170px;
+        width: min(400px, 90vw);
+    }
+
+
+    .donation-left,
+    .donation-right{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        text-align: center;
+        gap: 10px;
+
+        .column{
+            display: flex;
+            flex-direction: column;
+        }
+
+        @include mobile{
+            flex-direction: column;
+            gap: 5px;
+        }
+    }
+
+    .donation-right{
+
+        @include mobile{
+            max-width: 120px;
+        }
+    }
+}

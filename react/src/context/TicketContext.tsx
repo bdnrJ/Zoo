@@ -5,6 +5,15 @@ type props = {
     children: ReactNode
 }
 
+export type donation = {
+    id: number;
+    donor_name: string;
+    donor_email: string;
+    user_id: number;
+    amount: number;
+    donated_at: string;
+}
+
 export type normalTicket = {
     age_info: string,
     created_at: Date | null,

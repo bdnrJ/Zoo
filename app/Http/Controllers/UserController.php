@@ -11,21 +11,21 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function getUsers(Request $request)
-{
-    $search = $request->get('search');
-    $query = User::withTrashed();
+    {
+        $search = $request->get('search');
+        $query = User::withTrashed();
 
-    if ($search) {
-        $query->where('email', 'like', '%' . $search . '%');
+        if ($search) {
+            $query->where('email', 'like', '%' . $search . '%');
+        }
+
+        $users = $query->paginate(5);
+
+        return response([
+            "message" => "success",
+            "paginationData" => $users
+        ], 200);
     }
-
-    $users = $query->paginate(5);
-
-    return response([
-        "message" => "success",
-        "paginationData" => $users
-    ], 200);
-}
 
 
     public function userToUser()
@@ -42,15 +42,13 @@ class UserController extends Controller
 
     public function user($id)
     {
-        $user = User::withTrashed()->with('transactions')->findOrFail($id);
-
+        $user = User::withTrashed()->with('transactions', 'donations')->findOrFail($id);
         $user->deleted_at = $user->deleted_at;
 
         return response()->json([
             'user' => $user,
         ]);
     }
-
     public function updateCredentials(Request $request)
     {
         $user = Auth::user();
@@ -146,7 +144,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        if(!$user) {
+        if (!$user) {
             return response()->json([
                 'success' => false,
                 'message' => 'User not found'

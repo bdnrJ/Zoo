@@ -6,8 +6,10 @@ import axiosClient from '../../axios-client';
 import PopupForm from '../../components/Popups/PopupForm';
 import DeleteAccountByAdminPopup from '../../components/Popups/DeleteAccountByAdminPopup';
 import ChangeUserByAdminPopup from '../../components/Popups/ChangeUserByAdminPopup';
+import { donation } from '../../context/TicketContext';
+import UserDonation from '../../components/UserDonation';
 
-interface user {
+export interface user {
     id: number;
     firstname: string;
     lastname: string;
@@ -21,6 +23,7 @@ interface user {
 const UserPage = () => {
     const { id } = useParams<{ id: string }>();
     const [user, setUser] = useState<user | null>(null);
+    const [donations, setDonations] = useState<donation[]>([]);
     const [transactions, setTransactions] = useState<displayTransaction[]>([]);
     const [isDeletePopupOn, setIsDeletePopupOn] = useState<boolean>(false);
     const [isEditPopupOn, setIsEditPopupOn] = useState<boolean>(false);
@@ -33,6 +36,7 @@ const UserPage = () => {
                 console.log(response);
                 setUser(response.data.user);
                 setTransactions(response.data.user.transactions);
+                setDonations(response.data.user.donations)
             }catch(err){
                 alert(err);
             }
@@ -90,10 +94,16 @@ const UserPage = () => {
                 ? <button onClick={() => setIsEditPopupOn(true)} className='restore-button'>RESTORE ACCOUNT</button>
                 : <button onClick={() => setIsDeletePopupOn(true)} className='delete-button'>DELETE ACCOUNT</button>
             }
+            <h2 className='userpage-header'>User Donations</h2>
+            <div className='transactions-list'>
+                {donations.map((donation) => (
+                    <UserDonation donation={donation} key={donation.id} user={user}/>
+                ))}
+            </div>
             <h2 className='userpage-header'>User Transactions</h2>
             <div className='transactions-list'>
                 {transactions.map((transaction) => (
-                        <Transaction transaction={transaction} />
+                    <Transaction transaction={transaction} />
                 ))}
             </div>
             </>}
