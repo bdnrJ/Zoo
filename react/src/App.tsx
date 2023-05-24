@@ -26,6 +26,7 @@ import UserTickets from './views/UserViews/UserTickets';
 import RequireUser from "./components/ProtectedRoutes/RequireUser";
 import ScrollToTop from "./components/ScrollToTop";
 import Services from "./views/AdminViews/Services";
+import DonationCheckout from "./components/Popups/DonationCheckout";
 
 const queryClient = new QueryClient();
 
@@ -141,6 +142,10 @@ const router = createBrowserRouter([
             {
                 path: '/foundation',
                 element: <Foundation />
+            },
+            {
+                path: '/donation_checkout',
+                element: <DonationCheckout />
             },
             {
                 path: '/*',

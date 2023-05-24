@@ -175,7 +175,8 @@ input[type=number] {
 
 .__orange-button-label{
     @include flexCenterCenter;
-    display: block;
+    display: flex;
+    align-items: center;
     width: 150px;
     height: 40px;
     cursor: pointer;

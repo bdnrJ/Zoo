@@ -1,8 +1,11 @@
-import React, { useState, ChangeEvent, MouseEvent } from 'react';
+import React, { useState, ChangeEvent, MouseEvent, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { TicketContext } from '../context/TicketContext';
 
 const Donation = () => {
-    const [donationAmount, setDonationAmount] = useState<number>(0);
+    const {donationAmount, setDonationAmount} = useContext(TicketContext);
     const [error, setError] = useState<string>('');
+    const navigate = useNavigate();
 
     const handleAmountChange = (event: ChangeEvent<HTMLInputElement>) => {
         const amount = event.target.valueAsNumber;
@@ -12,14 +15,13 @@ const Donation = () => {
     const handleButtonAmount = (event: MouseEvent<HTMLButtonElement>, amount: number) => {
         event.preventDefault();
         setDonationAmount(amount);
-        setError(''); // reset error message
+        setError('');
     }
 
     const handleDonation = (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         if (donationAmount >= 5) {
-            // here you can open the popup
-            alert(`Donation of ${donationAmount} has been made. Thank you!`);
+            navigate('/donation_checkout');
         } else {
             setError('Wrong donation amount!');
         }
@@ -40,7 +42,7 @@ const Donation = () => {
                         Choose your donation amount below.
                     </div>
                     <div className="donation-form-amount-buttons">
-                        <button onClick={(e) => handleButtonAmount(e, 25)}>25</button>
+                        <button onClick={(e) => handleButtonAmount(e, 5)}>5</button>
                         <button onClick={(e) => handleButtonAmount(e, 50)}>50</button>
                         <button onClick={(e) => handleButtonAmount(e, 100)}>100</button>
                         <button onClick={(e) => handleButtonAmount(e, 250)}>250</button>
@@ -58,6 +60,7 @@ const Donation = () => {
                 </label>
                 {error && <p className="donation-error">{error}</p>}
             </form>
+            <hr />
         </div>
     );
 }

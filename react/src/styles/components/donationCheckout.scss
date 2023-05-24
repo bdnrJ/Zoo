@@ -1,0 +1,192 @@
+// .donation_checkout {
+//     @include navbarMargin;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+//     padding: 20px;
+//     background-color: white;
+
+//     h1 {
+//         margin-bottom: 20px;
+//     }
+
+//     .donation_summary {
+//         margin-bottom: 20px;
+//         font-size: 18px;
+//         display: flex;
+//         flex-direction: column;
+//     }
+
+//     .payment_methods {
+//         margin-bottom: 20px;
+
+//         div {
+//             margin: 10px 0;
+
+//             input[type='radio'] {
+//                 margin-right: 10px;
+//             }
+//         }
+
+//         .payment_methods-wrapper{
+//             display: grid;
+//             grid-template-columns: 1fr 1fr;
+//             gap: 10px;
+//         }
+//     }
+
+//     .agreements {
+//         display: flex;
+//         flex-direction: column;
+//         justify-content: left;
+//         align-items: flex-start;
+//         gap: 5px;
+
+//         label{
+//             font-family: 'Roboto';
+//             font-style: normal;
+//             font-weight: 400;
+//             font-size: 10px;
+//             line-height: 12px;
+//             text-align: left;
+//             display: flex;
+//             align-items: center;
+//             gap: 5px;
+
+//             input{
+//                 min-width: 20px;
+//                 min-height: 20px;
+//             }
+
+//         }
+
+//         input[type='checkbox'] {
+//             margin-right: 10px;
+//         }
+//     }
+
+//     .buttons {
+//         display: flex;
+//         justify-content: space-between;
+//         width: 100%;
+
+//         button {
+//             padding: 10px 20px;
+//             font-size: 16px;
+//             cursor: pointer;
+//             transition: all 0.3s ease;
+
+//             &:hover {
+//                 background-color: lightgrey;
+//             }
+
+//             &:first-child {
+//                 background-color: red;
+//                 color: white;
+
+//                 &:hover {
+//                     background-color: darkred;
+//                 }
+//             }
+
+//             &:last-child {
+//                 background-color: green;
+//                 color: white;
+
+//                 &:hover {
+//                     background-color: darkgreen;
+//                 }
+//             }
+//         }
+//     }
+// }
+
+.donation_checkout {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    @include navbarMargin;
+
+    h1 {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .donation_summary {
+        margin-bottom: 40px;
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .payment_methods {
+        margin-bottom: 40px;
+        text-align: center;
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .payment_methods-wrapper {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .left-payment-options-payment {
+            cursor: pointer;
+            border: 2px solid transparent;
+
+            img {
+                border: 2px solid transparent;
+                border-radius: 7px;
+            }
+
+            &:hover {
+                img {
+                    border: 2px solid gold;
+                }
+            }
+
+            &.--active {
+                img {
+                    border: 2px solid gold;
+                }
+            }
+        }
+    }
+
+    .agreements {
+        display: flex;
+        flex-direction: column;
+        justify-content: left;
+        align-items: flex-start;
+        gap: 5px;
+        max-width: 700px;
+
+        label {
+            font-family: "Roboto";
+            font-style: normal;
+            font-weight: 400;
+            font-size: 10px;
+            line-height: 12px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            input {
+                min-width: 20px;
+                min-height: 20px;
+            }
+        }
+
+    }
+    .buttons {
+        margin-top: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

@@ -80,6 +80,12 @@ interface TicketContext{
     setUserServices: Dispatch<SetStateAction<userService[]>>,
     resetAllGroup: () => void,
     resetServices: () => void,
+    donationAmount: number,
+    setDonationAmount: Dispatch<SetStateAction<number>>,
+    donorName: string,
+    setDonorName: Dispatch<SetStateAction<string>>,
+    donorEmail: string,
+    setDonorEmail: Dispatch<SetStateAction<string>>,
 }
 
 const normalTransactionSample: transaction ={
@@ -128,7 +134,13 @@ export const TicketContext = createContext<TicketContext>({
     userServices: [],
     setUserServices: () => {},
     resetAllGroup: () => {},
-    resetServices: () => {}
+    resetServices: () => {},
+    donationAmount: NaN,
+    setDonationAmount: () => {},
+    donorName: "",
+    setDonorName: () => {},
+    donorEmail: "",
+    setDonorEmail: () => {},
 });
 
 export const TicketProvider = ({children}: props) => {
@@ -143,6 +155,10 @@ export const TicketProvider = ({children}: props) => {
     const [availableServiceTypes, setAvaliableServiceTypes] = useState<serviceType[]>([]);
     const [groupUserTransaction, setGroupUserTransaction] = useState<transaction>(groupTransactionSample);
     const [userServices, setUserServices] = useState<userService[]>([]);
+
+    const [donationAmount, setDonationAmount] = useState<number>(NaN);
+    const [donorName, setDonorName] = useState<string>("");
+    const [donorEmail, setDonorEmail] = useState<string>("");
 
     const getAllTickets = async () => {
         const ticketData = await axiosClient.get('/ticket_types');
@@ -242,7 +258,13 @@ export const TicketProvider = ({children}: props) => {
             userServices,
             setUserServices,
             resetAllGroup,
-            resetServices
+            resetServices,
+            donationAmount,
+            setDonationAmount,
+            donorName,
+            setDonorName,
+            donorEmail,
+            setDonorEmail,
             }}>
             {children}
         </TicketContext.Provider>
