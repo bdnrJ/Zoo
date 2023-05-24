@@ -9,8 +9,13 @@ use Illuminate\Support\Facades\Auth;
 
 class DonationController extends Controller
 {
-    public function index() {
-        return Donation::all();
+    public function index(Request $request) {
+        $donations = Donation::with('user')->paginate(5);
+
+        return response([
+            "message" => "success",
+            "paginationData" => $donations
+        ], 200);
     }
 
     public function show(Donation $donation) {

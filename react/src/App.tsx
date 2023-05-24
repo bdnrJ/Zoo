@@ -27,6 +27,7 @@ import RequireUser from "./components/ProtectedRoutes/RequireUser";
 import ScrollToTop from "./components/ScrollToTop";
 import Services from "./views/AdminViews/Services";
 import DonationCheckout from "./components/Popups/DonationCheckout";
+import Donations from "./views/AdminViews/Donations";
 
 const queryClient = new QueryClient();
 
@@ -95,6 +96,15 @@ const router = createBrowserRouter([
                 element:
                 <RequireAdmin>
                     <Services />
+                </RequireAdmin>
+            },
+            {
+                path: '/admin/donations',
+                element:
+                <RequireAdmin>
+                    <QueryClientProvider client={queryClient}>
+                        <Donations />
+                    </QueryClientProvider>
                 </RequireAdmin>
             },
             {

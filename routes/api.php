@@ -45,6 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/service_types', [ServiceTypesController::class, 'store'])->middleware('isAdmin');
 
     Route::post('/donations/auth', [DonationController::class, 'storeAuth']);
+    Route::get('/donations', [DonationController::class, 'index']);
 });
 
 Route::post('/donations/anon', [DonationController::class, 'store']);
