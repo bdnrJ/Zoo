@@ -1,4 +1,4 @@
-.donation {
+.donation_user {
     background-color: white;
     width: 700px;
     height: 100px;
@@ -16,8 +16,8 @@
     }
 
 
-    .donation-left,
-    .donation-right{
+    .donation_user-left,
+    .donation_user-right{
         display: flex;
         align-items: center;
         justify-content: space-around;
@@ -35,7 +35,7 @@
         }
     }
 
-    .donation-right{
+    .donation_user-right{
 
         @include mobile{
             max-width: 120px;

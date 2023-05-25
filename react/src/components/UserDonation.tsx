@@ -23,13 +23,13 @@ type Props = {
 
 const UserDonation = ({ donation, user }: Props) => {
     return (
-        <div className="donation">
-            <div className="donation-left">
+        <div className="donation_user">
+            <div className="donation_user-left">
                 <div className='__font-black'> <span className='__font-grey'>#</span> {donation.id}</div>
                 <div className='column'><span className='__font-grey'>Donor Name:</span>{user ? user.firstname + ' ' + user.lastname : donation.donor_name}</div>
                 <div className='column'><span className='__font-grey'>Donated At:</span>{donation.donated_at.substring(0, donation.donated_at.length - 8)}</div>
             </div>
-            <div className="donation-right">
+            <div className="donation_user-right">
                 <div className='column'><span className='__font-grey'>Donor Email:</span> {user ? user.email : donation.donor_email}</div>
                 <div className='column'><span className='__font-grey'>Amount:</span> ${donation.amount}</div>
             </div>
