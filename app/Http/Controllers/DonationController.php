@@ -62,4 +62,12 @@ class DonationController extends Controller
         return response()->json($discount, 200);
 
     }
+
+    public function getUserDonations(Request $request) {
+        $user = Auth::user();
+
+        $donations = Donation::where('user_id', $user->id)->get();
+
+        return response()->json($donations, 200);
+    }
 }

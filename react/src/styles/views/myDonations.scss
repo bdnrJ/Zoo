@@ -1,0 +1,24 @@
+.mydonations{
+    @include navbarMargin;
+
+    .mydonations-top {
+        @include flexCenterCenter;
+        height: 429px;
+        width: 100%;
+        background-size: cover;
+        background-image: url('../assets/my_tickets.png');
+
+        @include mobile{
+            background-image: url('../assets/my_tickets_mobile.png');
+        }
+
+        h1{
+            font-family: 'Oswald';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 64px;
+            line-height: 95px;
+            color: white;
+        }
+    }
+}

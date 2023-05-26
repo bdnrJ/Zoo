@@ -72,7 +72,7 @@ const UserTransactions = () => {
                     <h2>UPCOMING ZOO VISITS</h2>
                     <hr />
                     <div className="tickets-rest-ticketsums-blocks">
-                        {
+                        {currentTransactions.length === 0 ? <p>There are no current transactions</p> :
                             currentTransactions.map((transaction: transaction) => (
                                 <BoughtTicketSum
                                     exp_date={transaction.exp_date}
@@ -91,7 +91,7 @@ const UserTransactions = () => {
                     <h2>PREVIOUS TICKETS</h2>
                     <hr />
                     <div className="tickets-rest-ticketsums-blocks">
-                        {
+                        {previousTransactions.length === 0 ? <p>There are no previous transactions</p> :
                             previousTransactions.map((transaction: transaction) => (
                                 <BoughtTicketSum
                                     exp_date={transaction.exp_date}
