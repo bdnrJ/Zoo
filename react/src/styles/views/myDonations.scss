@@ -21,4 +21,26 @@
             color: white;
         }
     }
+
+    .mydonations-bottom{
+        padding: 20px 15px 20px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+
+        &-list {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 25px;
+
+            &-wrapper{
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+        }
+    }
 }
