@@ -27,6 +27,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-direction: column;
 
 
         &-list {
@@ -42,5 +43,32 @@
                 gap: 15px;
             }
         }
+
+        .mydonations-bottom-total {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+
+            .total-amount {
+                font-size: 24px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+
+            .discount-info {
+                font-size: 16px;
+                color: #888;
+
+                &.has-discount {
+                    color: #f00;
+                }
+            }
+        }
+
     }
 }
