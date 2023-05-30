@@ -8,6 +8,7 @@ import DeleteAccountByAdminPopup from '../../components/Popups/DeleteAccountByAd
 import ChangeUserByAdminPopup from '../../components/Popups/ChangeUserByAdminPopup';
 import { donation } from '../../context/TicketContext';
 import UserDonation from '../../components/UserDonation';
+import RestoreAccountByAdminPopup from '../../components/Popups/RestoreAccountByAdminPopup';
 
 export interface user {
     id: number;
@@ -26,7 +27,7 @@ const UserPage = () => {
     const [donations, setDonations] = useState<donation[]>([]);
     const [transactions, setTransactions] = useState<displayTransaction[]>([]);
     const [isDeletePopupOn, setIsDeletePopupOn] = useState<boolean>(false);
-    const [isEditPopupOn, setIsEditPopupOn] = useState<boolean>(false);
+    const [isRestorePopupOn, setIsRestorePopupOn] = useState<boolean>(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -48,7 +49,6 @@ const UserPage = () => {
     const handleUserDeletion = async () => {
         try {
             await axiosClient.delete(`/users/destroy/${id}`, {withCredentials: true});
-            const response = await axiosClient.get(`/users/${id}`, {withCredentials: true});
             alert('User deleted succsefully');
             navigate('/admin/users');
         } catch (err) {
@@ -57,14 +57,13 @@ const UserPage = () => {
     };
 
     const handleUserRestoration = async () => {
-        setUser(null)
         try {
-            await axiosClient.post(`/users/${id}/restore`, {withCredentials: true});
-            const response = await axiosClient.get(`/users/${id}`, {withCredentials: true});
-            setUser(response.data.user);
-            setIsDeletePopupOn(false);
+            await axiosClient.post(`/users/restore/${id}`, {}, {    withCredentials: true});
+            alert('User restored succsefully');
+            navigate('/admin/users');
         } catch (err) {
             alert(err);
+            console.log(err);
         }
     };
 
@@ -89,27 +88,31 @@ const UserPage = () => {
                 <p className='user-info-item'>Update Date: {user.created_at.split('T')[0]}</p>
                 <p className='user-info-item'>Deleted at: {user.deleted_at ? user?.deleted_at.split('T')[0] : "None"}</p>
             </div>
-            {/* <button className='edit-button' onClick={() => setIsEditPopupOn(true)}>EDIT</button> */}
             {user?.deleted_at
-                ? <button onClick={() => setIsEditPopupOn(true)} className='restore-button'>RESTORE ACCOUNT</button>
+                ? <button onClick={() => setIsRestorePopupOn(true)} className='restore-button'>RESTORE ACCOUNT</button>
                 : <button onClick={() => setIsDeletePopupOn(true)} className='delete-button'>DELETE ACCOUNT</button>
             }
             <h2 className='userpage-header'>User Donations</h2>
             <div className='transactions-list'>
-                {donations.map((donation) => (
+                {donations.length !== 0 ? donations.map((donation) => (
                     <UserDonation donation={donation} key={donation.id} user={user}/>
-                ))}
+                )) : <p>This user has no donations</p>}
             </div>
             <h2 className='userpage-header'>User Transactions</h2>
             <div className='transactions-list'>
-                {transactions.map((transaction) => (
+                {transactions.length !== 0 ? transactions.map((transaction) => (
                     <Transaction transaction={transaction} />
-                ))}
+                )) : <p>This user has no transactions</p>}
             </div>
             </>}
             {isDeletePopupOn &&
                 <PopupForm closePopup={() => setIsDeletePopupOn(false)}>
                     <DeleteAccountByAdminPopup handleDelete={handleUserDeletion} email={user.email} closePopup={() => setIsDeletePopupOn(false)}/>
+                </PopupForm>
+            }
+            {isRestorePopupOn &&
+                <PopupForm closePopup={() => setIsRestorePopupOn(false)}>
+                    <RestoreAccountByAdminPopup closePopup={() => setIsRestorePopupOn(false)}  email={user.email} handleRestore={handleUserRestoration} />
                 </PopupForm>
             }
             {/* {isEditPopupOn &&

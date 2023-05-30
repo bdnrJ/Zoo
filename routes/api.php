@@ -31,7 +31,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/users/email', [UserController::class, 'updateEmail']);
     Route::put('/users/password', [UserController::class, 'updatePassword']);
     Route::delete('/users/delete', [UserController::class, 'deleteAccount']);
-    Route::delete('/users/destroy/{id}', [UserController::class, 'destroy'])->middleware('isAdmin');;
+    Route::delete('/users/destroy/{id}', [UserController::class, 'destroy'])->middleware('isAdmin');
+    Route::post('/users/restore/{id}', [UserController::class, 'restore'])->middleware('isAdmin');
 
     Route::post('/transactions', [TransactionController::class, 'store']);
     Route::get('/transactions_user', [TransactionController::class, 'getUserTransactions']);

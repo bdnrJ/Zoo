@@ -158,4 +158,24 @@ class UserController extends Controller
             'message' => 'User deleted successfully'
         ], 200);
     }
+
+    public function restore($id)
+    {
+        $user = User::withTrashed()->find($id);
+
+        if(!$user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User not found'
+            ], 404);
+        }
+
+        $user->restore();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User restored successfully',
+            'data' => $user
+        ], 200);
+    }
 }
