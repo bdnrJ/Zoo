@@ -74,7 +74,6 @@ const DonationCheckout = () => {
 
         return (
         <div className="donation_checkout">
-            <button onClick={() => console.log(donationAmount + " " + donorName + " " + donorEmail)}>log state</button>
             <h1>Donation Checkout</h1>
             <div className="donation_summary">
                 <p>You're about to donate ${donationAmount}</p>

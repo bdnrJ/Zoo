@@ -19,7 +19,7 @@ const SuccessPopupTemplate = ({closePopup, text, closeOriginPopup}: props) => {
     <PopupForm closePopup={closePopups}>
         <div className="success_popup">
             <p>{text}</p>
-            <button onClick={closePopups}>OK</button>
+            <button className="success_popup_coolBtn" onClick={closePopups}>OK</button>
         </div>
     </PopupForm>
   )

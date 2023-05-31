@@ -107,9 +107,12 @@ const Foundation = () => {
                         <span>Buy a ticket to our zoo. 45% of the income from zoo tickets goes to the "Save wildlife" foundation</span>
                         <span>Leave a donation.</span>
                         <div className="content-donation-support-levels">
-                            <p>After donating certain amount, you can get a lifetime discount when buyign tickets!</p>
+                            <p>After donating certain amount, you can get a lifetime discount when buying tickets!</p>
+                            <br />
                             <p>$5000 = 5%</p>
+                            <br />
                             <p>$10000 = 10%</p>
+                            <br />
                             <p>$20000 = 20%</p>
                         </div>
                         {currentUser ? <Donation /> : <DonationAnonymous />}

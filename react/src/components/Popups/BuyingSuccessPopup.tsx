@@ -23,7 +23,7 @@ const BuyingSuccessPopup = ({ticketType, exp_date, closePopup} : props) => {
             <div className="success_popup-ticketsum">
                 <TicketSum date={exp_date} ticketType={ticketType} />
             </div>
-            <label htmlFor="ok" className={`__orange-button-label --nt`}>
+            <label htmlFor="ok" className={`__orange-button-label`}>
                 <button name='ok' onClick={closePopup}>OK</button>
             </label>
         </div>
