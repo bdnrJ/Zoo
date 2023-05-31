@@ -18,7 +18,6 @@ return new class extends Migration
         $table->unsignedBigInteger('user_id')->nullable();
         $table->decimal('amount', 8, 2);
         $table->timestamp('donated_at');
-        $table->timestamps();
 
         $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
     });

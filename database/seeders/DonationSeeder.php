@@ -17,19 +17,26 @@ class DonationSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-
         $usersIds = DB::table('users')->pluck('id')->toArray();
 
-        for ($i = 0; $i < 50; $i++) {
-            $donationData = [
-                'donation_date' => $faker->dateTimeBetween('-1 month', 'now')->format('Y-m-d h:m:s'),
+        foreach($usersIds as $user){
+            Donation::create([
+                'donor_name' => null,
+                'donor_email' => null,
                 'user_id' => $faker->randomElement($usersIds),
-                'amount' => $faker->randomFloat(2, 10, 1000),
-                'is_anonymous' => $faker->boolean,
-            ];
+                'amount' => rand(10, 1000),
+                'donated_at' => now(),
+            ]);
+        }
 
-            $donation = new Donation($donationData);
-            $donation->save();
+        for ($i = 0; $i < 10; $i++) {
+            Donation::create([
+                'donor_name' => $faker->firstName . " " . $faker->lastName,
+                'donor_email' => $faker->email,
+                'user_id' => null,
+                'amount' => rand(10, 1000),
+                'donated_at' => now(),
+            ]);
         }
     }
 }
