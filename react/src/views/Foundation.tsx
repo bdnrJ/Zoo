@@ -106,6 +106,12 @@ const Foundation = () => {
                         <h3>How you can support the foundation?</h3>
                         <span>Buy a ticket to our zoo. 45% of the income from zoo tickets goes to the "Save wildlife" foundation</span>
                         <span>Leave a donation.</span>
+                        <div className="content-donation-support-levels">
+                            <p>After donating certain amount, you can get a lifetime discount when buyign tickets!</p>
+                            <p>$5000 = 5%</p>
+                            <p>$10000 = 10%</p>
+                            <p>$20000 = 20%</p>
+                        </div>
                         {currentUser ? <Donation /> : <DonationAnonymous />}
                         <span>If you are interested in cooperation or volunteering, please contact us at the number or e-mail address below</span>
                         <div className="content-donation-support-contact">

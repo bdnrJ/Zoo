@@ -28,7 +28,7 @@ const Donation = () => {
     } = useForm<DonationFormValues>({ resolver: zodResolver(donationFormSchema) });
 
     const onSubmit = (data: DonationFormValues) => {
-        if (donationAmount >= 5) {
+        if (data.amount >= 5) {
             setDonationAmount(data.amount)
             navigate('/donation_checkout');
         } else {

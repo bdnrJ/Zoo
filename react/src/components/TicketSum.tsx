@@ -96,7 +96,7 @@ const TicketSum = ({ date, addClass, ticketType,}: props) => {
                     </div>
                     {discount > 0 &&
                         <div className="ticketsum-sum-block">
-                            {discount > 0 && <><span>Discount: </span> <span> 10%</span></>}
+                            {discount > 0 && <><span>Discount: </span> <span>{discount}%</span></>}
                         </div>
                     }
                     <div className="ticketsum-sum-block">

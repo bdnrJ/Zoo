@@ -210,6 +210,7 @@ export const TicketProvider = ({children}: props) => {
         }]})
 
         const discountInPrecent = await axiosClient.get('/donations/discount', {withCredentials: true});
+        console.log(discountInPrecent);
         setDiscount(discountInPrecent.data);
     }
 
