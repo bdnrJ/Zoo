@@ -54,7 +54,7 @@ const TicketSum = ({ date, addClass, ticketType,}: props) => {
     }
 
     const totalDiscount = calculateTotalDiscount(calculateTotalPrice()+5);
-    const finalPrice = calculateTotalPrice() - totalDiscount;
+    const finalPrice = calculateTotalPrice() > 0 ? calculateTotalPrice() + 5 - totalDiscount : 0;
 
     return (
         <div className={`ticketsum --${ticketType}`}>
@@ -102,7 +102,7 @@ const TicketSum = ({ date, addClass, ticketType,}: props) => {
                     <div className="ticketsum-sum-block">
                         <span className='ticketsum-sum-block-total'>Total: </span>
                         <span className='ticketsum-sum-block-total --dolar'>
-                            ${finalPrice == 0 ? 0 : (finalPrice+5).toFixed(2)}
+                            ${finalPrice.toFixed(2)}
                         </span>
                     </div>
                 </div>
