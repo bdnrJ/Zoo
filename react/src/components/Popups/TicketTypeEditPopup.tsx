@@ -18,7 +18,7 @@ type ticketType = {
     age_info: string,
     price: number,
     is_active: boolean,
-    confirmPassword: string
+    confirm_password: string
 }
 
 
@@ -36,7 +36,7 @@ const TicketTypeEditPopup = ({ticketType, onClose}: Props) => {
         age_info: z.string().max(15, 'too long').min(1, 'required'),
         price: z.number(),
         is_active: z.boolean(),
-        confirmPassword: z.string().min(1, 'required'),
+        confirm_password: z.string().min(1, 'required'),
     })
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<ticketType>({resolver: zodResolver(schema)});
@@ -109,9 +109,9 @@ const TicketTypeEditPopup = ({ticketType, onClose}: Props) => {
                 </label>
                 <div className="input-wrapper">
                     <p>Confirm Password:</p>
-                    <label htmlFor="confirmPassword">
-                        <input type="password" className={`${errors.confirmPassword && "--error"}`} {...register('confirmPassword', {required: true})} placeholder="Confirm Password" />
-                        {errors.confirmPassword && <span className={`_inputError --big`}>{errors.confirmPassword.message}</span>}
+                    <label htmlFor="confirm_password">
+                        <input type="password" className={`${errors.confirm_password && "--error"}`} {...register('confirm_password', {required: true})} placeholder="Confirm Password" />
+                        {errors.confirm_password && <span className={`_inputError --big`}>{errors.confirm_password.message}</span>}
                     </label>
                 </div>
 

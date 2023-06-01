@@ -28,7 +28,7 @@ class TransactionController extends Controller
 
         $validatedData = $request->validate([
             'buy_date' => 'required|date',
-            'exp_date' => 'required|date',
+            'exp_date' => 'required|date|after_or_equal:today',
             'user_id' => 'integer',
             'type' => 'required|string|in:normal,group',
             'items' => 'required|array',
@@ -37,6 +37,7 @@ class TransactionController extends Controller
             'services' => 'sometimes|array',
             'services.*.service_type_id' => 'required_with:services|integer|exists:service_types,id',
         ]);
+
 
         $validatedData['user_id'] = $user->id;
 

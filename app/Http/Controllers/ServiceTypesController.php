@@ -44,7 +44,7 @@ class ServiceTypesController extends Controller
             'description' => 'required|max:500',
             'price_per_customer' => 'required|numeric',
             'is_active' => 'required|boolean',
-            'confirmPassword' => 'required',
+            'confirm_password' => 'required',
         ]);
 
         $serviceType = ServiceType::find($id);
@@ -53,11 +53,11 @@ class ServiceTypesController extends Controller
         }
 
         $user = auth()->user();
-        if (!Hash::check($request->confirmPassword, $user->password)) {
+        if (!Hash::check($request->confirm_password, $user->password)) {
             return response()->json(['message' => 'Invalid password'], 403);
         }
 
-        $serviceType->update($request->except('confirmPassword'));
+        $serviceType->update($request->except('confirm_password'));
 
         return response()->json($serviceType, 200);
     }

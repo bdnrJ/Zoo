@@ -14,7 +14,7 @@ type props = {
 
 type EmailData = {
     newEmail: string;
-    confirmPassword: string;
+    confirm_password: string;
 };
 
 const ChangeEmailPopup = ({ closePopup, refreshUserData }: props) => {
@@ -24,7 +24,7 @@ const ChangeEmailPopup = ({ closePopup, refreshUserData }: props) => {
 
     const schema = z.object({
         newEmail: z.string().email('invalid email format'),
-        confirmPassword: z.string().min(1, 'required'),
+        confirm_password: z.string().min(1, 'required'),
     });
 
     const {
@@ -39,7 +39,7 @@ const ChangeEmailPopup = ({ closePopup, refreshUserData }: props) => {
         try {
             const response = await axiosClient.put('/users/email', {
                 newEmail: data.newEmail,
-                confirmPassword: data.confirmPassword,
+                confirm_password: data.confirm_password,
             }, { withCredentials: true });
 
             const newUser: User = { ...currentUser, email: data.newEmail };
@@ -86,15 +86,15 @@ const ChangeEmailPopup = ({ closePopup, refreshUserData }: props) => {
                     </div>
                     <div className="input-wrapper">
                         <p>Confirm Password</p>
-                        <label htmlFor="confirmPassword">
+                        <label htmlFor="confirm_password">
                             <input
-                                className={`_formInput ${errors.confirmPassword && '--error'}`}
+                                className={`_formInput ${errors.confirm_password && '--error'}`}
                                 type="password"
-                                {...register('confirmPassword', { required: true })}
+                                {...register('confirm_password', { required: true })}
                                 placeholder="Confirm Password"
                             />
-                            {errors.confirmPassword && (
-                                <span className={`_inputError`}>{errors.confirmPassword.message}</span>
+                            {errors.confirm_password && (
+                                <span className={`_inputError`}>{errors.confirm_password.message}</span>
                             )}
                         </label>
                     </div>

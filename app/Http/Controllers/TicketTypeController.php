@@ -48,7 +48,7 @@ class TicketTypeController extends Controller
             'age_info' => 'required|max:100',
             'price' => 'required|numeric',
             'is_active' => 'required|boolean',
-            'confirmPassword' => 'required',
+            'confirm_password' => 'required',
         ]);
 
         $ticketType = TicketType::find($id);
@@ -57,11 +57,11 @@ class TicketTypeController extends Controller
         }
 
         $user = auth()->user();
-        if (!Hash::check($request->confirmPassword, $user->password)) {
+        if (!Hash::check($request->confirm_password, $user->password)) {
             return response()->json(['message' => 'Invalid password'], 403);
         }
 
-        $ticketType->update($request->except('confirmPassword'));
+        $ticketType->update($request->except('confirm_password'));
 
         return response()->json($ticketType, 200);
     }

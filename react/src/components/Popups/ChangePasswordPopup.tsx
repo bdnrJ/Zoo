@@ -12,9 +12,9 @@ type props = {
 };
 
 type PasswordData = {
-    currentPassword: string;
-    newPassword: string;
-    confirmNewPassword: string;
+    current_password: string;
+    new_password: string;
+    confirm_new_password: string;
 };
 
 const ChangePasswordPopup = ({ closePopup, refreshUserData }: props) => {
@@ -23,9 +23,9 @@ const ChangePasswordPopup = ({ closePopup, refreshUserData }: props) => {
 
 
     const schema = z.object({
-        currentPassword: z.string().min(1, 'required'),
-        newPassword: z.string().min(8, 'at least 8 characters'),
-        confirmNewPassword: z.string().min(8, 'at least 8 characters'),
+        current_password: z.string().min(1, 'required'),
+        new_password: z.string().min(8, 'at least 8 characters'),
+        confirm_new_password: z.string().min(8, 'at least 8 characters'),
     });
 
     const {
@@ -37,16 +37,16 @@ const ChangePasswordPopup = ({ closePopup, refreshUserData }: props) => {
     const onSubmit = (data: PasswordData) => handleChangePassword(data);
 
     const handleChangePassword = async (data: PasswordData) => {
-        if (data.newPassword !== data.confirmNewPassword) {
+        if (data.new_password !== data.confirm_new_password) {
             setUpdateError('New passwords do not match');
             return;
         }
 
         try {
             const response = await axiosClient.put('/users/password', {
-                currentPassword: data.currentPassword,
-                newPassword: data.newPassword,
-                confirmNewPassword: data.confirmNewPassword
+                current_password: data.current_password,
+                new_password: data.new_password,
+                confirm_new_password: data.confirm_new_password
             }, { withCredentials: true });
 
             setUpdateError('');
@@ -64,44 +64,44 @@ const ChangePasswordPopup = ({ closePopup, refreshUserData }: props) => {
             <form onSubmit={handleSubmit(onSubmit)} className='__form smallerGap'>
                     <div className="input-wrapper">
                         <p>Current password</p>
-                        <label htmlFor="currentPassword">
+                        <label htmlFor="current_password">
                             <input
-                                className={`_formInput ${errors.currentPassword && '--error'}`}
+                                className={`_formInput ${errors.current_password && '--error'}`}
                                 type="password"
-                                {...register('currentPassword', { required: true })}
+                                {...register('current_password', { required: true })}
                                 placeholder="Current password"
                                 autoComplete="off"
                             />
-                            {errors.currentPassword && (
-                                <span className={`_inputError`}>{errors.currentPassword.message}</span>
+                            {errors.current_password && (
+                                <span className={`_inputError`}>{errors.current_password.message}</span>
                             )}
                         </label>
                     </div>
                     <div className="input-wrapper">
                         <p>New password</p>
-                        <label htmlFor="newPassword">
+                        <label htmlFor="new_password">
                             <input
-                                className={`_formInput ${errors.newPassword && '--error'}`}
+                                className={`_formInput ${errors.new_password && '--error'}`}
                                 type="password"
-                                {...register('newPassword', { required: true })}
+                                {...register('new_password', { required: true })}
                                 placeholder="New password"
                             />
-                            {errors.newPassword && (
-                                <span className={`_inputError`}>{errors.newPassword.message}</span>
+                            {errors.new_password && (
+                                <span className={`_inputError`}>{errors.new_password.message}</span>
                             )}
                         </label>
                     </div>
                     <div className="input-wrapper">
                         <p>Confirm New Password</p>
-                        <label htmlFor="confirmNewPassword">
+                        <label htmlFor="confirm_new_password">
                             <input
-                                className={`_formInput ${errors.confirmNewPassword && '--error'}`}
+                                className={`_formInput ${errors.confirm_new_password && '--error'}`}
                                 type="password"
-                                {...register('confirmNewPassword', { required: true })}
+                                {...register('confirm_new_password', { required: true })}
                                 placeholder="Confirm new password"
                             />
-                            {errors.confirmNewPassword && (
-                                <span className={`_inputError`}>{errors.confirmNewPassword.message}</span>
+                            {errors.confirm_new_password && (
+                                <span className={`_inputError`}>{errors.confirm_new_password.message}</span>
                             )}
                         </label>
                     </div>

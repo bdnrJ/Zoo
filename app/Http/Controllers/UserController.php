@@ -82,12 +82,12 @@ class UserController extends Controller
     {
         $request->validate([
             'newEmail' => 'required|email|unique:users,email',
-            'confirmPassword' => 'required|min:8',
+            'confirm_password' => 'required|min:8',
         ]);
 
         $user = auth()->user();
 
-        if (!Hash::check($request->confirmPassword, $user->password)) {
+        if (!Hash::check($request->confirm_password, $user->password)) {
             return response()->json([
                 'message' => 'Password confirmation does not match',
             ], 422);
@@ -106,18 +106,18 @@ class UserController extends Controller
         $user = auth()->user();
 
         $request->validate([
-            'currentPassword' => 'required',
-            'newPassword' => 'required|min:8',
-            'confirmNewPassword' => 'required|same:newPassword'
+            'current_password' => 'required',
+            'new_password' => 'required|min:8',
+            'confirm_new_password' => 'required|same:new_password'
         ]);
 
         error_log('im here');
 
-        if (!Hash::check($request->currentPassword, $user->password)) {
+        if (!Hash::check($request->current_password, $user->password)) {
             return response()->json(['message' => 'Current password is incorrect'], 400);
         }
 
-        $user->password = Hash::make($request->newPassword);
+        $user->password = Hash::make($request->new_password);
         $user->save();
 
         return response()->json(['message' => 'Password updated successfully']);

@@ -17,7 +17,7 @@ type serviceFormType = {
     description: string,
     price_per_customer: number,
     is_active: boolean,
-    confirmPassword: string
+    confirm_password: string
 }
 
 
@@ -35,7 +35,7 @@ const ServiceTypeEditPopup = ({service, closePopup}: Props) => {
         description: z.string().max(500, 'too long').min(1, 'required'),
         price_per_customer: z.number(),
         is_active: z.boolean(),
-        confirmPassword: z.string().min(1, 'required'),
+        confirm_password: z.string().min(1, 'required'),
     })
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<serviceFormType>({resolver: zodResolver(schema)});
@@ -103,9 +103,9 @@ const ServiceTypeEditPopup = ({service, closePopup}: Props) => {
                 </label>
                 <div className="input-wrapper">
                     <p>Current password:</p>
-                    <label htmlFor="confirmPassword">
-                        <input type="password" placeholder='Current password' className={`${errors.confirmPassword && "--error"}`} {...register('confirmPassword', {required: true})} />
-                        {errors.confirmPassword && <span className={`_inputError --big`}>{errors.confirmPassword.message}</span>}
+                    <label htmlFor="confirm_password">
+                        <input type="password" placeholder='Current password' className={`${errors.confirm_password && "--error"}`} {...register('confirm_password', {required: true})} />
+                        {errors.confirm_password && <span className={`_inputError --big`}>{errors.confirm_password.message}</span>}
                     </label>
                 </div>
                 <label htmlFor="savebtn" className="__orange-button-label">
