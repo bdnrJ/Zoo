@@ -55,6 +55,7 @@ Route::post('/donations/anon', [DonationController::class, 'store']);
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/link_donations', [AuthController::class, 'linkDonations']);
 Route::get('/ticket_types', [TicketTypeController::class, 'index']);
 Route::get('/service_types', [ServiceTypesController::class, 'index']);
 
