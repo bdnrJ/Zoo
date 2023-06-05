@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Donation;
 use App\Models\User;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -21,26 +22,54 @@ class AuthController extends Controller
         $data = $request->validated();
 
         try{
-        $user = User::create([
-            'firstname' => $data['firstname'],
-            'lastname' => $data['lastname'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            'confirmPwd' => ($data['confirmPwd'])
-        ]);
-        return response(compact('user'));
-    }catch(QueryException $qe){
-        $errCode = $qe->getCode();
-        if($errCode == 23000)
-        return response()->json([
-            'message' => 'Email already used!',
-        ],409);
+            $user = User::create([
+                'firstname' => $data['firstname'],
+                'lastname' => $data['lastname'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+                'confirmPwd' => ($data['confirmPwd'])
+            ]);
 
-        return response()->json([
-            'message' => $qe->errorInfo,
-        ],409);
+            $previous_donations = Donation::where('donor_email', $data['email'])->get();
+
+            $donations_exist = false;
+            if (count($previous_donations) > 0) {
+                $donations_exist = true;
+            }
+
+            return response()->json(['user' => $user, 'previous_donations_exist' => $donations_exist]);
+        } catch(QueryException $qe){
+            $errCode = $qe->getCode();
+            if($errCode == 23000)
+                return response()->json([
+                    'message' => 'Email already used!',
+                ], 409);
+
+            return response()->json([
+                'message' => $qe->errorInfo,
+            ], 409);
+        }
     }
 
+    public function linkDonations(Request $request) {
+        $data = $request->validate([
+            'user_id' => 'required|integer',
+            'email' => 'required|string',
+        ]);
+
+        if ($data['email']) {
+            $previous_donations = Donation::where('donor_email', $data['email'])->get();
+
+            if (count($previous_donations) > 0) {
+                foreach ($previous_donations as $donation) {
+                    $donation->user_id = $data['user_id'];
+                    $donation->donor_email = null;
+                    $donation->save();
+                }
+            }
+        }
+
+        return response()->json(['message' => 'Donations updated successfully']);
     }
 
     public function login(LoginRequest $request){
