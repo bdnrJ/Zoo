@@ -42,11 +42,11 @@ const UserTransactions = () => {
                 const now = new Date();
                 now.setHours(0, 0, 0, 0); // set to start of day
                 const tomorrow = new Date(now);
-                tomorrow.setDate(tomorrow.getDate() + 1); // get tomorrow's date
+                tomorrow.setHours(23, 59, 59, 999); // set to end of day
                 console.log(res);
 
-                const upcomingTickets = res.data.filter((transaction: transaction) => new Date(transaction.exp_date) >= tomorrow);
-                const pastTickets = res.data.filter((transaction: transaction) => new Date(transaction.exp_date) < tomorrow);
+                const upcomingTickets = res.data.filter((transaction: transaction) => new Date(transaction.exp_date) >= now);
+                const pastTickets = res.data.filter((transaction: transaction) => new Date(transaction.exp_date) < now);
 
                 setCurrentTransactions(upcomingTickets);
                 setPreviousTransactions(pastTickets);
@@ -58,6 +58,7 @@ const UserTransactions = () => {
 
         fetchData();
     }, []);
+
 
     return (
         <div className="user-tickets">
