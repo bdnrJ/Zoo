@@ -15,7 +15,15 @@ export const GroupTickets = () => {
     const { availableGroupTicket, userServices, setUserServices, groupUserTransaction, setGroupUserTransaction } = useContext(TicketContext);
     const { currentUser } = useContext(AuthContext);
     const navigate = useNavigate();
+
     if (!groupUserTransaction.items[0]) navigate('/tickets');
+
+    if(availableGroupTicket === null) {
+        return <div className="errorNotAvailable">
+                    There are no group tickets currently available :(
+                </div>
+    }
+
 
     const handleContiuneToGroupCheckout = () => {
         const chosenServices = userServices.filter((service) => service.is_choosen === true).map((service) => ({
@@ -70,12 +78,6 @@ export const GroupTickets = () => {
     const year = groupUserTransaction.exp_date.getFullYear();
     const formattedDate = `${dayOfWeek}, ${month} ${dayOfMonth}, ${year}`;
 
-    if (availableGroupTicket.id === -1) return (
-        <div className="group_tickets">
-            <h1>No group tickets currently available</h1>
-        </div>
-    )
-
     const handleCheckboxChange = (index: number) => {
         const updatedServices = [...userServices];
         updatedServices[index].is_choosen = !updatedServices[index].is_choosen;
@@ -116,7 +118,7 @@ export const GroupTickets = () => {
                                 <div className="group-select-label">
                                     <h4>Select Group Tickets</h4>
                                 </div>
-                                <TicketChooser
+                                {groupUserTransaction.items[0] != undefined ? <TicketChooser
                                     key={availableGroupTicket.name}
                                     idx={availableGroupTicket.id}
                                     amount={groupUserTransaction.items[0].amount}
@@ -125,13 +127,13 @@ export const GroupTickets = () => {
                                     price={availableGroupTicket.price}
                                     handleAdd={handleAdd}
                                     handleSub={hanldeSub}
-                                />
+                                /> : <p>Sorry, there are no group tickets available for now :(</p>}
                             </div>
                             <div className="group-select-services">
                                 <div className="group-select-label">
                                     <h4>Select Services</h4>
                                 </div>
-                                {userServices.map((userService, idx) => (
+                                {userServices.length > 0 ? userServices.map((userService, idx) => (
                                     <div className="group_tickets-services-service" key={userService.id}>
                                         <input
                                             type="checkbox"
@@ -146,7 +148,7 @@ export const GroupTickets = () => {
                                             </Tooltip>
                                         </span>
                                     </div>
-                                ))}
+                                )) : <p>Sorry, there are no services available for now</p>}
                             </div>
                         </div>
                     </div>

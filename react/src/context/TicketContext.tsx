@@ -189,7 +189,11 @@ export const TicketProvider = ({children}: props) => {
         setNormalUserTickets(userTicketsTemp);
 
         const availableGroupTicket: normalTicket = ticketData.data.find((ticket: normalTicket) => (ticket.is_active === 1 && ticket.type === 'group'));
+        if(availableGroupTicket){
         setAvailableGroupTicket(availableGroupTicket);
+        }else{
+            setAvailableGroupTicket(null);
+        }
 
         //get services
         const servicesData = await axiosClient.get('/service_types');

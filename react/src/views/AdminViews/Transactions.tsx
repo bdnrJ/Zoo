@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Transaction from '../../components/Transaction';
 import axiosClient from '../../axios-client';
 import { useDebounce } from '../../hooks/useDebounce';
+import { LoadingContext } from '../../context/LoadingContext';
 
 type user = {
     email: string,
@@ -27,21 +28,22 @@ const Transactions = () => {
     const debouncedSearch = useDebounce(search, 500);
     const [startDate, setStartDate] = useState<string>("");
     const [endDate, setEndDate] = useState<string>("");
+    const {setLoading} = useContext(LoadingContext);
 
     const fetchTransactions = async (page: number, search: string, startDate: string, endDate: string) => {
         try{
-            const response = await axiosClient.get(`/transactions?page=${page}`, {
-                params: {
-                    search: search,
-                    start_date: startDate,
-                    end_date: endDate
-                },
-                withCredentials: true
-            });
+                const response = await axiosClient.get(`/transactions?page=${page}`, {
+                    params: {
+                        search: search,
+                        start_date: startDate,
+                        end_date: endDate
+                    },
+                    withCredentials: true
+                });
 
-            console.log("fetching: "+ page);
+                console.log("fetching: "+ page);
 
-            return response.data;
+                return response.data;
         }catch(err: any){
             console.log(err);
         }

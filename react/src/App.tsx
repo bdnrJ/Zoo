@@ -1,4 +1,9 @@
-import {createBrowserRouter, Outlet, RouterProvider, ScrollRestoration} from "react-router-dom";
+import {
+    createBrowserRouter,
+    Outlet,
+    RouterProvider,
+    ScrollRestoration,
+} from "react-router-dom";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import RequireAdmin from "./components/ProtectedRoutes/RequireAdmin";
@@ -7,7 +12,11 @@ import FourZeroFour from "./views/FourZeroFour";
 import Home from "./views/Home/Home";
 import Login from "./views/Login";
 import Register from "./views/Register";
-import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
+import {
+    QueryClient,
+    QueryClientProvider,
+    useQuery,
+} from "@tanstack/react-query";
 import Tickets from "./views/UserViews/Tickets/Tickets";
 import { NormalTickets } from "./views/UserViews/Tickets/NormalTickets";
 import { GroupTickets } from "./views/UserViews/Tickets/GroupTickets";
@@ -22,13 +31,15 @@ import UserPersonalPage from "./views/UserViews/UserPersonalPage";
 import Statute from "./views/Statute";
 import Facilities from "./views/Facilities";
 import Foundation from "./views/Foundation";
-import UserTickets from './views/UserViews/UserTickets';
+import UserTickets from "./views/UserViews/UserTickets";
 import RequireUser from "./components/ProtectedRoutes/RequireUser";
 import ScrollToTop from "./components/ScrollToTop";
 import Services from "./views/AdminViews/Services";
 import DonationCheckout from "./components/Popups/DonationCheckout";
 import Donations from "./views/AdminViews/Donations";
 import MyDonations from "./views/MyDonations";
+import { LoadingProvider } from "./context/LoadingContext";
+import LoadingIndicator from "./components/LoadingIndicator";
 
 const queryClient = new QueryClient();
 
@@ -36,13 +47,13 @@ export const Layout = () => {
     return (
         <ScrollToTop>
             <div className="layout">
-                <Navbar/>
+                <Navbar />
                 <Outlet />
                 <Footer />
             </div>
         </ScrollToTop>
-    )
-}
+    );
+};
 
 const router = createBrowserRouter([
     {
@@ -51,149 +62,163 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <Home />
+                element: <Home />,
             },
             {
                 path: "/admin/users",
-                element:
+                element: (
                     <RequireAdmin>
                         <QueryClientProvider client={queryClient}>
                             <Users />
                         </QueryClientProvider>
                     </RequireAdmin>
+                ),
             },
             {
-                path: '/admin/transactions',
-                element:
-                <RequireAdmin>
-                    <QueryClientProvider client={queryClient}>
-                        <Transactions />
-                    </QueryClientProvider>
-                </RequireAdmin>
+                path: "/admin/transactions",
+                element: (
+                    <RequireAdmin>
+                        <QueryClientProvider client={queryClient}>
+                            <Transactions />
+                        </QueryClientProvider>
+                    </RequireAdmin>
+                ),
             },
             {
-                path: '/admin/transaction_page/:id',
-                element:
-                <RequireAdmin>
-                    <TransactionPage />
-                </RequireAdmin>
+                path: "/admin/transaction_page/:id",
+                element: (
+                    <RequireAdmin>
+                        <TransactionPage />
+                    </RequireAdmin>
+                ),
             },
             {
-                path: '/admin/user_page/:id',
-                element:
-                <RequireAdmin>
-                    <UserPage />
-                </RequireAdmin>
+                path: "/admin/user_page/:id",
+                element: (
+                    <RequireAdmin>
+                        <UserPage />
+                    </RequireAdmin>
+                ),
             },
             {
-                path: '/admin/ticket_types',
-                element:
-                <RequireAdmin>
-                    <TicketTypes />
-                </RequireAdmin>
+                path: "/admin/ticket_types",
+                element: (
+                    <RequireAdmin>
+                        <TicketTypes />
+                    </RequireAdmin>
+                ),
             },
             {
-                path: '/admin/services',
-                element:
-                <RequireAdmin>
-                    <Services />
-                </RequireAdmin>
+                path: "/admin/services",
+                element: (
+                    <RequireAdmin>
+                        <Services />
+                    </RequireAdmin>
+                ),
             },
             {
-                path: '/admin/donations',
-                element:
-                <RequireAdmin>
-                    <QueryClientProvider client={queryClient}>
-                        <Donations />
-                    </QueryClientProvider>
-                </RequireAdmin>
+                path: "/admin/donations",
+                element: (
+                    <RequireAdmin>
+                        <QueryClientProvider client={queryClient}>
+                            <Donations />
+                        </QueryClientProvider>
+                    </RequireAdmin>
+                ),
             },
             {
-                path: '/tickets',
-                element: <Tickets />
+                path: "/tickets",
+                element: <Tickets />,
             },
             {
-                path: '/tickets/normal',
-                element: <NormalTickets />
+                path: "/tickets/normal",
+                element: <NormalTickets />,
             },
             {
-                path: '/tickets/normal/checkout',
-                element: <NormalCheckout/>
+                path: "/tickets/normal/checkout",
+                element: <NormalCheckout />,
             },
             {
-                path: '/tickets/group',
-                element: <GroupTickets />
+                path: "/tickets/group",
+                element: <GroupTickets />,
             },
             {
-                path: '/tickets/group/checkout',
-                element: <GroupCheckout />
+                path: "/tickets/group/checkout",
+                element: <GroupCheckout />,
             },
             {
-                path: '/my_account',
-                element:
-                <RequireUser>
-                    <UserPersonalPage />
-                </RequireUser>
+                path: "/my_account",
+                element: (
+                    <RequireUser>
+                        <UserPersonalPage />
+                    </RequireUser>
+                ),
             },
             {
-                path: '/my_tickets',
-                element:
-                <RequireUser>
-                    <UserTickets />
-                </RequireUser>
+                path: "/my_tickets",
+                element: (
+                    <RequireUser>
+                        <UserTickets />
+                    </RequireUser>
+                ),
             },
             {
-                path: '/my_donations',
-                element:
-                <RequireUser>
-                    <MyDonations />
-                </RequireUser>
+                path: "/my_donations",
+                element: (
+                    <RequireUser>
+                        <MyDonations />
+                    </RequireUser>
+                ),
             },
             {
-                path: '/statute',
-                element: <Statute />
+                path: "/statute",
+                element: <Statute />,
             },
             {
-                path: '/facilities',
-                element: <Facilities />
+                path: "/facilities",
+                element: <Facilities />,
             },
             {
-                path: '/foundation',
-                element: <Foundation />
+                path: "/foundation",
+                element: <Foundation />,
             },
             {
-                path: '/donation_checkout',
-                element: <DonationCheckout />
+                path: "/donation_checkout",
+                element: <DonationCheckout />,
             },
             {
-                path: '/*',
-                element: <FourZeroFour />
-            }
-        ]
+                path: "/*",
+                element: <FourZeroFour />,
+            },
+        ],
     },
     {
         path: "/login",
-        element:
+        element: (
             <RequireUnloggedUser>
                 <Login />
             </RequireUnloggedUser>
+        ),
     },
     {
         path: "/register",
-        element:
-            <RequireUnloggedUser >
+        element: (
+            <RequireUnloggedUser>
                 <Register />
             </RequireUnloggedUser>
+        ),
     },
 ]);
 
-
 function App() {
     return (
-        <div className="App">
-            <RouterProvider router={router} />
-        </div>
-    )
+        <LoadingProvider>
+            <LoadingIndicator />
+            <div className="App">
+                <RouterProvider router={router} />
+            </div>
+        </LoadingProvider>
+    );
 }
 
-export default App
+export default App;
