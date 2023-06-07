@@ -6,6 +6,7 @@ import { zodResolver} from '@hookform/resolvers/zod'
 import axiosClient from '../../axios-client'
 import { TicketContext, serviceType } from '../../context/TicketContext'
 import SuccessPopupTemplate from './SuccessPopupTemplate'
+import { LoadingContext } from '../../context/LoadingContext'
 
 type Props = {
     service: serviceType,
@@ -26,6 +27,7 @@ const ServiceTypeEditPopup = ({service, closePopup}: Props) => {
     const [isFailPopupOn, setIsFailPopupOn] = useState<boolean>(false);
     const [isNoChangesPopupOn, setIsNoChangesPopupOn] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>('');
+    const {setLoading} = useContext(LoadingContext);
 
 
     const {resetServices} = useContext(TicketContext);
@@ -52,11 +54,14 @@ const ServiceTypeEditPopup = ({service, closePopup}: Props) => {
             }
 
         try {
+            setLoading(true);
             const response = await axiosClient.put(`/service_types/${service.id}`, data, {withCredentials: true});
             console.log(response);
             resetServices();
+            setLoading(false);
             setIsSuccessPopupOn(true);
         } catch (error: any) {
+            setLoading(false);
             const message =  'Failed to update service type, ' + error.response?.data?.message;
             setErrorMessage(message);
             setIsFailPopupOn(true);

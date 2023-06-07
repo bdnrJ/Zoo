@@ -6,6 +6,7 @@ import { ZodType } from 'zod/lib'
 import { zodResolver} from '@hookform/resolvers/zod'
 import { Link, redirect, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
+import { LoadingContext } from '../context/LoadingContext'
 type User={
     email: string,
     password: string,
@@ -16,6 +17,8 @@ const Login = () => {
     const [disabled, setDisabled] = useState(false);
     const navigate = useNavigate();
     const {login} = useContext(AuthContext);
+    const {setLoading} = useContext(LoadingContext);
+
 
     const schema: ZodType<User> = z.object({
         email: z.string().min(1, 'required'),
@@ -25,10 +28,13 @@ const Login = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm<User>({resolver: zodResolver(schema)});
 
     const onSubmit = async (data: User) => {
+        setLoading(true);
         try{
             await login(data);
+            setLoading(false);
             navigate(-1);
         }catch(err: any){
+            setLoading(false);
             setLoginErr(err.response.data.message);
         }
     }

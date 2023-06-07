@@ -4,6 +4,7 @@ import { z, ZodType } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axiosClient from '../../axios-client';
 import { TicketContext } from '../../context/TicketContext';
+import { LoadingContext } from '../../context/LoadingContext';
 
 type TicketType = {
     name: string;
@@ -19,6 +20,7 @@ type props = {
 const AddTicketType = ({ closePopup }: props) => {
     const { getAllTickets } = useContext(TicketContext);
     const [disabled, setDisabled] = useState(false);
+    const {setLoading} = useContext(LoadingContext);
 
     const schema: ZodType<TicketType> = z.object({
         name: z.string().max(45, 'Too long').min(1, 'Required'),
@@ -31,15 +33,18 @@ const AddTicketType = ({ closePopup }: props) => {
 
     const onSubmit = async (data: TicketType) => {
         try {
+            setDisabled(true);
+            setLoading(true);
             const response = await axiosClient.post('/ticket_types', {
                 ...data,
                 is_active: 0
             }, { withCredentials: true });
-            setDisabled(true);
+            setLoading(false);
             alert("Created new ticket type succesfully");
             setTimeout(() => getAllTickets(), 1500);
             closePopup();
         } catch (err) {
+            setLoading(false);
             console.error('Error adding ticket type:', err);
             alert('Error adding ticket type.');
         }

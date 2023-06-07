@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import axiosClient from '../axios-client'
 import { useForm } from 'react-hook-form'
 import { z } from "zod"
@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Link, redirect, useNavigate } from 'react-router-dom'
 import PopupForm from '../components/Popups/PopupForm'
 import LinkDonationsPopup from '../components/Popups/LinkDonationsPopup'
+import { LoadingContext } from '../context/LoadingContext'
 
 type User = {
     firstname: string,
@@ -22,6 +23,8 @@ const Register = () => {
     const navigate = useNavigate();
     const [isDonationsPopupOn, setIsDonationPopupOn] = useState<boolean>(false);
     const [user, setUser] = useState<any>();
+    const {setLoading} = useContext(LoadingContext);
+
 
     const schema: ZodType<User> = z.object({
         firstname: z.string().min(1, 'Required').max(30, 'too long'),
@@ -43,6 +46,7 @@ const Register = () => {
 
     const handleRegister = async (data: User) => {
         try {
+            setLoading(true);
             const response = await axiosClient.post('/register',
                 {
                     firstname: data.firstname,
@@ -54,14 +58,17 @@ const Register = () => {
 
             if (response.data.previous_donations_exist) {
                 setUser(response.data.user);
+                setLoading(false);
                 setIsDonationPopupOn(true);
             } else {
                 setRegisterErr("");
                 setDisabled(true);
                 console.log(response);
+                setLoading(false);
                 setTimeout(() => navigate('/'), 1500);
             }
         } catch (err: any) {
+            setLoading(false);
             setRegisterErr(err.response.data.message);
         }
     }

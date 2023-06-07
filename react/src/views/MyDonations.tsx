@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import axiosClient from '../axios-client';
 import MyDonation from '../components/MyDonation';
 import { TicketContext } from '../context/TicketContext';
+import { LoadingContext } from '../context/LoadingContext';
 
 export type Donation = {
     id: number;
@@ -13,15 +14,20 @@ export type Donation = {
 const MyDonations = () => {
     const [donations, setDonations] = useState<Donation[]>([]);
     const { discount } = useContext(TicketContext);
+    const {setLoading} = useContext(LoadingContext);
+
 
     const fetchDonations = async () => {
         try {
+            setLoading(true);
             const res = await axiosClient.get('/donations/user', { withCredentials: true });
 
             console.log(res);
 
+            setLoading(true);
             setDonations(res.data);
         } catch (err: any) {
+            setLoading(false);
             console.log(err);
         }
     }

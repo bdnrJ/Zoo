@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axiosClient from '../../axios-client';
 import { displayTransaction } from '../AdminViews/Transactions';
 import Transaction from '../../components/Transaction';
@@ -7,6 +7,7 @@ import ChangePersonalDataPopup from '../../components/Popups/ChangePersonalDataP
 import ChangeEmailPopup from '../../components/Popups/ChangeEmailPopup';
 import ChangePasswordPopup from '../../components/Popups/ChangePasswordPopup';
 import DeleteAccountPopup from '../../components/Popups/DeleteAccountPopup';
+import { LoadingContext } from '../../context/LoadingContext';
 
 type user = {
     firstname: string,
@@ -29,7 +30,6 @@ const UserPersonalPage = () => {
             const res = await axiosClient.get(`/users_unauth`, {withCredentials: true});
             setUser(res.data)
             console.log(res);
-
         }catch(err:any){
             console.log(err);
         }

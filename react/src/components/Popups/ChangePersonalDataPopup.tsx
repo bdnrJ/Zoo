@@ -7,6 +7,7 @@ import axiosClient from '../../axios-client';
 import { AuthContext } from '../../context/AuthContext';
 import { User } from '../../types/types';
 import SuccessPopupTemplate from './SuccessPopupTemplate';
+import { LoadingContext } from '../../context/LoadingContext';
 
 type props = {
     closePopup: () => void,
@@ -23,6 +24,7 @@ const ChangePersonalDataPopup = ({ closePopup, refreshUserData }: props) => {
     const [disabled, setDisabled] = useState(false);
     const { setCurrentUser, currentUser } = useContext(AuthContext);
     const [isSuccessPopupOn, setIsSuccessPopupOn] = useState<boolean>(false);
+    const {setLoading} = useContext(LoadingContext);
 
 
 
@@ -41,6 +43,7 @@ const ChangePersonalDataPopup = ({ closePopup, refreshUserData }: props) => {
 
     const handleUpdate = async (data: PersonalData) => {
         try {
+            setLoading(true);
             const response = await axiosClient.put('/users/credentials', {
                 firstname: data.firstname,
                 lastname: data.lastname,
@@ -50,10 +53,12 @@ const ChangePersonalDataPopup = ({ closePopup, refreshUserData }: props) => {
 
             setUpdateError('');
             setDisabled(true);
+            setLoading(false);
             setIsSuccessPopupOn(true);
             setCurrentUser(newUser);
             refreshUserData();
         } catch (err: any) {
+            setLoading(false);
             setUpdateError(err.response.data.message);
         }
     };

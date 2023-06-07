@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axiosClient from '../../axios-client';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import UserDonation from '../../components/UserDonation';
 import { useDebounce } from '../../hooks/useDebounce';
+import { LoadingContext } from '../../context/LoadingContext';
 
 type Donation = {
     id: number;
@@ -28,6 +29,8 @@ const Donations = () => {
     const queryClient = useQueryClient();
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [search, setSearch] = useState('');
+    const {setLoading} = useContext(LoadingContext);
+
 
     const fetchDonations = async (page: number) => {
         try {

@@ -7,6 +7,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import PopupForm from './PopupForm';
 import DeleteAccountSuccessPopup from './DeleteAccountSuccessPopup';
+import { LoadingContext } from '../../context/LoadingContext';
 
 type props = {
     closePopup: () => void;
@@ -22,6 +23,7 @@ const DeleteAccountPopup = ({ closePopup, refreshUserData }: props) => {
     const {setCurrentUser} = useContext(AuthContext);
     const [isDeleteSuccessPopupOn, setIsDeleteSuccessPopupOn] = useState<boolean>(false);
     const navigate = useNavigate();
+    const {setLoading} = useContext(LoadingContext);
 
     const schema = z.object({
         password: z.string().min(1, 'required'),
@@ -37,12 +39,15 @@ const DeleteAccountPopup = ({ closePopup, refreshUserData }: props) => {
 
     const handleDeleteAccount = async (data: DeleteAccountData) => {
         try {
+            setLoading(true);
             const response = await axiosClient.delete('/users/delete', {
                 data: { password: data.password },
                 withCredentials: true,
             });
+            setLoading(false);
             setIsDeleteSuccessPopupOn(true);
         } catch (err: any) {
+            setLoading(false);
             setDeleteError(err.response.data.message);
         }
     };

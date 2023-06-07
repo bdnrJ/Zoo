@@ -1,10 +1,11 @@
 // ChangePasswordPopup.tsx
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axiosClient from '../../axios-client';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import SuccessPopupTemplate from './SuccessPopupTemplate';
+import { LoadingContext } from '../../context/LoadingContext';
 
 type props = {
     closePopup: () => void;
@@ -20,7 +21,7 @@ type PasswordData = {
 const ChangePasswordPopup = ({ closePopup, refreshUserData }: props) => {
     const [updateError, setUpdateError] = useState('');
     const [isSuccessPopupOn, setIsSuccessPopupOn] = useState<boolean>(false);
-
+    const {setLoading} = useContext(LoadingContext);
 
     const schema = z.object({
         current_password: z.string().min(1, 'required'),
@@ -43,6 +44,7 @@ const ChangePasswordPopup = ({ closePopup, refreshUserData }: props) => {
         }
 
         try {
+            setLoading(true);
             const response = await axiosClient.put('/users/password', {
                 current_password: data.current_password,
                 new_password: data.new_password,
@@ -50,10 +52,12 @@ const ChangePasswordPopup = ({ closePopup, refreshUserData }: props) => {
             }, { withCredentials: true });
 
             setUpdateError('');
+            setLoading(false);
             setIsSuccessPopupOn(true);
             refreshUserData();
         } catch (err: any) {
             console.log(err);
+            setLoading(false);
             setUpdateError(err.response.data.message);
         }
     };

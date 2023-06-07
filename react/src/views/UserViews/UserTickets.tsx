@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import BoughtTicketSum from '../../components/BoughtTicketSum';
 import axiosClient from '../../axios-client';
+import { LoadingContext } from '../../context/LoadingContext';
 
 type serviceType = {
     name: string,
@@ -33,9 +34,11 @@ type transaction = {
 const UserTransactions = () => {
     const [currentTransactions, setCurrentTransactions] = useState<transaction[]>([]);
     const [previousTransactions, setPreviousTransactions] = useState<transaction[]>([]);
+    const {setLoading} = useContext(LoadingContext);
 
     useEffect(() => {
         const fetchData = async () => {
+            setLoading(true);
             try {
                 const res = await axiosClient.get('/transactions_user', { withCredentials: true });
 
@@ -50,8 +53,10 @@ const UserTransactions = () => {
 
                 setCurrentTransactions(upcomingTickets);
                 setPreviousTransactions(pastTickets);
+                setLoading(true);
                 console.log(previousTransactions[1].services[0].service_type.name);
             } catch (err) {
+                setLoading(false);
                 console.error(err);
             }
         };

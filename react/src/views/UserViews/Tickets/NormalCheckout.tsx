@@ -15,6 +15,7 @@ import paysafe from '../../../assets/payment/paysafe.png'
 import visa from '../../../assets/payment/visa.png'
 import PopupForm from '../../../components/Popups/PopupForm'
 import BuyingSuccessPopup from '../../../components/Popups/BuyingSuccessPopup'
+import { LoadingContext } from '../../../context/LoadingContext'
 
 const NormalCheckout = () => {
     const {normalUserTransaction, resetAllNormal} = useContext(TicketContext);
@@ -26,6 +27,7 @@ const NormalCheckout = () => {
     const [checkbox1, setCheckbox1] = useState<boolean>(false);
     const [checkbox2, setCheckbox2] = useState<boolean>(false);
     const [showSuccessPopup, setShowSuccessPopup] = useState<boolean>(false);
+    const {setLoading} = useContext(LoadingContext);
 
     const isBuyButtonDisabled = activeIndex === -1 || !checkbox1 || !checkbox2;
     const navigate = useNavigate();
@@ -37,6 +39,7 @@ const NormalCheckout = () => {
 
     const hanldeBuyTicket = async () => {
         try{
+            setLoading(true);
             const res = await axiosClient.post('/transactions', {
                 ...normalUserTransaction,
                 //fomarting js date into mysql DateTime
@@ -44,8 +47,10 @@ const NormalCheckout = () => {
                 exp_date: normalUserTransaction.exp_date.toISOString().slice(0, 19).replace('T', ' ')
             }, {withCredentials: true})
 
+            setLoading(false);
             setShowSuccessPopup(true);
         }catch(e){
+            setLoading(false);
             console.log(e);
         }
     }

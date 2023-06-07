@@ -23,6 +23,7 @@ const Users = () => {
     const [search, setSearch] = useState('');
     const debouncedSearch = useDebounce(search, 500);
 
+
     const { status, data, error, isFetching, isPreviousData } = useQuery({
         queryKey: ['users', currentPage, debouncedSearch],
         queryFn: () => fetchUsers(currentPage, debouncedSearch),

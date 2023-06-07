@@ -14,6 +14,7 @@ import paysafe from '../../../assets/payment/paysafe.png'
 import visa from '../../../assets/payment/visa.png'
 import PopupForm from '../../../components/Popups/PopupForm'
 import BuyingSuccessPopup from '../../../components/Popups/BuyingSuccessPopup'
+import { LoadingContext } from '../../../context/LoadingContext'
 
 const GroupCheckout = () => {
     const {groupUserTransaction, resetAllGroup} = useContext(TicketContext);
@@ -24,6 +25,8 @@ const GroupCheckout = () => {
     const [checkbox1, setCheckbox1] = useState<boolean>(false);
     const [checkbox2, setCheckbox2] = useState<boolean>(false);
     const [showSuccessPopup, setShowSuccessPopup] = useState<boolean>(false);
+    const {setLoading} = useContext(LoadingContext);
+
 
     const isBuyButtonDisabled = activeIndex === -1 || !checkbox1 || !checkbox2;
     const navigate = useNavigate();
@@ -41,14 +44,16 @@ const GroupCheckout = () => {
         console.log(groupTransaction);
 
         try{
+            setLoading(true);
             const res = await axiosClient.post('/transactions',
             {
                 ...groupTransaction
             },
             {withCredentials: true});
-
+            setLoading(false);
             setShowSuccessPopup(true);
         }catch(err){
+            setLoading(false);
             console.log(err);
         }
     }

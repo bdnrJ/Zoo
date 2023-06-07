@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import axiosClient from '../../axios-client'
 import SuccessPopupTemplate from './SuccessPopupTemplate'
+import { LoadingContext } from '../../context/LoadingContext'
 
 type props = {
     user: any
@@ -11,15 +12,20 @@ const LinkDonationsPopup = ({user}: props) => {
     const navigate = useNavigate();
     const [isSuccessPopupOn, setIsSuccessPopupOn] = useState<boolean>(false);
     const [isErrorPopupOn, setIsErrorPopupOn] = useState<boolean>(false);
+    const {setLoading} = useContext(LoadingContext);
+
 
     const handleLinkDonations = async () => {
         try{
+            setLoading(true);
             const resposne = await axiosClient.post('/link_donations', {
                 user_id: user.id,
                 email: user.email,
             });
             setIsSuccessPopupOn(true);
+            setLoading(false);
         }catch(err: any){
+            setLoading(false);
             setIsErrorPopupOn(true);
         }
     }

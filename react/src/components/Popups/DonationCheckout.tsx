@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import axiosClient from "../../axios-client";
 import SuccessPopupTemplate from "./SuccessPopupTemplate";
+import { LoadingContext } from "../../context/LoadingContext";
 
 const DonationCheckout = () => {
     const [activeIndex, setActiveIndex] = useState<number>(-1);
@@ -23,6 +24,7 @@ const DonationCheckout = () => {
     const { donationAmount, donorName, donorEmail, setDonationAmount, setDonorEmail, setDonorName } = useContext(TicketContext);
     const images = [paypal, applepay, gpay, paysafe, mastercard, maestro, visa];
     const navigate = useNavigate();
+    const {setLoading} = useContext(LoadingContext);
 
     if (donationAmount < 5 || Number.isNaN(donationAmount)) {
         navigate("/");
@@ -48,6 +50,7 @@ const DonationCheckout = () => {
         e.preventDefault();
 
         try{
+            setLoading(true);
             if(currentUser){
                 const res = await axiosClient.post('/donations/auth', {
                     'amount': donationAmount
@@ -62,7 +65,9 @@ const DonationCheckout = () => {
                 })
                 setIsSuccessPopupOn(true);
             }
+            setLoading(false);
         }catch(err: any){
+            setLoading(false);
             console.log(err);
             setIsFailurePopupOn(true);
         }

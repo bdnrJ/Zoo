@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Transaction from '../../components/Transaction';
 import { displayTransaction } from './Transactions';
@@ -9,6 +9,7 @@ import ChangeUserByAdminPopup from '../../components/Popups/ChangeUserByAdminPop
 import { donation } from '../../context/TicketContext';
 import UserDonation from '../../components/UserDonation';
 import RestoreAccountByAdminPopup from '../../components/Popups/RestoreAccountByAdminPopup';
+import { LoadingContext } from '../../context/LoadingContext';
 
 export interface user {
     id: number;
@@ -29,6 +30,8 @@ const UserPage = () => {
     const [isDeletePopupOn, setIsDeletePopupOn] = useState<boolean>(false);
     const [isRestorePopupOn, setIsRestorePopupOn] = useState<boolean>(false);
     const navigate = useNavigate();
+    const {setLoading} = useContext(LoadingContext);
+
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -48,20 +51,26 @@ const UserPage = () => {
 
     const handleUserDeletion = async () => {
         try {
+            setLoading(true);
             await axiosClient.delete(`/users/destroy/${id}`, {withCredentials: true});
             alert('User deleted succsefully');
+            setLoading(false);
             navigate('/admin/users');
         } catch (err) {
+            setLoading(false);
             alert(err);
         }
     };
 
     const handleUserRestoration = async () => {
         try {
+            setLoading(true);
             await axiosClient.post(`/users/restore/${id}`, {}, {    withCredentials: true});
             alert('User restored succsefully');
+            setLoading(false);
             navigate('/admin/users');
         } catch (err) {
+            setLoading(false);
             alert(err);
             console.log(err);
         }

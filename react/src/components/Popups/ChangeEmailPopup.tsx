@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { AuthContext } from '../../context/AuthContext';
 import { User } from '../../types/types';
 import SuccessPopupTemplate from './SuccessPopupTemplate';
+import { LoadingContext } from '../../context/LoadingContext';
 
 type props = {
     closePopup: () => void;
@@ -21,6 +22,7 @@ const ChangeEmailPopup = ({ closePopup, refreshUserData }: props) => {
     const [updateError, setUpdateError] = useState('');
     const [isSuccessPopupOn, setIsSuccessPopupOn] = useState<boolean>(false);
     const { setCurrentUser, currentUser } = useContext(AuthContext);
+    const {setLoading} = useContext(LoadingContext);
 
     const schema = z.object({
         newEmail: z.string().email('invalid email format'),
@@ -37,6 +39,7 @@ const ChangeEmailPopup = ({ closePopup, refreshUserData }: props) => {
 
     const handleChangeEmail = async (data: EmailData) => {
         try {
+            setLoading(true);
             const response = await axiosClient.put('/users/email', {
                 newEmail: data.newEmail,
                 confirm_password: data.confirm_password,
@@ -47,8 +50,10 @@ const ChangeEmailPopup = ({ closePopup, refreshUserData }: props) => {
             setUpdateError('');
             setCurrentUser(newUser);
             refreshUserData();
+            setLoading(false);
             setIsSuccessPopupOn(true);
         } catch (err: any) {
+            setLoading(false);
             console.log(err);
             setUpdateError(err.response.data.message);
         }

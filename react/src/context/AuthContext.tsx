@@ -32,6 +32,7 @@ export const AuthProvider = ({children}: Props) => {
     const [currentUser, setCurrentUser] = useState<User | null>(user || null);
     const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
+
     useEffect(() => {
         const isAdmin = async () => {
             try{
