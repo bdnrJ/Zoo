@@ -14,6 +14,14 @@ export const NormalTickets = () => {
     const {normalUserTickets, setNormalUserTickets, setNormalUserTransaction, normalUserTransaction} = useContext(TicketContext);
     const navigate = useNavigate();
 
+    console.log(normalUserTickets);
+
+    if(normalUserTickets.length === 0) {
+        return <div className="errorNotAvailable">
+                    There are no normal tickets currently available :(
+                </div>
+    }
+
     const handleAddition = (idx: number) => {
         const newTickets = normalUserTickets;
         const modifiedTicketIdx = normalUserTickets.findIndex((ticket) => ticket.id === idx);
