@@ -65,7 +65,7 @@ const Register = () => {
                 setDisabled(true);
                 console.log(response);
                 setLoading(false);
-                setTimeout(() => navigate('/'), 1500);
+                setTimeout(() => navigate('/login'), 1500);
             }
         } catch (err: any) {
             setLoading(false);
