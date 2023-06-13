@@ -23,8 +23,6 @@ const BoughtTicketSum = ({tickets, services, exp_date, total_cost, type, isPrevi
 
     const [amount, setAmount] = useState<number>(0);
 
-    console.log(services);
-
     useEffect(() => {
         if(type === 'group'){
             setAmount(tickets[0].amount);

@@ -40,13 +40,12 @@ const UserTransactions = () => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                const res = await axiosClient.get('/transactions_user', { withCredentials: true });
+                const res = await axiosClient.get('/transactions-user', { withCredentials: true });
 
                 const now = new Date();
                 now.setHours(0, 0, 0, 0); // set to start of day
                 const tomorrow = new Date(now);
                 tomorrow.setHours(23, 59, 59, 999); // set to end of day
-                console.log(res);
 
                 const upcomingTickets = res.data.filter((transaction: transaction) => new Date(transaction.exp_date) >= now);
                 const pastTickets = res.data.filter((transaction: transaction) => new Date(transaction.exp_date) < now);
@@ -54,7 +53,6 @@ const UserTransactions = () => {
                 setCurrentTransactions(upcomingTickets);
                 setPreviousTransactions(pastTickets);
                 setLoading(true);
-                console.log(previousTransactions[1].services[0].service_type.name);
             } catch (err) {
                 setLoading(false);
                 console.error(err);

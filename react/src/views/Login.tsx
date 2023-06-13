@@ -47,7 +47,6 @@ const Login = () => {
             password: data.password,
         },)
 
-        console.log(response);
         navigate('/');
         }catch(err: any){
             setLoginErr(err.response.data.message);

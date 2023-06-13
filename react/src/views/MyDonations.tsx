@@ -22,13 +22,10 @@ const MyDonations = () => {
             setLoading(true);
             const res = await axiosClient.get('/donations/user', { withCredentials: true });
 
-            console.log(res);
-
-            setLoading(true);
+            setLoading(false);
             setDonations(res.data);
         } catch (err: any) {
             setLoading(false);
-            console.log(err);
         }
     }
 

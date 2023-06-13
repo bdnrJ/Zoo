@@ -68,7 +68,6 @@ const DonationCheckout = () => {
             setLoading(false);
         }catch(err: any){
             setLoading(false);
-            console.log(err);
             setIsFailurePopupOn(true);
         }
     };

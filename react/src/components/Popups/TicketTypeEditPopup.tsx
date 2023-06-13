@@ -44,9 +44,6 @@ const TicketTypeEditPopup = ({ticketType, onClose}: Props) => {
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<ticketType>({resolver: zodResolver(schema)});
 
     const onSubmit = async (data: ticketType) => {
-        console.log(data.price.toString());
-        console.log(ticketType.price.toString());
-
         if (
             data.name === ticketType.name &&
             data.age_info === ticketType.age_info &&
@@ -60,7 +57,7 @@ const TicketTypeEditPopup = ({ticketType, onClose}: Props) => {
 
         try {
             setLoading(true)
-            const response = await axiosClient.put(`/ticket_types/${ticketType.id}`, data, {withCredentials: true});
+            const response = await axiosClient.put(`/ticket-types/${ticketType.id}`, data, {withCredentials: true});
             if (response.status === 200) {
                 getAllTickets();
                 setIsSuccessPopupOn(true);

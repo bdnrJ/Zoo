@@ -51,7 +51,6 @@ const NormalCheckout = () => {
             setShowSuccessPopup(true);
         }catch(e){
             setLoading(false);
-            console.log(e);
         }
     }
 

@@ -27,9 +27,8 @@ const UserPersonalPage = () => {
 
     const fetchUser = async () => {
         try {
-            const res = await axiosClient.get(`/users_unauth`, {withCredentials: true});
+            const res = await axiosClient.get(`/users-unauth`, {withCredentials: true});
             setUser(res.data)
-            console.log(res);
         }catch(err:any){
             console.log(err);
         }

@@ -56,7 +56,6 @@ const ChangePasswordPopup = ({ closePopup, refreshUserData }: props) => {
             setIsSuccessPopupOn(true);
             refreshUserData();
         } catch (err: any) {
-            console.log(err);
             setLoading(false);
             setUpdateError(err.response.data.message);
         }

@@ -54,7 +54,6 @@ const ChangeEmailPopup = ({ closePopup, refreshUserData }: props) => {
             setIsSuccessPopupOn(true);
         } catch (err: any) {
             setLoading(false);
-            console.log(err);
             setUpdateError(err.response.data.message);
         }
     };

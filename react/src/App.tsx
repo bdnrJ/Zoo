@@ -85,7 +85,7 @@ const router = createBrowserRouter([
                 ),
             },
             {
-                path: "/admin/transaction_page/:id",
+                path: "/admin/transaction-page/:id",
                 element: (
                     <RequireAdmin>
                         <TransactionPage />
@@ -93,7 +93,7 @@ const router = createBrowserRouter([
                 ),
             },
             {
-                path: "/admin/user_page/:id",
+                path: "/admin/user-page/:id",
                 element: (
                     <RequireAdmin>
                         <UserPage />
@@ -101,7 +101,7 @@ const router = createBrowserRouter([
                 ),
             },
             {
-                path: "/admin/ticket_types",
+                path: "/admin/ticket-types",
                 element: (
                     <RequireAdmin>
                         <TicketTypes />
@@ -147,7 +147,7 @@ const router = createBrowserRouter([
                 element: <GroupCheckout />,
             },
             {
-                path: "/my_account",
+                path: "/my-account",
                 element: (
                     <RequireUser>
                         <UserPersonalPage />
@@ -155,7 +155,7 @@ const router = createBrowserRouter([
                 ),
             },
             {
-                path: "/my_tickets",
+                path: "/my-tickets",
                 element: (
                     <RequireUser>
                         <UserTickets />
@@ -163,7 +163,7 @@ const router = createBrowserRouter([
                 ),
             },
             {
-                path: "/my_donations",
+                path: "/my-donations",
                 element: (
                     <RequireUser>
                         <MyDonations />
@@ -183,7 +183,7 @@ const router = createBrowserRouter([
                 element: <Foundation />,
             },
             {
-                path: "/donation_checkout",
+                path: "/donation-checkout",
                 element: <DonationCheckout />,
             },
             {

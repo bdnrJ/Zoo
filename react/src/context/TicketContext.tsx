@@ -176,7 +176,7 @@ export const TicketProvider = ({children}: props) => {
     const [discount, setDiscount] = useState<number>(0);
 
     const getAllInfo = async () => {
-        const ticketData = await axiosClient.get('/ticket_types');
+        const ticketData = await axiosClient.get('/ticket-types');
         setAllNormalTicketTypes(ticketData.data);
 
         const avaliableTicketsTemp: normalTicket[] = ticketData.data.filter((ticket: normalTicket) => (ticket.is_active === 1 && ticket.type !== 'group'));
@@ -196,7 +196,7 @@ export const TicketProvider = ({children}: props) => {
         }
 
         //get services
-        const servicesData = await axiosClient.get('/service_types');
+        const servicesData = await axiosClient.get('/service-types');
         setAllServiceTypes(servicesData.data);
 
         const avaliableServiceTypesTemp = servicesData.data.filter((serviceType: serviceType) => serviceType.is_active === 1);
@@ -214,7 +214,6 @@ export const TicketProvider = ({children}: props) => {
         }]})
 
         const discountInPrecent = await axiosClient.get('/donations/discount', {withCredentials: true});
-        console.log(discountInPrecent);
         setDiscount(discountInPrecent.data);
     }
 
@@ -250,7 +249,7 @@ export const TicketProvider = ({children}: props) => {
     }
 
     const resetServices = async () => {
-        const servicesData = await axiosClient.get('/service_types');
+        const servicesData = await axiosClient.get('/service-types');
         setAllServiceTypes(servicesData.data);
 
         const avaliableServiceTypesTemp = servicesData.data.filter((serviceType: serviceType) => serviceType.is_active === 1);

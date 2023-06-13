@@ -49,7 +49,6 @@ const ChangeUserByAdminPopup = ({ closePopup, refreshUserData, user }: props) =>
             closePopup();
             refreshUserData();
         } catch (err: any) {
-            console.log(err);
             setUpdateError(err.response.data.message);
         }
     };

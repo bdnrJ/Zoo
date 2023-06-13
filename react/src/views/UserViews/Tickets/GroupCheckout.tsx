@@ -41,8 +41,6 @@ const GroupCheckout = () => {
             services: groupUserTransaction.services,
         }
 
-        console.log(groupTransaction);
-
         try{
             setLoading(true);
             const res = await axiosClient.post('/transactions',
@@ -54,7 +52,6 @@ const GroupCheckout = () => {
             setShowSuccessPopup(true);
         }catch(err){
             setLoading(false);
-            console.log(err);
         }
     }
 

@@ -35,11 +35,9 @@ const Users = () => {
         try {
             const res = await axiosClient.get(`/users?page=${page}&search=${search}`, { withCredentials: true });
             const paginationData = await res.data.paginationData;
-            console.log("fetching: "+page);
 
             return paginationData;
         } catch(err: any) {
-            console.log(err.response.data.message);
             alert(err.response.data.message)
         }
     }
@@ -58,7 +56,6 @@ const Users = () => {
                     queryFn: () => fetchUsers(nextpage, debouncedSearch),
                 });
             } else {
-                console.log('not fetching');
             }
         }
     }, [data, isPreviousData, currentPage, debouncedSearch, queryClient]);

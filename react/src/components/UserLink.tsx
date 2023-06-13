@@ -13,7 +13,7 @@ type props = {
 const UserLink = ({id, deleted_at, firstname, lastname, email, created_at}: props) => {
     return (
         <div className="userlink">
-            <Link to={`/admin/user_page/${id}`} style={{ textDecoration: 'none' }}>
+            <Link to={`/admin/user-page/${id}`} style={{ textDecoration: 'none' }}>
                 <div className="userlink-block">
                     <div className="userlink-left">
                         <span className='__font-black'><span className='__font-grey'>#</span>{id}</span>

@@ -55,8 +55,7 @@ const ServiceTypeEditPopup = ({service, closePopup}: Props) => {
 
         try {
             setLoading(true);
-            const response = await axiosClient.put(`/service_types/${service.id}`, data, {withCredentials: true});
-            console.log(response);
+            const response = await axiosClient.put(`/service-types/${service.id}`, data, {withCredentials: true});
             resetServices();
             setLoading(false);
             setIsSuccessPopupOn(true);

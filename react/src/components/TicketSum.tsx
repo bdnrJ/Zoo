@@ -23,12 +23,6 @@ const TicketSum = ({ date, addClass, ticketType,}: props) => {
         groupUserTicket[0].amount = groupUserTransaction.items[0].amount;
     }
 
-    console.log(normalUserTickets);
-    console.log(availableGroupTicket);
-    console.log(groupUserTransaction);
-
-
-
     //Date formating
     const dayOfWeek = date.toLocaleString('en-US', { weekday: 'long' });
     const month = date.toLocaleString('en-US', { month: 'long' });

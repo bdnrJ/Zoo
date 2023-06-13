@@ -60,7 +60,6 @@ export const AuthProvider = ({children}: Props) => {
             withCredentials: true,
         })
 
-        console.log(response);
 
         setCurrentUser(response.data.user);
     }
@@ -71,9 +70,7 @@ export const AuthProvider = ({children}: Props) => {
             {},
             {withCredentials: true});
             setCurrentUser(null);
-            console.log(res);
         }catch(err: any){
-            console.log(err);
             if(err.response.status === 401){
                 setCurrentUser(null);
                 //epxired token or manually removed one

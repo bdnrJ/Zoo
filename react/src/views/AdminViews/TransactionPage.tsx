@@ -142,11 +142,6 @@ const TransactionPage = () => {
                 </ol>
             </div>
             }
-
-            {/* <button onClick={() => console.log(transaction)}>show transaction</button>
-            <button onClick={() => console.log(tickets)}>show tickets</button>
-            <button onClick={() => console.log(user)}>show user</button> */}
-
         </div>
     );
     };

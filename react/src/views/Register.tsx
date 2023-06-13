@@ -63,7 +63,6 @@ const Register = () => {
             } else {
                 setRegisterErr("");
                 setDisabled(true);
-                console.log(response);
                 setLoading(false);
                 setTimeout(() => navigate('/login'), 1500);
             }

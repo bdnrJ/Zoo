@@ -35,7 +35,7 @@ const AddTicketType = ({ closePopup }: props) => {
         try {
             setDisabled(true);
             setLoading(true);
-            const response = await axiosClient.post('/ticket_types', {
+            const response = await axiosClient.post('/ticket-types', {
                 ...data,
                 is_active: 0
             }, { withCredentials: true });

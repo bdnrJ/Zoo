@@ -38,7 +38,7 @@ const AddServiceType = ({ closePopup }: props) => {
             setLoading(true);
             setDisabled(true);
             const response = await axiosClient.post(
-                "/service_types",
+                "/service-types",
                 {
                     ...data,
                     is_active: 0,

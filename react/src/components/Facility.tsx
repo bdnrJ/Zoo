@@ -7,7 +7,6 @@ type props = {
 }
 
 const Facility = ({image, desc}: props) => {
-    console.log(image);
     return (
         <div className="facility">
             <div className="facility-image">

@@ -18,7 +18,7 @@ const LinkDonationsPopup = ({user}: props) => {
     const handleLinkDonations = async () => {
         try{
             setLoading(true);
-            const resposne = await axiosClient.post('/link_donations', {
+            const resposne = await axiosClient.post('/link-donations', {
                 user_id: user.id,
                 email: user.email,
             });

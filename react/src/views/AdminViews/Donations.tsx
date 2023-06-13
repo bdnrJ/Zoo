@@ -36,11 +36,9 @@ const Donations = () => {
         try {
             const res = await axiosClient.get(`/donations?page=${page}`, { withCredentials: true });
             const paginationData = await res.data.paginationData;
-            console.log(paginationData);
 
             return paginationData;
         } catch (err: any) {
-            console.log(err.response.data.message);
             alert(err.response.data.message)
         }
     }

@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/isadmin', [AuthController::class, 'isadmin']);
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    Route::get('/users_unauth', [UserController::class, 'userToUser']);
+    Route::get('/users-unauth', [UserController::class, 'userToUser']);
     Route::get('/users', [UserController::class, 'getUsers'])->middleware('isAdmin');
     Route::get('/users/{id}', [UserController::class, 'user'])->middleware('isAdmin');
     Route::put('/users/credentials', [UserController::class, 'updateCredentials']);
@@ -35,15 +35,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/users/restore/{id}', [UserController::class, 'restore'])->middleware('isAdmin');
 
     Route::post('/transactions', [TransactionController::class, 'store']);
-    Route::get('/transactions_user', [TransactionController::class, 'getUserTransactions']);
+    Route::get('/transactions-user', [TransactionController::class, 'getUserTransactions']);
     Route::get('/transactions', [TransactionController::class, 'getTransactions'])->middleware('isAdmin');
     Route::get('/transactions/{id}', [TransactionController::class, 'getTransaction'])->middleware('isAdmin');
 
-    Route::put('/ticket_types/{id}', [TicketTypeController::class, 'update'])->middleware('isAdmin');
-    Route::post('/ticket_types', [TicketTypeController::class, 'store']);
+    Route::put('/ticket-types/{id}', [TicketTypeController::class, 'update'])->middleware('isAdmin');
+    Route::post('/ticket-types', [TicketTypeController::class, 'store']);
 
-    Route::put('/service_types/{id}', [ServiceTypesController::class, 'update'])->middleware('isAdmin');
-    Route::post('/service_types', [ServiceTypesController::class, 'store'])->middleware('isAdmin');
+    Route::put('/service-types/{id}', [ServiceTypesController::class, 'update'])->middleware('isAdmin');
+    Route::post('/service-types', [ServiceTypesController::class, 'store'])->middleware('isAdmin');
 
     Route::post('/donations/auth', [DonationController::class, 'storeAuth']);
     Route::get('/donations', [DonationController::class, 'index']);
@@ -55,9 +55,9 @@ Route::post('/donations/anon', [DonationController::class, 'store']);
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/link_donations', [AuthController::class, 'linkDonations']);
-Route::get('/ticket_types', [TicketTypeController::class, 'index']);
-Route::get('/service_types', [ServiceTypesController::class, 'index']);
+Route::post('/link-donations', [AuthController::class, 'linkDonations']);
+Route::get('/ticket-types', [TicketTypeController::class, 'index']);
+Route::get('/service-types', [ServiceTypesController::class, 'index']);
 
 
 

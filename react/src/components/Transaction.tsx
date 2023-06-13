@@ -8,7 +8,7 @@ type props = {
 
 const Transaction = ({ transaction }: props) => {
     return (
-        <Link to={`/admin/transaction_page/${transaction.id}`} style={{ textDecoration: 'none' }}>
+        <Link to={`/admin/transaction-page/${transaction.id}`} style={{ textDecoration: 'none' }}>
             <div className="transaction">
                 <div className="transaction-left">
                     <div className='__font-black'> <span className='__font-grey'>#</span> {transaction.id}</div>

@@ -14,8 +14,6 @@ export const NormalTickets = () => {
     const {normalUserTickets, setNormalUserTickets, setNormalUserTransaction, normalUserTransaction} = useContext(TicketContext);
     const navigate = useNavigate();
 
-    console.log(normalUserTickets);
-
     if(normalUserTickets.length === 0) {
         return <div className="errorNotAvailable">
                     There are no normal tickets currently available :(

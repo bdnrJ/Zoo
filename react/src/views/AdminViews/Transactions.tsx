@@ -41,8 +41,6 @@ const Transactions = () => {
                     withCredentials: true
                 });
 
-                console.log("fetching: "+ page);
-
                 return response.data;
         }catch(err: any){
             console.log(err);

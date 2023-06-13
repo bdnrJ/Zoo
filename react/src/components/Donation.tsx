@@ -30,7 +30,7 @@ const Donation = () => {
     const onSubmit = (data: DonationFormValues) => {
         if (data.amount >= 5) {
             setDonationAmount(data.amount)
-            navigate('/donation_checkout');
+            navigate('/donation-checkout');
         } else {
             alert('Wrong donation amount!');
         }
