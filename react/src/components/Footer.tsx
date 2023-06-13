@@ -32,7 +32,7 @@ const Footer = () => {
                         <HiLocationMarker />
                     </div>
                     <div className="element-text">
-                        123 Urz resovia
+                        UR
                     </div>
                 </div>
             </div>

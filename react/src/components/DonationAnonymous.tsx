@@ -43,7 +43,7 @@ const DonationAnonymous = () => {
     const onSubmit = (data: DonationFormValues) => {
         if (data.amount >= 5 && ((currentUser && currentUser !== null) || (!currentUser && watchedInputs.name && watchedInputs.email))) {
             setDonationAmount(data.amount);
-            navigate('/donation_checkout');
+            navigate('/donation-checkout');
         } else {
             alert('Wrong donation amount or missing donor information!');
         }

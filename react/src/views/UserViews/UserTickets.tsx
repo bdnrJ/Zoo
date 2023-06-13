@@ -52,7 +52,7 @@ const UserTransactions = () => {
 
                 setCurrentTransactions(upcomingTickets);
                 setPreviousTransactions(pastTickets);
-                setLoading(true);
+                setLoading(false);
             } catch (err) {
                 setLoading(false);
                 console.error(err);

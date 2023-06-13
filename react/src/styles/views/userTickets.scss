@@ -6,7 +6,7 @@
         height: 429px;
         width: 100%;
         background-size: cover;
-        background-image: url('../assets/my_tickets.png');
+        background-image: url('../assets/my_tickets.jpg');
 
         @include mobile{
             background-image: url('../assets/my_tickets_mobile.png');

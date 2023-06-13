@@ -1,5 +1,4 @@
 import React from 'react'
-import statuteImg from '../assets/statute.png';
 
 const Statute = () => {
     return (

@@ -6,7 +6,7 @@
 
     .tickets-header{
         @include flexCenterCenter;
-        background-image: url('../assets/tickets-header.png');
+        background-image: url('../assets/tickets-header.jpg');
         background-size: cover;
         height: 429px;
         font-family: 'Oswald';
@@ -18,7 +18,7 @@
         width: 100%;
 
         @include mobile{
-            background-image: url('../assets/tickets-headerMobile.png');
+            background-image: url('../assets/tickets-headerMobile.jpg');
         }
     }
 

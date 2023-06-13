@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     color: black;
-    background-image: url('../assets/signup.png');
+    background-image: url('../assets/signup.jpg');
     background-size: cover;
     font-family: 'Oswald';
     font-style: normal;
@@ -15,7 +15,7 @@
     text-align: center;
 
     @include mobile{
-        background-image: url('../assets/signupMobile.png');
+        background-image: url('../assets/signupMobile.jpg');
     }
 
     @include mobileMin{
