@@ -11,8 +11,9 @@ institution. The project includes features such as user registration, authentica
     - MySQL
 
 ## Screenshots
+![1st](https://github.com/bdnrJ/Zoo/assets/120583198/d73be923-dee2-4e0a-88b3-31f6099adca8)
+![2nd](https://github.com/bdnrJ/Zoo/assets/120583198/b9762789-754c-491b-8a35-343a3fae40b0)
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
 ## How to run
     1. Have MySQL database, npm, composer installed
